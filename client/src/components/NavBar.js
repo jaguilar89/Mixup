@@ -12,9 +12,18 @@ import MenuItem from '@mui/material/MenuItem';
 import { useState } from 'react';
 
 export default function NavBar() {
-  const settings = ['Profile', 'Account', 'Log Out']
   const [anchorElUser, setAnchorElUser] = useState(null)
 
+  const linkStyle = {
+    textDecoration: 'none',
+    "&:hover": {
+      color: 'inherit'
+    },
+    "&:visited": {
+      color: 'inherit',
+      textDecoration: 'none'
+    }
+  }
   function handleOpenUserMenu(e) {
     setAnchorElUser(e.currentTarget)
   }
@@ -52,13 +61,13 @@ export default function NavBar() {
                 sx={{ mt: '45px' }}
               >
                 <MenuItem>
-                    <Typography textAlign='center' component='a' to='/whatthefucjk'>Profile</Typography>
+                  <Typography sx={linkStyle} textAlign='center' component='a' href='profile'>Profile</Typography>
                 </MenuItem>
                 <MenuItem>
-                    <Typography textAlign='center' component='a' to='/whatthefucjk'>Account</Typography>
+                  <Typography sx={linkStyle} textAlign='center' component='a' href='account'>Account</Typography>
                 </MenuItem>
                 <MenuItem>
-                    <Typography textAlign='center' component='a' to='/whatthefucjk'>Log Out</Typography>
+                  <Typography sx={linkStyle} textAlign='center' component='a' href='login'>Log In</Typography>
                 </MenuItem>
               </Menu>
             </Button>
