@@ -33,14 +33,16 @@ export default function NavBar() {
   }
 
   return (
-    <AppBar position='sticky'>
-      <Container maxWidth="xl">
+    <AppBar position='sticky' sx={{bgcolor: 'inherit'}}>
+      <Container maxWidth>
         <Toolbar disableGutters>
-          <Box sx={{ flexGrow: 1 }}>LOGO</Box>
+          <Box sx={{ flexGrow: 1, color:'black' }}>LOGO</Box>
 
           <Box sx={{ flexGrow: 0 }}>
+            <Button variant='contained' component='a' href='home'>Log In</Button>
+            <Button variant='contained' component='a' href='signup'>Sign Up</Button>
             <Button>
-              <Tooltip title='User Menu'>
+              <Tooltip title='THIS WILL RENDER ONLY WHEN A USER IS LOGGED IN'>
                 <IconButton onClick={handleOpenUserMenu}>
                   <Avatar alt='user menu' src='https://static.vecteezy.com/system/resources/thumbnails/011/598/471/small/google-logo-icon-illustration-free-vector.jpg' />
                 </IconButton>
