@@ -19,8 +19,8 @@ export default function NavBar() {
     setAnchorElUser(e.currentTarget)
   }
 
-  function handleCloseUserMenu(setting) {
-    console.log(setting.currentTarget.innerText)
+  function handleCloseUserMenu(e) {
+    console.log(e.currentTarget.innerText)
   }
 
   return (
