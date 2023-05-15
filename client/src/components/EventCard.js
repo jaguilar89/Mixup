@@ -2,7 +2,6 @@ import { CardMedia } from '@mui/material';
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import Card from '@mui/material/Card'
-import IconButton from '@mui/material/IconButton'
 import Typography from '@mui/material/Typography';
 
 export default function EventCard() {
@@ -12,14 +11,6 @@ export default function EventCard() {
       <Typography variant="h5" sx={{ m: 'auto' }}>
         Event Name
       </Typography>
-      <IconButton
-        aria-label="bookmark Bahamas Islands"
-        variant="plain"
-        color="neutral"
-        size="sm"
-        sx={{ position: 'absolute', top: '0.5rem', right: '0.5rem' }}
-      >
-      </IconButton>
         <CardMedia
             component='img'
             height='194'
@@ -32,7 +23,7 @@ export default function EventCard() {
           variant="contained"
           size="sm"
           color="primary"
-          aria-label="Explore Bahamas Islands"
+          aria-label="event-card"
           sx={{ m: 'auto', fontWeight: 600 }}
         >
           Details

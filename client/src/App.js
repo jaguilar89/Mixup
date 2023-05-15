@@ -1,7 +1,6 @@
-import logo from './logo.svg';
 import './App.css';
-import EventCard from './EventCard';
-import NavBar from './NavBar';
+import EventCard from './components/EventCard';
+import NavBar from './components/NavBar';
 
 function App() {
   return (
