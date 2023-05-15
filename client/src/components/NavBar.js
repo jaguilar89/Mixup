@@ -19,8 +19,8 @@ export default function NavBar() {
     setAnchorElUser(e.currentTarget)
   }
 
-  function handleCloseUserMenu(e) {
-    console.log(e.currentTarget.innerText)
+  function handleCloseUserMenu() {
+    setAnchorElUser(null)
   }
 
   return (
@@ -51,11 +51,15 @@ export default function NavBar() {
                 }}
                 sx={{ mt: '45px' }}
               >
-                {settings.map((setting) => (
-                  <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                    <Typography textAlign='center'>{setting}</Typography>
-                  </MenuItem>
-                ))}
+                <MenuItem>
+                    <Typography textAlign='center' component='a' to='/whatthefucjk'>Profile</Typography>
+                </MenuItem>
+                <MenuItem>
+                    <Typography textAlign='center' component='a' to='/whatthefucjk'>Account</Typography>
+                </MenuItem>
+                <MenuItem>
+                    <Typography textAlign='center' component='a' to='/whatthefucjk'>Log Out</Typography>
+                </MenuItem>
               </Menu>
             </Button>
           </Box>
