@@ -33,16 +33,16 @@ export default function NavBar() {
   }
 
   return (
-    <AppBar position='sticky' sx={{bgcolor: 'inherit'}}>
+    <AppBar position='sticky' sx={{bgcolor: '#f5f5f5', boxShadow: '1px'}}>
       <Container maxWidth>
         <Toolbar disableGutters>
           <Box sx={{ flexGrow: 1, color:'black' }}>LOGO</Box>
 
           <Box sx={{ flexGrow: 0 }}>
-            <Button variant='contained' component='a' href='home'>Log In</Button>
-            <Button variant='contained' component='a' href='signup'>Sign Up</Button>
+            <Button variant='contained' component='a' href='/home'>Log In</Button>
+            <Button variant='contained' component='a' href='/login/signup'>Sign Up</Button>
             <Button>
-              <Tooltip title='THIS WILL RENDER ONLY WHEN A USER IS LOGGED IN'>
+              <Tooltip title='USER AVATAR: THIS WILL RENDER ONLY WHEN A USER IS LOGGED IN'>
                 <IconButton onClick={handleOpenUserMenu}>
                   <Avatar alt='user menu' src='https://static.vecteezy.com/system/resources/thumbnails/011/598/471/small/google-logo-icon-illustration-free-vector.jpg' />
                 </IconButton>
@@ -69,7 +69,7 @@ export default function NavBar() {
                   <Typography sx={linkStyle} textAlign='center' component='a' href='account'>Account</Typography>
                 </MenuItem>
                 <MenuItem>
-                  <Typography sx={linkStyle} textAlign='center' component='a' href='login'>Log In</Typography>
+                  <Typography sx={linkStyle} textAlign='center' component='a' href='login'>Log Out</Typography>
                 </MenuItem>
               </Menu>
             </Button>

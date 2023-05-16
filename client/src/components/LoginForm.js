@@ -112,7 +112,7 @@ export default function LoginForm({ isLoading, setIsLoading, setShowLogin }) {
             </Button>
             <Grid container>
               <Grid item>
-                <Link href='signup'>
+                <Link href='/login/signup'>
                   Don't have an account? Sign up here
                 </Link>
               </Grid>
