@@ -12,7 +12,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 
-export default function LoginForm({ isLoading, setIsLoading, setShowLogin }) {
+export default function LoginForm() {
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
   const [errors, setErrors] = useState([])
@@ -21,7 +21,6 @@ export default function LoginForm({ isLoading, setIsLoading, setShowLogin }) {
   
   async function handleSubmit(e) {
     e.preventDefault();
-    setIsLoading(true)
 
     const res = await fetch("/api/login", {
       method: "POST",
@@ -35,12 +34,9 @@ export default function LoginForm({ isLoading, setIsLoading, setShowLogin }) {
     });
     if (res.ok) {
       const user = await res.json();
-      //setUser(user)
-      setIsLoading(false)
       navigate('/home')
     } else {
       const err = await res.json();
-      setIsLoading(false)
       setErrors(err.errors)
     }
 
