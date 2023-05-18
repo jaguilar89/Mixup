@@ -55,48 +55,51 @@ export default function NavBar() {
         <Toolbar disableGutters>
           <Box sx={{ flexGrow: 1, color: 'black' }}>LOGO</Box>
 
-          <Box sx={{ flexGrow: 0 }}>
-            {!user && (
-              <>
-                <Button variant='contained' component='a' href='/login'>Log In</Button>
-                <Button variant='contained' component='a' href='/login/signup'>Sign Up</Button>
-              </>
-            )}
-            {user && (
-              <IconButton onClick={handleOpenUserMenu}>
-                <Tooltip title='USER AVATAR: THIS WILL RENDER ONLY WHEN A USER IS LOGGED IN'>
+
+          {!user && (
+            <Box sx={{ flexGrow: 0 }}>
+              <Button variant='contained' component='a' href='/login'>Log In</Button>
+              <Button variant='contained' component='a' href='/login/signup'>Sign Up</Button>
+            </Box>
+          )}
+          {user && (
+            <Box sx={{ flexGrow: 0 }}>
+              <Tooltip title='USER AVATAR: THIS WILL RENDER ONLY WHEN A USER IS LOGGED IN'>
+                <IconButton onClick={handleOpenUserMenu}>
                   <Avatar alt='user menu'>
                     <PersonIcon />
                   </Avatar>
-                </Tooltip>
-                <Menu
-                  anchorEl={anchorElUser}
-                  open={Boolean(anchorElUser)}
-                  onClose={handleCloseUserMenu}
-                  anchorOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
-                  }}
-                  keepMounted
-                  transformOrigin={{
-                    vertical: 'top',
-                    horizontal: 'left',
-                  }}
-                  sx={{ mt: '45px' }}
-                >
-                  <MenuItem>
-                    <Typography sx={linkStyle} textAlign='center' component='a' href='profile'>Profile</Typography>
-                  </MenuItem>
-                  <MenuItem>
-                    <Typography sx={linkStyle} textAlign='center' component='a' href='account'>Account</Typography>
-                  </MenuItem>
-                  <MenuItem onClick={handleLogout}>
-                    <Typography sx={linkStyle} textAlign='center' component='a' href='logout'>Log Out {user.username}</Typography>
-                  </MenuItem>
-                </Menu>
-              </IconButton>
-            )}
-          </Box>
+                </IconButton>
+              </Tooltip>
+
+              <Menu
+                anchorEl={anchorElUser}
+                open={Boolean(anchorElUser)}
+
+                onClose={handleCloseUserMenu}
+                anchorOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'left',
+                }}
+                sx={{ mt: '45px' }}
+              >
+                <MenuItem>
+                  <Typography sx={linkStyle} textAlign='center' component='a' href='profile'>Profile</Typography>
+                </MenuItem>
+                <MenuItem>
+                  <Typography sx={linkStyle} textAlign='center' component='a' href='account'>Account</Typography>
+                </MenuItem>
+                <MenuItem onClick={handleLogout}>
+                  <Typography sx={linkStyle} textAlign='center' component='a' href='logout'>Log Out {user.username}</Typography>
+                </MenuItem>
+              </Menu>
+            </Box>
+          )}
         </Toolbar>
       </Container>
     </AppBar>
