@@ -1,13 +1,10 @@
 import Grid from '@mui/material/Grid'
 import EventCard from "../components/EventCard";
 import { Container } from '@mui/material';
-import { useContext } from 'react';
-import { UserContext } from '../context/UserContext';
 import LoginForm from '../components/LoginForm';
 
 
-export default function Home() {
-    const user = useContext(UserContext)
+export default function Home({ user }) {
 
     if (!user) return <LoginForm />
     

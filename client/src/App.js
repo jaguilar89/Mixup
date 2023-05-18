@@ -5,16 +5,20 @@ import LoginForm from './components/LoginForm';
 import SignupForm from './components/SignupForm';
 import LandingPage from './pages/LandingPage';
 import Home from './pages/Home';
+import { useContext } from 'react';
+import { UserContext } from './context/UserContext';
 
 function App() {
+  const { user, setUser } = useContext(UserContext)
+
   return (
     <>
  <NavBar />
   <Routes>
     <Route path='/' element={<LandingPage />} />
-    <Route path='/home' element={<Home />} />
-    <Route path='/login' element={<LoginForm />} />
-    <Route path='/login/signup' element={<SignupForm />} />
+    <Route path='/home' element={<Home user={user} />} />
+    <Route path='/login' element={<LoginForm setUser={setUser}/>} />
+    <Route path='/login/signup' element={<SignupForm setUser={setUser}/>} />
   </Routes>
   </>
   );

@@ -12,7 +12,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 
-export default function LoginForm() {
+export default function LoginForm({ setUser }) {
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
   const [errors, setErrors] = useState([])
@@ -34,6 +34,7 @@ export default function LoginForm() {
     });
     if (res.ok) {
       const user = await res.json();
+      setUser(user)
       navigate('/home')
     } else {
       const err = await res.json();

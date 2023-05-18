@@ -8,9 +8,8 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Alert from '@mui/material/Alert';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { UserContext } from '../context/UserContext';
 
 function Copyright() {
     return (
@@ -25,14 +24,12 @@ function Copyright() {
     );
   } 
 
-export default function SignupForm() {
-    const [firstName, setFirstName] = useState("")
-    const [lastName, setLastName] = useState("")
+export default function SignupForm({ setUser }) {
+    const [fullName, setFullName] = useState("")
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
     const [passwordConfirmation, setPasswordConfirmation] = useState("")
     const [errors, setErrors] = useState([])
-    const { setUser } = useContext(UserContext)
     const navigate = useNavigate()
     const theme = createTheme()
 
@@ -45,8 +42,7 @@ export default function SignupForm() {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                first_name: firstName,
-                last_name: lastName,
+                full_name: fullName,
                 username,
                 password,
                 password_confirmation: passwordConfirmation
@@ -88,23 +84,12 @@ export default function SignupForm() {
                             margin="normal"
                             required
                             fullWidth
-                            id="first-name"
-                            label="First Name"
-                            name="first name"
-                            autoComplete="first name"
+                            id="full-name"
+                            label="Full Name"
+                            name="full name"
+                            autoComplete="full name"
                             autoFocus
-                            onChange={(e) => setFirstName(e.currentTarget.value)}
-                        />
-                        <TextField
-                            margin="normal"
-                            required
-                            fullWidth
-                            id="last-name"
-                            label="Last Name"
-                            name= "Last name"
-                            autoComplete="last name"
-                            autoFocus
-                            onChange={(e) => setLastName(e.currentTarget.value)}
+                            onChange={(e) => setFullName(e.currentTarget.value)}
                         />
                         <TextField
                             margin="normal"
