@@ -8,12 +8,13 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Alert from '@mui/material/Alert';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { UserContext } from '../context/UserContext';
 
-function Copyright(props) {
+function Copyright() {
     return (
-      <Typography variant="body2" color="text.secondary" align="center" {...props}>
+      <Typography variant="body2" color="text.secondary" align="center">
         {'Copyright © '}
         <Link color="inherit" href="https://github.com/jaguilar89">
           Jose Aguilar
@@ -25,10 +26,13 @@ function Copyright(props) {
   } 
 
 export default function SignupForm() {
+    const [firstName, setFirstName] = useState("")
+    const [lastName, setLastName] = useState("")
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
     const [passwordConfirmation, setPasswordConfirmation] = useState("")
     const [errors, setErrors] = useState([])
+    const { setUser } = useContext(UserContext)
     const navigate = useNavigate()
     const theme = createTheme()
 
@@ -41,6 +45,8 @@ export default function SignupForm() {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
+                first_name: firstName,
+                last_name: lastName,
                 username,
                 password,
                 password_confirmation: passwordConfirmation
@@ -49,13 +55,12 @@ export default function SignupForm() {
 
         if (res.ok) {
             const user = await res.json()
-            //setIsLoading(false)
-            //setUser(user)
+            setUser(user)
             navigate('/home')
         } else {
             const err = await res.json()
             //setIsLoading(false)
-            //setErrors(err.errors)
+            setErrors(err.errors)
         }
 
     }
@@ -83,9 +88,31 @@ export default function SignupForm() {
                             margin="normal"
                             required
                             fullWidth
+                            id="first-name"
+                            label="First Name"
+                            name="first name"
+                            autoComplete="first name"
+                            autoFocus
+                            onChange={(e) => setFirstName(e.currentTarget.value)}
+                        />
+                        <TextField
+                            margin="normal"
+                            required
+                            fullWidth
+                            id="last-name"
+                            label="Last Name"
+                            name= "Last name"
+                            autoComplete="last name"
+                            autoFocus
+                            onChange={(e) => setLastName(e.currentTarget.value)}
+                        />
+                        <TextField
+                            margin="normal"
+                            required
+                            fullWidth
                             id="username"
                             label="Username"
-                            name="username"
+                            name= "username"
                             autoComplete="username"
                             autoFocus
                             onChange={(e) => setUsername(e.currentTarget.value)}
@@ -112,7 +139,7 @@ export default function SignupForm() {
                             onChange={(e) => setPasswordConfirmation(e.currentTarget.value)}
                         />
 
-                        {errors.map((err) => <Alert key={err} severity="error">{err}</Alert>)}
+                        {errors && errors.map((err) => <Alert key={err} severity="error">{err}</Alert>)}
 
                         <Button
                             type="submit"
