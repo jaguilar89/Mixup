@@ -87,7 +87,6 @@ export default function SignupForm({ setUser }) {
                             id="full-name"
                             label="Full Name"
                             name="full name"
-                            autoComplete="full name"
                             autoFocus
                             onChange={(e) => setFullName(e.currentTarget.value)}
                         />
@@ -98,7 +97,6 @@ export default function SignupForm({ setUser }) {
                             id="username"
                             label="Username"
                             name= "username"
-                            autoComplete="username"
                             autoFocus
                             onChange={(e) => setUsername(e.currentTarget.value)}
                         />
