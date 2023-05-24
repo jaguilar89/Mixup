@@ -12,8 +12,8 @@ export default function Home({ user }) {
     return (
        <>
        <h1>The event cards will be in a grid layout, able to be sorted by distance as well as categories </h1>
-       <Container maxWidth>
-        <Button variant='contained' component='a' href='/event/new'>Create Event</Button>
+       <Container  sx={{border: '1px solid black'}}>
+        <Button variant='contained' component='a' href='/events/new'>Create Event</Button>
         <br />
        <Grid container rowSpacing={5} columnSpacing={{xs: 4, sm: 8, md: 10}}>
             <Grid item>

@@ -20,7 +20,7 @@ function App() {
     <Route path='/home' element={<Home user={user} />} />
     <Route path='/login' element={<LoginForm setUser={setUser}/>} />
     <Route path='/login/signup' element={<SignupForm setUser={setUser}/>} />
-    <Route path='/event/new' element={<NewEvent />} />
+    <Route path='/events/new' element={<NewEvent />} />
   </Routes>
   </>
   );

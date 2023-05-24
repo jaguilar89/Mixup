@@ -9,49 +9,63 @@ import MenuItem from "@mui/material/MenuItem"
 import { useState } from "react";
 
 export default function NewEvent() {
-    const [eventName, setEventName] = useState("")
-    const [city, setCity] = useState(null)
+    const [eventFormData, setEventFormData] = useState({})
 
+    function handleChange(e) {
+        e.preventDefault();
+        setEventFormData({
+            ...eventFormData,
+            [e.target.name]: e.target.value
+        })
+    }
+
+    function handleSubmit(e) {
+
+    }
+    
     return (
-        <Container component='main' maxWidth='md' sx={{ border: '1px solid black' }}>
-            <Box component='form' 
-                sx={{ 
+        <Container maxWidth='md' sx={{ border: '1px solid black' }}>
+            <Box component='form'
+                sx={{
                     border: '1px dotted black',
                     display: 'flex',
                     flexDirection: 'column',
                     width: '50%',
                     m: 'auto'
                 }
-            }>
-                <TextField
-                    margin="normal"
-                    required
-                    id="event-name"
-                    label='Event Name'
-                    name="event name"
-                />
+                }>
+                    <TextField
+                        margin="normal"
+                        required
+                        id="event-name"
+                        label='Event Name'
+                        name="event_name"
+                        onChange={handleChange}
+                    />
                 <FormControl required>
                     <InputLabel id='event-select-label'>City</InputLabel>
                     <Select
                         labelId="demo-simple-select-label"
                         id="demo-simple-select"
-                        value={city}
-                        label="Age"
-                        //onChange={handleChange}
+                        name='event_city'
+                        label="Event City"
+                        onChange={handleChange}
+                        value=''
                     >
                         <MenuItem value="nyc">New York City</MenuItem>
-                        <MenuItem value='denver'>Denver</MenuItem>
+                        <MenuItem value="denver">Denver</MenuItem>
                     </Select>
-                </FormControl>
-                <TextField 
-                    margin="normal"
-                    required
-                    multiline
-                    id="event-description"
-                    label='Event Description'
-                    name="event description"
-                />
-            <Button variant="contained">Submit</Button>
+                    </FormControl>
+                    <TextField
+                        margin="normal"
+                        required
+                        multiline
+                        id="event-description"
+                        label='Event Description'
+                        name="event_description"
+                        onChange={handleChange}
+                    />
+                <Button variant="contained">Submit</Button>
             </Box>
         </Container>
     )
