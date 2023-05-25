@@ -11,6 +11,11 @@ class Api::EventsController < ApplicationController
     render json: event, status: :created
   end
 
+  def show
+    event = Event.find_by(id: params[:id])
+    render json: event, status: :ok
+  end
+
   private
 
   def event_params

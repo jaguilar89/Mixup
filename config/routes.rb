@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   namespace :api do
-    resources :events, only: [:index, :create]
+    resources :events, only: [:index, :show, :create]
     post "/signup", to: "users#create"
     post "/login", to: "sessions#create"
     get "/me", to: "users#show"

@@ -7,12 +7,14 @@ import InputLabel from "@mui/material/InputLabel";
 import Select from "@mui/material/Select"
 import MenuItem from "@mui/material/MenuItem"
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-export default function NewEventForm() {
+export default function NewEventForm({setEvents}) {
     const [eventName, setEventName] = useState('')
     const [eventLocation, setEventLocation] = useState('')
     const [maxAttendees, setMaxAttendees] = useState('')
     const [eventDescription, setEventDescription] = useState('')
+    const navigate = useNavigate();
 
     async function handleSubmit(e) {
         e.preventDefault();
@@ -31,7 +33,8 @@ export default function NewEventForm() {
 
         if (res.ok) {
             const event = await res.json()
-            console.log(event)
+            setEvents(event)
+            navigate(`/events/${event.id}`)
         } else {
             const error = await res.json();
             console.log(error)
@@ -75,7 +78,6 @@ export default function NewEventForm() {
                 <TextField
                     margin="normal"
                     required
-                    multiline
                     id="available-spots"
                     label='Max # of Attendees'
                     name="available_spots"
