@@ -3,12 +3,36 @@ import EventCard from "../components/EventCard";
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import LoginForm from '../components/LoginForm';
+import { useState, useEffect } from 'react';
 
 
 export default function Home({ user }) {
-
-    if (!user) return <LoginForm />
+    const [events, setEvents] = useState([])
     
+    useEffect(() => {
+        (async () => {
+            const res = await fetch('/api/events')
+            if (res.ok) {
+                const eventsList = await res.json();
+                setEvents(eventsList)
+            } else {
+                const error = await res.json()
+                console.log(error)
+            }
+        })()
+    }, []);
+
+    const eventCards = events.map((event) => (
+        <Grid item>
+            <EventCard 
+            key={event.id} 
+            eventName={event.event_name}
+            eventLocation={event.event_location}
+            availableSpots={event.available_spots}
+            />
+        </Grid>
+    ))
+    if (!user) return <LoginForm />
     return (
        <>
        <h1>The event cards will be in a grid layout, able to be sorted by distance as well as categories </h1>
@@ -16,30 +40,7 @@ export default function Home({ user }) {
         <Button variant='contained' component='a' href='/events/new'>Create Event</Button>
         <br />
        <Grid container rowSpacing={5} columnSpacing={{xs: 4, sm: 8, md: 10}}>
-            <Grid item>
-                <EventCard />
-            </Grid>
-            <Grid item>
-                <EventCard />
-            </Grid>
-            <Grid item>
-                <EventCard />
-            </Grid>
-            <Grid item>
-                <EventCard />
-            </Grid>
-            <Grid item>
-                <EventCard />
-            </Grid>
-            <Grid item>
-                <EventCard />
-            </Grid>
-            <Grid item>
-                <EventCard />
-            </Grid>
-            <Grid item>
-                <EventCard />
-            </Grid>
+            {eventCards}
         </Grid>
        </Container>
        </>

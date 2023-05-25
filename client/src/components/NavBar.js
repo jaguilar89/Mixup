@@ -21,6 +21,7 @@ export default function NavBar() {
 
   const linkStyle = {
     textDecoration: 'none',
+    color: 'black',
     "&:hover": {
       color: 'inherit'
     },

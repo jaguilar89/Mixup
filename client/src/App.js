@@ -7,7 +7,7 @@ import LandingPage from './pages/LandingPage';
 import Home from './pages/Home';
 import { useContext } from 'react';
 import { UserContext } from './context/UserContext';
-import NewEvent from './pages/NewEvent';
+import NewEventForm from './pages/NewEventForm';
 
 function App() {
   const { user, setUser } = useContext(UserContext)
@@ -20,7 +20,7 @@ function App() {
     <Route path='/home' element={<Home user={user} />} />
     <Route path='/login' element={<LoginForm setUser={setUser}/>} />
     <Route path='/login/signup' element={<SignupForm setUser={setUser}/>} />
-    <Route path='/events/new' element={<NewEvent />} />
+    <Route path='/events/new' element={<NewEventForm />} />
   </Routes>
   </>
   );
