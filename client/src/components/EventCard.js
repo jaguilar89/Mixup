@@ -18,7 +18,10 @@ export default function EventCard({ eventName, eventLocation, availableSpots }) 
         <Typography variant="h6">
           {eventName}
         </Typography>
-        <Typography gutterBottom variant="body1">Event Date</Typography>
+        <Typography variant="body1">
+          By (name)
+        </Typography>
+        <Typography gutterBottom variant="body2">Event Date</Typography>
         <Box sx={{ display: 'flex' }}>
           <Typography variant='subtitle2'>{availableSpots} spots free</Typography>
         </Box>

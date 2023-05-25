@@ -6,6 +6,7 @@ import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import Select from "@mui/material/Select"
 import MenuItem from "@mui/material/MenuItem"
+import { Alert } from "@mui/material";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -14,6 +15,7 @@ export default function NewEventForm({setEvents}) {
     const [eventLocation, setEventLocation] = useState('')
     const [maxAttendees, setMaxAttendees] = useState('')
     const [eventDescription, setEventDescription] = useState('')
+    const [errors, setErrors] = useState([])
     const navigate = useNavigate();
 
     async function handleSubmit(e) {
@@ -36,8 +38,9 @@ export default function NewEventForm({setEvents}) {
             setEvents(event)
             navigate(`/events/${event.id}`)
         } else {
-            const error = await res.json();
-            console.log(error)
+            const errorObj = await res.json();
+            setErrors(errorObj.errors)
+            console.log(errorObj)
         }
     }
 
@@ -93,6 +96,7 @@ export default function NewEventForm({setEvents}) {
                     onChange={(e) => setEventDescription(e.target.value)}
                 />
                 <Button variant="contained" type="submit">Submit</Button>
+                {errors && errors.map((err) => <Alert key={err} severity="error">{err}</Alert>)}
             </Box>
         </Container>
     )
