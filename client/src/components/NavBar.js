@@ -54,7 +54,7 @@ export default function NavBar() {
     <AppBar position='sticky' sx={{ bgcolor: '#f5f5f5', boxShadow: '1px' }}>
       <Container maxWidth>
         <Toolbar disableGutters>
-          <Box sx={{ flexGrow: 1, color: 'black' }}>LOGO</Box>
+          <Box sx={{ flexGrow: 1, color: 'black' }}><a href='/home'>LOGO</a></Box>
 
 
           {!user && (
