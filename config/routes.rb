@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
-  resources :attendances
   namespace :api do
     resources :events, only: [:index, :show, :create]
+    resources :attendances
     post "/signup", to: "users#create"
     post "/login", to: "sessions#create"
     get "/me", to: "users#show"
