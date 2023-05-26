@@ -33,6 +33,8 @@ export default function Home({ user, events, setEvents }) {
                 eventName={event.event_name}
                 eventLocation={event.event_location}
                 availableSpots={event.available_spots}
+                organizer={event.organizer.full_name}
+                attendances={event.attendances.length}
             />
         </Grid>
     ))

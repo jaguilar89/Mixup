@@ -7,7 +7,8 @@ import InputLabel from "@mui/material/InputLabel";
 import Select from "@mui/material/Select"
 import MenuItem from "@mui/material/MenuItem"
 import { Alert } from "@mui/material";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { UserContext } from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
 
 export default function NewEventForm({setEvents}) {
@@ -16,6 +17,7 @@ export default function NewEventForm({setEvents}) {
     const [maxAttendees, setMaxAttendees] = useState('')
     const [eventDescription, setEventDescription] = useState('')
     const [errors, setErrors] = useState([])
+    const {user} = useContext(UserContext)
     const navigate = useNavigate();
 
     async function handleSubmit(e) {
@@ -29,12 +31,14 @@ export default function NewEventForm({setEvents}) {
                 event_name: eventName,
                 event_location: eventLocation,
                 available_spots: maxAttendees,
-                event_description: eventDescription
+                event_description: eventDescription,
+                organizer_id: user.id
             })
         });
 
         if (res.ok) {
             const event = await res.json()
+            console.log(event)
             setEvents(event)
             navigate(`/events/${event.id}`)
         } else {
