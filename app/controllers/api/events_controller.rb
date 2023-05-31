@@ -3,7 +3,7 @@ class Api::EventsController < ApplicationController
 
   def index
     events = Event.all
-    render json: events, status: :ok
+    render json: events, scope: @current_user, status: :ok
   end
 
   def create
@@ -13,7 +13,7 @@ class Api::EventsController < ApplicationController
 
   def show
     event = Event.find_by(id: params[:id])
-    render json: event, status: :ok
+    render json: event, scope: @current_user
   end
 
   private
