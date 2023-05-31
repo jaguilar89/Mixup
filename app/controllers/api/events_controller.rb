@@ -7,7 +7,7 @@ class Api::EventsController < ApplicationController
   end
 
   def create
-    event = Event.create!(event_params)
+    event = @current_user.organized_events.create!(event_params)
     render json: event, status: :created
   end
 
@@ -19,6 +19,6 @@ class Api::EventsController < ApplicationController
   private
 
   def event_params
-    params.permit(:organizer_id, :event_name, :event_location, :event_description, :available_spots)
+    params.permit(:event_name, :event_location, :event_description, :available_spots)
   end
 end

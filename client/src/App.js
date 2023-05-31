@@ -23,7 +23,7 @@ function App() {
     <Route path='/login' element={<LoginForm setUser={setUser}/>} />
     <Route path='/login/signup' element={<SignupForm setUser={setUser}/>} />
     <Route path='/events/new' element={<NewEventForm setEvents={setEvents}/>} />
-    <Route path='/events/:id' element={<EventPage />} />
+    <Route path='/events/:id' element={<EventPage user={user}/>} />
   </Routes>
   </>
   );

@@ -9,7 +9,11 @@ class Api::UsersController < ApplicationController
   end
 
   def show
-    render json: @current_user
+    if @current_user
+      render json: @current_user, status: :ok
+    else
+      render json: { errors: ["User Not Found"] }, status: 404
+    end
   end
 
   private

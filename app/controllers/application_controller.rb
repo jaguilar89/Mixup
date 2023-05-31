@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::API
   include ActionController::Cookies
 
-  rescue_from ActiveRecord::RecordInvalid, with: :unproccessably_entity_response
+  rescue_from ActiveRecord::RecordInvalid, with: :unproccessable_entity_response
 
   before_action :authorize
 
@@ -14,7 +14,7 @@ class ApplicationController < ActionController::API
 
   private
 
-  def unproccessably_entity_response(exception)
+  def unproccessable_entity_response(exception)
     render json: { errors: exception.record.errors.full_messages }, status: :unprocessable_entity
   end
 end
