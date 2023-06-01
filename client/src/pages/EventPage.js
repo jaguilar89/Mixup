@@ -14,32 +14,38 @@ export default function EventPage({user}) {
     const { eventId } = useParams(); //EVENT_ID
     
     const userId = user?.id
-    const userAttendances = user?.attendances
 
-    //TODO: SECOND USEEFFECT FOR ATTENDANCES FETCH?
     useEffect(() => {
         (async () => {
             const res = await fetch(`/api/events/${eventId}`)
             
             if (res.ok) {
                 const event = await res.json();
-                const rsvp = event.is_attending
-                const attendances = event.attendances
-                console.log(attendances)
-                const attendanceRecord = userAttendances.filter((record) => record.event_id === eventId)
-                console.log(attendanceRecord)
-                Boolean(attendanceRecord.length) && setUserAttendanceInfo(attendanceRecord)
                 setEventInfo(event)
-                setAttendees(attendances)
-                setIsAttending(rsvp)
-                console.log(event.is_attending)
+                setIsAttending(event.is_attending)
             } else {
                 const error = await res.json()
                 console.log(error)
             }
         })()
-    }, [user?.id])
+    }, [eventId])
     
+    useEffect(() => {
+        (async () => {
+            const res = await fetch(`/api/events/${eventId}/attendances`)
+
+            if (res.ok) {
+                const attendanceRecords = await res.json()
+                setAttendees(attendanceRecords)
+                const userRecord = attendanceRecords.filter((rec) => rec.user_id === userId)
+                if (userRecord.length !== 0) setUserAttendanceInfo(userRecord)
+            } else {
+                const error = await res.json()
+                console.log(error)
+            }
+        })()
+    }, [isAttending]);
+
     async function handleSubmitRsvp(e) {
         e.preventDefault();
         const res = await fetch(`/api/events/${eventId}/attendances`, { 
@@ -48,14 +54,13 @@ export default function EventPage({user}) {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                user_id: user.id,
+                user_id: userId,
                 event_id: eventId
             })
         })
         if (res.ok) {
             const attendance = await res.json()
-            setUserAttendanceInfo(attendance)
-            setIsAttending((isAttending) => !isAttending)
+            if (attendance) setIsAttending((isAttending) => !isAttending)
         } else {
             const error = await res.json()
             console.log(error)
@@ -64,18 +69,23 @@ export default function EventPage({user}) {
 
      async function handleRemoveRsvp(e) {
         e.preventDefault()
-       const attendanceId = userAttendanceInfo.id
-       console.log('attendance id is ' + ' ' + attendanceId)
-       /* const res = await fetch(`/api/events/${eventId}/attendances/58`, {
-        method: 'DELETE'
-       })
-       if (res.ok) {
-        const response = await res.json()
-        setIsAttending(false)
-       } else {
-        const error = await res.json()
-        console.log(error)
-       } */
+        if (userAttendanceInfo.length !== 0) {
+            const attendanceId = userAttendanceInfo[0].id
+            const res = await fetch(`/api/events/${eventId}/attendances/${attendanceId}`, {
+                method: 'DELETE'
+            })
+            if (res.ok) {
+                const msg = await res.json()
+                setUserAttendanceInfo(null)
+                setIsAttending((isAttending) => !isAttending)
+                console.log(msg)
+            } else {
+                const error = await res.json()
+                console.log(error)
+            }
+        } else {
+            console.log('userAttendanceInfo is empty')
+        }
     }
 
     //handle loading screen logic
