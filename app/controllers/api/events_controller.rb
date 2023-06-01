@@ -3,17 +3,17 @@ class Api::EventsController < ApplicationController
 
   def index
     events = Event.all
-    render json: events, scope: @current_user, status: :ok
+    render json: events, scope: @current_user 
   end
 
   def create
     event = @current_user.organized_events.create!(event_params)
-    render json: event, status: :created
+    render json: event, scope: @current_user, status: :created
   end
 
   def show
     event = Event.find_by(id: params[:id])
-    render json: event, scope: @current_user
+    render json: event, scope: @current_user 
   end
 
   private

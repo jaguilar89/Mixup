@@ -6,12 +6,12 @@ class Api::AttendancesController < ApplicationController
   end
 
   def create
-    get_event
     attendance = get_event.attendances.create!(attendance_params)
-    render json: attendance, status: :created
+    render json: attendance, scope: @current_user, status: :created
   end
 
   def destroy
+    #byebug
     attendance = @current_user.attendances.find_by(id: params[:id]) #userAttendance.id / EventPage.js
     if attendance
       attendance.destroy
