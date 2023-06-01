@@ -32,6 +32,7 @@ export default function Home({ user, events, setEvents }) {
             <EventCard
                 eventName={event.event_name}
                 eventLocation={event.event_location}
+                attendances={event.attendances.length}
                 availableSpots={event.available_spots}
                 organizer={event.organizer.full_name}
             />

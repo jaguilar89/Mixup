@@ -14,7 +14,8 @@ export default function EventPage({user}) {
     const { eventId } = useParams(); //EVENT_ID
     
     const userId = user?.id
-
+    
+    //Not the cleanest code but it finally works!! Refactor later(maybe).
     useEffect(() => {
         (async () => {
             const res = await fetch(`/api/events/${eventId}`)

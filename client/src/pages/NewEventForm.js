@@ -30,7 +30,7 @@ export default function NewEventForm({setEvents}) {
             body: JSON.stringify({
                 event_name: eventName,
                 event_location: eventLocation,
-                available_spots: maxAttendees,
+                max_attendees: maxAttendees,
                 event_description: eventDescription,
                 organizer_id: user.id
             })
@@ -85,9 +85,9 @@ export default function NewEventForm({setEvents}) {
                 <TextField
                     margin="normal"
                     required
-                    id="available-spots"
+                    id="max-attendees"
                     label='Max # of Attendees'
-                    name="available_spots"
+                    name="max_attendees"
                     onChange={(e) => setMaxAttendees(e.target.value)}
                 />
                 <TextField

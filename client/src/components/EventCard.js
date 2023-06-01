@@ -4,7 +4,7 @@ import Card from '@mui/material/Card'
 import Typography from '@mui/material/Typography';
 import CardActionArea from '@mui/material/CardActionArea';
 
-export default function EventCard({ eventName, eventLocation, availableSpots, organizer, attendances }) {
+export default function EventCard({ eventName, eventLocation, attendances, availableSpots, organizer }) {
 
   return (
     <Card sx={{ maxWidth: 320, m: 'auto', bgcolor: '#f5f5f5' }}>
@@ -23,7 +23,7 @@ export default function EventCard({ eventName, eventLocation, availableSpots, or
         </Typography>
         <Typography gutterBottom variant="body2">Event Date</Typography>
         <Box sx={{ display: 'flex' }}>
-          <Typography variant='subtitle2'>{attendances} attendees • {availableSpots - attendances} spots left</Typography>
+          <Typography variant='subtitle2'>{attendances} attendee(s) • {availableSpots - attendances} spot(s) left</Typography>
         </Box>
       </CardActionArea>
     </Card>
