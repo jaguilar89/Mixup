@@ -22,7 +22,7 @@ export default function Home({ user, events, setEvents }) {
                 console.log(error)
             }
         })()
-    }, []);
+    }, [events]);
 
     const eventCards = events.map((event) => (
         <Grid item

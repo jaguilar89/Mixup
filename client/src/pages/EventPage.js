@@ -1,36 +1,41 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import Button from "@mui/material/Button"
 import Box from "@mui/material/Box";
 import LoadingScreen from "../components/LoadingScreen";
 import Container from "@mui/material/Container";
+import EventEditForm from "../components/EventEditForm";
+import EventCancelDialog from "../components/EventCancelDialog";
 
-export default function EventPage({user}) {
+export default function EventPage({ user, events, setEvents }) {
     const [isLoading, setIsLoading] = useState(true)
     const [eventInfo, setEventInfo] = useState([])
+    const [organizer, setOrganizer] = useState([])
     const [userAttendanceInfo, setUserAttendanceInfo] = useState([])
     const [attendees, setAttendees] = useState([])
     const [isAttending, setIsAttending] = useState(false)
     const { eventId } = useParams(); //EVENT_ID
-    
+    const navigate = useNavigate();
+
     const userId = user?.id
-    
+
     //Not the cleanest code but it finally works!! Refactor later(maybe).
     useEffect(() => {
         (async () => {
             const res = await fetch(`/api/events/${eventId}`)
-            
+
             if (res.ok) {
                 const event = await res.json();
                 setEventInfo(event)
+                setOrganizer(event.organizer)
                 setIsAttending(event.is_attending)
             } else {
                 const error = await res.json()
                 console.log(error)
             }
         })()
-    }, [eventId])
-    
+    }, [events, eventId, eventInfo])
+
     useEffect(() => {
         (async () => {
             const res = await fetch(`/api/events/${eventId}/attendances`)
@@ -49,7 +54,7 @@ export default function EventPage({user}) {
 
     async function handleSubmitRsvp(e) {
         e.preventDefault();
-        const res = await fetch(`/api/events/${eventId}/attendances`, { 
+        const res = await fetch(`/api/events/${eventId}/attendances`, {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json"
@@ -68,7 +73,7 @@ export default function EventPage({user}) {
         }
     }
 
-     async function handleRemoveRsvp(e) {
+    async function handleRemoveRsvp(e) {
         e.preventDefault()
         if (userAttendanceInfo.length !== 0) {
             const attendanceId = userAttendanceInfo[0].id
@@ -89,23 +94,49 @@ export default function EventPage({user}) {
         }
     }
 
-    //handle loading screen logic
-    return (
-        <Container sx={{border: '1px solid black'}}>
-            {isAttending && <h1>You're attending!</h1>}
-            <h1>{eventInfo.event_name}</h1>
-            <h2>{eventInfo.event_location}</h2>
-            <h2>{eventInfo.event_description}</h2>
-            <h2>{eventInfo.available_spots} spots left.</h2>
-            {!isAttending ? (
+    async function handleCancelEvent(e) {
+        e.preventDefault();
+        const res = await fetch(`/api/events/${eventId}`, {
+            method: 'DELETE'
+        })
+        if (res.ok) {
+            const msg = await res.json()
+            navigate('/home') //TODO: FIX THIS
+            console.log(msg)
+        } else {
+            const error = await res.json()
+            console.log(error)
+        }
+    }
+    function renderEventOptions() {  //TODO: FIX THIS
+        if (organizer.id === userId) {
+            return (
+                <div>
+                    <EventCancelDialog onCancelEvent={handleCancelEvent}/>
+                </div>
+            )
+        } else if (!isAttending && organizer.id !== userId) {
+            return (
+               <div>
                 <Box component='form' onSubmit={handleSubmitRsvp}>
                     <Button variant="contained" type="submit">RSVP</Button>
                 </Box>
-            ): (
-                <Box component='form' onSubmit={handleRemoveRsvp}>
-                    <Button variant="contained" type="submit">Remove RSVP</Button>
-                </Box>
-            )}
+               </div>
+            )
+        }
+    }
+    //handle loading screen logic
+    return (
+        <Container sx={{ border: '1px solid black' }}>
+            <Box component='div' sx={{ border: '1px dotted black' }}>
+                {isAttending && <h1>You're attending!</h1>}
+                <h1>Event Name: {eventInfo.event_name}</h1>
+                <h2>City: {eventInfo.event_location}</h2>
+                <h2>Description: {eventInfo.event_description}</h2>
+                <h2>Availability: {eventInfo.available_spots} spot(s) left.</h2>
+                {/* edit event button renders if logged in user is the organizer */}
+                {renderEventOptions()}
+            </Box>
         </Container>
     )
 };
