@@ -19,7 +19,7 @@ class Api::EventsController < ApplicationController
   def destroy
     event = Event.find_by(id: params[:id])
     event.destroy
-    render json: { status: ["Event has been canceled"] }
+    head :no_content
   end
 
   private

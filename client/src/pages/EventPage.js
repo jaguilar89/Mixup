@@ -6,6 +6,7 @@ import LoadingScreen from "../components/LoadingScreen";
 import Container from "@mui/material/Container";
 import EventEditForm from "../components/EventEditForm";
 import EventCancelDialog from "../components/EventCancelDialog";
+import { Alert } from "@mui/material";
 
 export default function EventPage({ user, events, setEvents }) {
     const [isLoading, setIsLoading] = useState(true)
@@ -29,12 +30,13 @@ export default function EventPage({ user, events, setEvents }) {
                 setEventInfo(event)
                 setOrganizer(event.organizer)
                 setIsAttending(event.is_attending)
+                setIsLoading(false)
             } else {
                 const error = await res.json()
                 console.log(error)
             }
         })()
-    }, [events, eventId, eventInfo])
+    }, [eventId])
 
     useEffect(() => {
         (async () => {
@@ -100,34 +102,44 @@ export default function EventPage({ user, events, setEvents }) {
             method: 'DELETE'
         })
         if (res.ok) {
-            const msg = await res.json()
-            navigate('/home') //TODO: FIX THIS
-            console.log(msg)
+            window.location.href = '/home'
         } else {
             const error = await res.json()
             console.log(error)
         }
     }
-    function renderEventOptions() {  //TODO: FIX THIS
+
+    function renderEventOptions() {  
         if (organizer.id === userId) {
             return (
                 <div>
                     <EventCancelDialog onCancelEvent={handleCancelEvent}/>
+                    <EventEditForm />
                 </div>
             )
-        } else if (!isAttending && organizer.id !== userId) {
+        } else if (isAttending && organizer.id !== userId) {
             return (
                <div>
+                <Box component='form' onSubmit={handleRemoveRsvp}>
+                    <Button variant="contained" type="submit">Cancel RSVP</Button>
+                </Box>
+               </div>
+            )
+        } else if (!isAttending) {
+            return (
+                <div>
                 <Box component='form' onSubmit={handleSubmitRsvp}>
                     <Button variant="contained" type="submit">RSVP</Button>
                 </Box>
-               </div>
+            </div>
             )
         }
     }
     //handle loading screen logic
     return (
         <Container sx={{ border: '1px solid black' }}>
+            {isAttending && <Alert severity="success" sx={{"&.MuiAlert-root": {justifyContent: 'center'}  }}>You are attending this event!</Alert>}
+            {isLoading && <LoadingScreen />}
             <Box component='div' sx={{ border: '1px dotted black' }}>
                 {isAttending && <h1>You're attending!</h1>}
                 <h1>Event Name: {eventInfo.event_name}</h1>
@@ -136,6 +148,7 @@ export default function EventPage({ user, events, setEvents }) {
                 <h2>Availability: {eventInfo.available_spots} spot(s) left.</h2>
                 {/* edit event button renders if logged in user is the organizer */}
                 {renderEventOptions()}
+                
             </Box>
         </Container>
     )

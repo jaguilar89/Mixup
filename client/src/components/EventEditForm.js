@@ -26,4 +26,6 @@ export default function EventEditForm() {
       const handleClose = () => {
         setOpen(false);
       };
+
+      return <p>idk</p>
 }
