@@ -6,6 +6,7 @@ import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import Select from "@mui/material/Select"
 import MenuItem from "@mui/material/MenuItem"
+import GooglePlacesAutocomplete from "../components/GooglePlacesAutocomplete";
 import { Alert } from "@mui/material";
 import { useContext, useState } from "react";
 import { UserContext } from "../context/UserContext";
@@ -16,6 +17,7 @@ export default function NewEventForm({setEvents}) {
     const [eventLocation, setEventLocation] = useState('')
     const [maxAttendees, setMaxAttendees] = useState('')
     const [eventDescription, setEventDescription] = useState('')
+    const [placeId, setPlaceId] = useState(null)
     const [errors, setErrors] = useState([])
     const {user} = useContext(UserContext)
     const navigate = useNavigate();
@@ -47,7 +49,7 @@ export default function NewEventForm({setEvents}) {
             console.log(errorObj)
         }
     }
-
+    console.log(placeId)
     return (
         <Container maxWidth='md' sx={{ border: '1px solid black' }}>
             <Box component='form'
@@ -68,6 +70,8 @@ export default function NewEventForm({setEvents}) {
                     name="event_name"
                     onChange={(e) => setEventName(e.target.value)}
                 />
+                <GooglePlacesAutocomplete setPlaceId={setPlaceId}/>
+                <br />
                 <FormControl required>
                     <InputLabel id='event-select-label'>City</InputLabel>
                     <Select

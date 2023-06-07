@@ -8,7 +8,7 @@ import Typography from '@mui/material/Typography';
 import parse from 'autosuggest-highlight/parse';
 import { debounce } from '@mui/material/utils';
 
-const GOOGLE_MAPS_API_KEY = ''
+const GOOGLE_MAPS_API_KEY = 'AIzaSyCgSQTGG7GPKoFFmZt4e2aH1TL2VoS_xb4'
 
 function loadScript(src, position, id) {
   if (!position) {
@@ -24,7 +24,7 @@ function loadScript(src, position, id) {
 
 const autocompleteService = { current: null };
 
-export default function GooglePlacesAutocomplete() {
+export default function GooglePlacesAutocomplete({setPlaceId}) {
   const [value, setValue] = useState(null);
   const [inputValue, setInputValue] = useState('');
   const [options, setOptions] = useState([]);
@@ -47,7 +47,7 @@ export default function GooglePlacesAutocomplete() {
       debounce((request, callback) => {
         const autocompleteRequest = {
           input: request.input, // The user input from the Autocomplete component
-          types: ['establishment', 'geocode'], // Restrict results to addresses only
+          types: ['establishment', 'geocode'], // Restrict results to establishments only
           componentRestrictions: { country: 'us' }, // Optional: Limit results to a specific country (e.g., United States)
         };
   
@@ -112,6 +112,7 @@ export default function GooglePlacesAutocomplete() {
       onChange={(event, newValue) => {
         setOptions(newValue ? [newValue, ...options] : options);
         setValue(newValue);
+        setPlaceId(newValue?.place_id)
       }}
       onInputChange={(event, newInputValue) => {
         setInputValue(newInputValue);
@@ -128,7 +129,6 @@ export default function GooglePlacesAutocomplete() {
           option.structured_formatting.main_text,
           matches.map((match) => [match.offset, match.offset + match.length])
         );
-          console.log(value)
         return (
           <li {...props}>
             <Grid container alignItems="center">
@@ -149,7 +149,6 @@ export default function GooglePlacesAutocomplete() {
                 <Typography variant="body2" color="text.secondary">
                   {option.structured_formatting.secondary_text}
                 </Typography>
-                {/* Display the street number and zip code */}
                 <Typography variant="body2" color="text.secondary">
                   {option.structured_formatting.secondary_text.match(/(.*),\s(.*)/)[2]}
                 </Typography>
