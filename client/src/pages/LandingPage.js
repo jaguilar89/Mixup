@@ -1,3 +1,22 @@
+import GooglePlacesAutocomplete from "../components/GooglePlacesAutocomplete"
+const api = ''
 export default function LandingPage() {
-    return <h1>This is the landing page, it will display a logo with a list of features to grab a users attention</h1>
+    return (
+       <>
+       <GooglePlacesAutocomplete />
+       <iframe
+  width="600"
+  height="450"
+  style={{border: 0}}
+  loading="lazy"
+  allowfullscreen
+  referrerpolicy="no-referrer-when-downgrade"
+  src={`https://www.google.com/maps/embed/v1/place?key=${api}
+    &q=place_id:ChIJOxerSlJYwokRPmpdLA4CpWI`}>
+</iframe>
+       </>
+        
+    )
 }
+
+//  https://maps.googleapis.com/maps/api/place/details/json?place_id=ChIJ05IRjKHxEQ0RJLV_5NLdK2w&fields=place_id&key=YOUR_API_KEY

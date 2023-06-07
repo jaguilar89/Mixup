@@ -34,7 +34,7 @@ export default function EventCancelDialog({onCancelEvent}) {
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            Are you sure you want to cancel the event?
+            Are you sure you want to cancel this event?
           </DialogContentText>
         </DialogContent>
         <DialogActions>

@@ -6,7 +6,9 @@ import LoadingScreen from "../components/LoadingScreen";
 import Container from "@mui/material/Container";
 import EventEditForm from "../components/EventEditForm";
 import EventCancelDialog from "../components/EventCancelDialog";
-import { Alert } from "@mui/material";
+import Alert from "@mui/material/Alert";
+
+
 
 export default function EventPage({ user, events, setEvents }) {
     const [isLoading, setIsLoading] = useState(true)
@@ -16,7 +18,6 @@ export default function EventPage({ user, events, setEvents }) {
     const [attendees, setAttendees] = useState([])
     const [isAttending, setIsAttending] = useState(false)
     const { eventId } = useParams(); //EVENT_ID
-    const navigate = useNavigate();
 
     const userId = user?.id
 
