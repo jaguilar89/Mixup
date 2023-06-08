@@ -136,7 +136,7 @@ export default function EventPage({ user, events, setEvents }) {
     }
     //handle loading screen logic
     return (
-        <Container sx={{ border: '1px solid black' }}>
+        <Container sx={{ border: '1px solid black', mb: '20px' }}>
             {isAttending && <Alert severity="success" sx={{"&.MuiAlert-root": {justifyContent: 'center'}  }}>You are attending this event!</Alert>}
             {eventInfo?.organizer?.id === userId && <Alert severity="info" sx={{"&.MuiAlert-root": {justifyContent: 'center'}  }}>You are organizing this event</Alert>}
             {isLoading && <LoadingScreen />}

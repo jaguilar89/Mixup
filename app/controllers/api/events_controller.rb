@@ -25,6 +25,12 @@ class Api::EventsController < ApplicationController
   private
 
   def event_params
-    params.permit(:event_name, :event_city, :event_description, :max_attendees, :place_identifier)
+    params.permit(:event_name,
+                  :event_city,
+                  :event_description,
+                  :max_attendees,
+                  :place_identifier,
+                  :place_name,
+                  :place_address)
   end
 end

@@ -113,7 +113,8 @@ export default function GooglePlacesAutocomplete({setVenueInfo, setPlaceId}) {
         setOptions(newValue ? [newValue, ...options] : options);
         setValue(newValue);
         setPlaceId(newValue?.place_id)
-        setVenueInfo(newValue) //description.structured_formatting.main_text/secondary_text
+        setVenueInfo(newValue)
+        //console.log(newValue.structured_formatting.secondary_text) //structured_formatting.main_text/secondary_text
       }}
       onInputChange={(event, newInputValue) => {
         setInputValue(newInputValue);

@@ -1,5 +1,15 @@
 class EventSerializer < ActiveModel::Serializer
-  attributes :id, :event_name, :event_city, :place_identifier, :event_description, :max_attendees, :available_spots, :is_attending
+  attributes :id,
+             :event_name,
+             :event_city,
+             :place_identifier,
+             :place_name,
+             :place_address,
+             :event_description,
+             :max_attendees,
+             :available_spots,
+             :is_attending
+
   has_many :attendances
   belongs_to :organizer
 
@@ -7,7 +17,7 @@ class EventSerializer < ActiveModel::Serializer
   def is_attending
     current_user = scope #equals scope defined in the events controller
     attendance = self.object.attendances.find_by(user_id: current_user.id)
-    attendance.present? || false #returns a boolean
+    attendance.present? #returns a boolean
   end
 
   def available_spots

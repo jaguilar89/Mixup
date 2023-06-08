@@ -27,5 +27,5 @@ export default function EventEditForm() {
         setOpen(false);
       };
 
-      return <p>idk</p>
+      return <p>EventEditForm.js</p>
 }

@@ -25,7 +25,6 @@ export default function NewEventForm({setEvents}) {
 
     async function handleSubmit(e) {
         e.preventDefault();
-        console.log('PLACE ID: ' + placeId)
         const res = await fetch('/api/events', {
             method: 'POST',
             headers: {
@@ -35,6 +34,8 @@ export default function NewEventForm({setEvents}) {
                 event_name: eventName,
                 event_city: eventCity,
                 place_identifier: placeId,
+                place_name: venueInfo.structured_formatting.main_text,
+                place_address: venueInfo.structured_formatting.secondary_text,
                 max_attendees: maxAttendees,
                 event_description: eventDescription,
                 organizer_id: user.id
