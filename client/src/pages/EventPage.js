@@ -7,8 +7,7 @@ import Container from "@mui/material/Container";
 import EventEditForm from "../components/EventEditForm";
 import EventCancelDialog from "../components/EventCancelDialog";
 import Alert from "@mui/material/Alert";
-
-
+import GoogleMaps from "../components/GoogleMaps";
 
 export default function EventPage({ user, events, setEvents }) {
     const [isLoading, setIsLoading] = useState(true)
@@ -21,7 +20,6 @@ export default function EventPage({ user, events, setEvents }) {
 
     const userId = user?.id
 
-    //Not the cleanest code but it finally works!! Refactor later(maybe).
     useEffect(() => {
         (async () => {
             const res = await fetch(`/api/events/${eventId}`)
@@ -140,16 +138,16 @@ export default function EventPage({ user, events, setEvents }) {
     return (
         <Container sx={{ border: '1px solid black' }}>
             {isAttending && <Alert severity="success" sx={{"&.MuiAlert-root": {justifyContent: 'center'}  }}>You are attending this event!</Alert>}
+            {eventInfo?.organizer?.id === userId && <Alert severity="info" sx={{"&.MuiAlert-root": {justifyContent: 'center'}  }}>You are organizing this event</Alert>}
             {isLoading && <LoadingScreen />}
             <Box component='div' sx={{ border: '1px dotted black' }}>
                 {isAttending && <h1>You're attending!</h1>}
                 <h1>Event Name: {eventInfo.event_name}</h1>
-                <h2>City: {eventInfo.event_location}</h2>
+                <h2>City: {eventInfo.event_city}</h2>
                 <h2>Description: {eventInfo.event_description}</h2>
                 <h2>Availability: {eventInfo.available_spots} spot(s) left.</h2>
-                {/* edit event button renders if logged in user is the organizer */}
                 {renderEventOptions()}
-                
+                <GoogleMaps eventInfo={eventInfo}/>
             </Box>
         </Container>
     )

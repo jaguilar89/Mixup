@@ -1,5 +1,5 @@
 class EventSerializer < ActiveModel::Serializer
-  attributes :id, :event_name, :event_location, :event_description, :max_attendees, :available_spots, :is_attending
+  attributes :id, :event_name, :event_city, :place_identifier, :event_description, :max_attendees, :available_spots, :is_attending
   has_many :attendances
   belongs_to :organizer
 

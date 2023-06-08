@@ -3,7 +3,7 @@ const GOOGLE_MAPS_API_KEY = 'AIzaSyCgSQTGG7GPKoFFmZt4e2aH1TL2VoS_xb4'
 export default function LandingPage() {
     return (
        <>
-       <GooglePlacesAutocomplete />
+       {/* <GooglePlacesAutocomplete />
        <iframe
   width="600"
   height="450"
@@ -12,8 +12,8 @@ export default function LandingPage() {
   allowfullscreen
   referrerpolicy="no-referrer-when-downgrade"
   src={`https://www.google.com/maps/embed/v1/place?key=${GOOGLE_MAPS_API_KEY}
-    &q=place_id:ChIJOxerSlJYwokRPmpdLA4CpWI`}>
-</iframe>
+  &q=place_id:ChIJOxerSlJYwokRPmpdLA4CpWI`}>
+</iframe> */}
        </>
         
     )

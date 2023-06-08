@@ -14,16 +14,18 @@ import { useNavigate } from "react-router-dom";
 
 export default function NewEventForm({setEvents}) {
     const [eventName, setEventName] = useState('')
-    const [eventLocation, setEventLocation] = useState('')
+    const [eventCity, setEventCity] = useState('')
     const [maxAttendees, setMaxAttendees] = useState('')
     const [eventDescription, setEventDescription] = useState('')
-    const [placeId, setPlaceId] = useState(null)
+    const [placeId, setPlaceId] = useState(null) //each location on Google Maps has a unique 'place_id' identifier
+    const [venueInfo, setVenueInfo] = useState(null)
     const [errors, setErrors] = useState([])
     const {user} = useContext(UserContext)
     const navigate = useNavigate();
 
     async function handleSubmit(e) {
         e.preventDefault();
+        console.log('PLACE ID: ' + placeId)
         const res = await fetch('/api/events', {
             method: 'POST',
             headers: {
@@ -31,7 +33,8 @@ export default function NewEventForm({setEvents}) {
             },
             body: JSON.stringify({
                 event_name: eventName,
-                event_location: eventLocation,
+                event_city: eventCity,
+                place_identifier: placeId,
                 max_attendees: maxAttendees,
                 event_description: eventDescription,
                 organizer_id: user.id
@@ -40,16 +43,16 @@ export default function NewEventForm({setEvents}) {
 
         if (res.ok) {
             const event = await res.json()
-            console.log(event)
             setEvents(event)
             navigate(`/events/${event.id}`)
+            console.log(event)
         } else {
             const errorObj = await res.json();
             setErrors(errorObj.errors)
             console.log(errorObj)
         }
     }
-    console.log(placeId)
+    
     return (
         <Container maxWidth='md' sx={{ border: '1px solid black' }}>
             <Box component='form'
@@ -70,17 +73,20 @@ export default function NewEventForm({setEvents}) {
                     name="event_name"
                     onChange={(e) => setEventName(e.target.value)}
                 />
-                <GooglePlacesAutocomplete setPlaceId={setPlaceId}/>
+
+                <GooglePlacesAutocomplete setVenueInfo={setVenueInfo} setPlaceId={setPlaceId}/>
+
                 <br />
+
                 <FormControl required>
                     <InputLabel id='event-select-label'>City</InputLabel>
                     <Select
                         labelId="event-location-select-label"
-                        id="event-location"
-                        name='event_location'
-                        label="Event Location"
-                        onChange={(e) => setEventLocation(e.target.value)}
-                        value={eventLocation}
+                        id="event-city"
+                        name='event_city'
+                        label="Event City"
+                        onChange={(e) => setEventCity(e.target.value)}
+                        value={eventCity}
                     >
                         <MenuItem value="nyc">New York City</MenuItem>
                         <MenuItem value="denver">Denver</MenuItem>

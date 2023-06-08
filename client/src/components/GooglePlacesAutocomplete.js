@@ -8,7 +8,7 @@ import Typography from '@mui/material/Typography';
 import parse from 'autosuggest-highlight/parse';
 import { debounce } from '@mui/material/utils';
 
-const GOOGLE_MAPS_API_KEY = 'AIzaSyCgSQTGG7GPKoFFmZt4e2aH1TL2VoS_xb4'
+const GOOGLE_MAPS_API_KEY = process.env.REACT_APP_GOOGLE_MAPS_KEY
 
 function loadScript(src, position, id) {
   if (!position) {
@@ -24,7 +24,7 @@ function loadScript(src, position, id) {
 
 const autocompleteService = { current: null };
 
-export default function GooglePlacesAutocomplete({setPlaceId}) {
+export default function GooglePlacesAutocomplete({setVenueInfo, setPlaceId}) {
   const [value, setValue] = useState(null);
   const [inputValue, setInputValue] = useState('');
   const [options, setOptions] = useState([]);
@@ -113,6 +113,7 @@ export default function GooglePlacesAutocomplete({setPlaceId}) {
         setOptions(newValue ? [newValue, ...options] : options);
         setValue(newValue);
         setPlaceId(newValue?.place_id)
+        setVenueInfo(newValue) //description.structured_formatting.main_text/secondary_text
       }}
       onInputChange={(event, newInputValue) => {
         setInputValue(newInputValue);

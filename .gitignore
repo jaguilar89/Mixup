@@ -31,4 +31,4 @@
 /config/master.key
 
 # api
-.env
+/client/.env
