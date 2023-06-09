@@ -6,7 +6,8 @@ import { Button, CardActionArea, CardActions } from '@mui/material';
 
 export default function GoogleMaps({ eventInfo }) {
     const GOOGLE_MAPS_API_KEY = process.env.REACT_APP_GOOGLE_MAPS_KEY
-
+    console.log('hello from google maps component')
+    console.log(eventInfo)
     return (
         <Card sx={{ maxWidth: 500 }}>
             <CardActionArea>

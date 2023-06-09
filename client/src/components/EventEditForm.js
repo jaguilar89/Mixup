@@ -21,10 +21,9 @@ export default function EventEditForm({ eventId, setEventInfo }) {
 
     const handleClose = () => {
         setOpen(false);
-        //reload page after close?
     };
 
-    function handleChange(e) {
+    function handleChange(e) { //for typed inputs
         e.preventDefault();
         setFormData({
             ...formData,
@@ -32,9 +31,11 @@ export default function EventEditForm({ eventId, setEventInfo }) {
         })
     }
     async function handleSubmit(e) {
+        console.log(venueInfo)
         e.preventDefault();
-        if (placeId) formData['place_identifier'] = placeId
+        const { main_text: placeName, secondary_text: placeAddress } = venueInfo?.structured_formatting 
         
+        //TODO: Fix place name and address updating
         const res = await fetch(`/api/events/${eventId}`, {
             method: 'PATCH',
             headers: {
@@ -47,6 +48,7 @@ export default function EventEditForm({ eventId, setEventInfo }) {
             const updatedEvent = await res.json()
             setEventInfo(updatedEvent)
             setSubmitted(true)
+            setTimeout(() => setOpen(false), 2000)
         } else {
             const err = await res.json()
             setErrors(err.errors)
@@ -107,8 +109,8 @@ export default function EventEditForm({ eventId, setEventInfo }) {
                     <Button variant="contained" onClick={handleClose}>Cancel</Button>
                     <Button variant="contained" type="submit">Submit</Button>
                 </DialogActions>
-                {submitted ? <Alert severity="success">Event has been successfully updated. You may close this window.</Alert> : null}
-                {errors && errors.map((err) => <Alert severity="error">{err}</Alert> )}
+                {submitted ? <Alert severity="success">Event has been successfully updated. Returning to your event page...</Alert> : null}
+                {errors && errors.map((err) => <Alert severity="error">{err}</Alert>)}
             </Dialog>
         </Box>
     )
