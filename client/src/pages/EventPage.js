@@ -111,10 +111,11 @@ export default function EventPage({ user, events, setEvents }) {
     function renderEventOptions() {  
         if (organizer.id === userId) {
             return (
-                <div>
-                    <EventCancelDialog onCancelEvent={handleCancelEvent}/>
+                <Box component='div' display='flex' justifyContent='flex-start' alignItems='flex-start'>
                     <EventEditForm />
-                </div>
+                    <br/>
+                    <EventCancelDialog onCancelEvent={handleCancelEvent}/>
+                </Box>
             )
         } else if (isAttending && organizer.id !== userId) {
             return (
@@ -143,7 +144,6 @@ export default function EventPage({ user, events, setEvents }) {
             <Box component='div' sx={{ border: '1px dotted black' }}>
                 {isAttending && <h1>You're attending!</h1>}
                 <h1>Event Name: {eventInfo.event_name}</h1>
-                <h2>City: {eventInfo.event_city}</h2>
                 <h2>Description: {eventInfo.event_description}</h2>
                 <h2>Availability: {eventInfo.available_spots} spot(s) left.</h2>
                 {renderEventOptions()}

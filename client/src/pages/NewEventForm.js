@@ -25,6 +25,8 @@ export default function NewEventForm({setEvents}) {
 
     async function handleSubmit(e) {
         e.preventDefault();
+        const {main_text:placeName, secondary_text:placeAddress} = venueInfo.structured_formatting
+        
         const res = await fetch('/api/events', {
             method: 'POST',
             headers: {
@@ -34,8 +36,8 @@ export default function NewEventForm({setEvents}) {
                 event_name: eventName,
                 event_city: eventCity,
                 place_identifier: placeId,
-                place_name: venueInfo.structured_formatting.main_text,
-                place_address: venueInfo.structured_formatting.secondary_text,
+                place_name: placeName,
+                place_address: placeAddress,
                 max_attendees: maxAttendees,
                 event_description: eventDescription,
                 organizer_id: user.id
@@ -105,6 +107,7 @@ export default function NewEventForm({setEvents}) {
                     margin="normal"
                     required
                     multiline
+                    rows={4}
                     id="event-description"
                     label='Event Description'
                     name="event_description"
