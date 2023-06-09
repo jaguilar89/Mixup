@@ -48,7 +48,6 @@ export default function NewEventForm({setEvents}) {
             const event = await res.json()
             setEvents(event)
             navigate(`/events/${event.id}`)
-            console.log(event)
         } else {
             const errorObj = await res.json();
             setErrors(errorObj.errors)

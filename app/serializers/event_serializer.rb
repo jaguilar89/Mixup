@@ -16,7 +16,7 @@ class EventSerializer < ActiveModel::Serializer
   #Serialized attribute showing whether the logged in user is attending the event.
   def is_attending
     current_user = scope #equals scope defined in the events controller
-    attendance = self.object.attendances.find_by(user_id: current_user.id)
+    attendance = self.object.attendances.find_by(user_id: current_user&.id)
     attendance.present? #returns a boolean
   end
 

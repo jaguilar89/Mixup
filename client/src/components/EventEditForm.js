@@ -7,12 +7,12 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import GooglePlacesAutocomplete from "./GooglePlacesAutocomplete";
 
-export default function EventEditForm({ }) {
+export default function EventEditForm({ eventId, setEventInfo }) {
     const [submitted, setSubmitted] = useState(false); // Display an success alert once submitted state is set to 'true'.
     const [open, setOpen] = useState(false);
     const [venueInfo, setVenueInfo] = useState(null)
     const [placeId, setPlaceId] = useState(null)
-
+    const [errors, setErrors] = useState([])
     const [formData, setFormData] = useState({})
 
     const handleClickOpen = () => {
@@ -21,6 +21,7 @@ export default function EventEditForm({ }) {
 
     const handleClose = () => {
         setOpen(false);
+        //reload page after close?
     };
 
     function handleChange(e) {
@@ -33,8 +34,25 @@ export default function EventEditForm({ }) {
     async function handleSubmit(e) {
         e.preventDefault();
         if (placeId) formData['place_identifier'] = placeId
-        //TODO: FINISH SUBMIT FUNCTION, ADD UPDATE ACTION IN CONTROLLER
+        
+        const res = await fetch(`/api/events/${eventId}`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formData)
+        })
+
+        if (res.ok) {
+            const updatedEvent = await res.json()
+            setEventInfo(updatedEvent)
+            setSubmitted(true)
+        } else {
+            const err = await res.json()
+            setErrors(err.errors)
+        }
     }
+
     return (
         <Box>
             <Button variant="contained" onClick={handleClickOpen} sx={{ marginRight: '20px' }}>Edit Event</Button>
@@ -85,11 +103,12 @@ export default function EventEditForm({ }) {
                     <br />
 
                 </DialogContent>
-                {submitted ? <Alert severity="success">Event has been successfully updated. You may close this window.</Alert> : null}
                 <DialogActions>
                     <Button variant="contained" onClick={handleClose}>Cancel</Button>
                     <Button variant="contained" type="submit">Submit</Button>
                 </DialogActions>
+                {submitted ? <Alert severity="success">Event has been successfully updated. You may close this window.</Alert> : null}
+                {errors && errors.map((err) => <Alert severity="error">{err}</Alert> )}
             </Dialog>
         </Box>
     )

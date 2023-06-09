@@ -16,6 +16,28 @@ class Api::EventsController < ApplicationController
     render json: event, scope: @current_user
   end
 
+  def update
+    event = @current_user.organized_events.find_by(id: params[:id])
+    if event.present?
+      if params[:event_name].present?
+        event.event_name = params[:event_name]
+      end
+      if params[:place_identifier].present?
+        event.place_identifier = params[:place_identifier]
+      end
+      if params[:max_attendees].present?
+        event.max_attendees = params[:max_attendees]
+      end
+      if params[:event_description].present?
+        event.event_description = params[:event_name]
+      end
+    end
+
+    if event.save
+      render json: event, status: :ok
+    end
+  end
+
   def destroy
     event = Event.find_by(id: params[:id])
     event.destroy

@@ -48,7 +48,7 @@ export default function GooglePlacesAutocomplete({setVenueInfo, setPlaceId}) {
         const autocompleteRequest = {
           input: request.input, // The user input from the Autocomplete component
           types: ['establishment', 'geocode'], // Restrict results to establishments only
-          componentRestrictions: { country: 'us' }, // Optional: Limit results to a specific country (e.g., United States)
+          componentRestrictions: { country: 'us'}, // Optional: Limit results to a specific country (e.g., United States)
         };
   
         // Make the request to the AutocompleteService
@@ -151,7 +151,7 @@ export default function GooglePlacesAutocomplete({setVenueInfo, setPlaceId}) {
                   {option.structured_formatting.secondary_text}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                  {option.structured_formatting.secondary_text.match(/(.*),\s(.*)/)?.[2]} {/*beginning search with the letter 'E' returns null, WTF?*/}
+                  {option.structured_formatting.secondary_text.match(/(.*),\s(.*)/)?.[2]} {/*beginning search with the letter 'E' throws an error, WTF?*/}
                 </Typography>
               </Grid>
             </Grid>

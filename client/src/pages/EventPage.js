@@ -112,7 +112,7 @@ export default function EventPage({ user, events, setEvents }) {
         if (organizer.id === userId) {
             return (
                 <Box component='div' display='flex' justifyContent='flex-start' alignItems='flex-start'>
-                    <EventEditForm />
+                    <EventEditForm eventId={eventId} setEventInfo={setEventInfo}/>
                     <br/>
                     <EventCancelDialog onCancelEvent={handleCancelEvent}/>
                 </Box>
