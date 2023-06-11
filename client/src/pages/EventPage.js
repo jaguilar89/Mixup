@@ -137,18 +137,34 @@ export default function EventPage({ user, events, setEvents }) {
     }
     //handle loading screen logic
     return (
-        <Container sx={{ border: '1px solid black', mb: '20px' }}>
-            {isAttending && <Alert severity="success" sx={{"&.MuiAlert-root": {justifyContent: 'center'}  }}>You are attending this event!</Alert>}
-            {eventInfo?.organizer?.id === userId && <Alert severity="info" sx={{"&.MuiAlert-root": {justifyContent: 'center'}  }}>You are organizing this event</Alert>}
+        <Box sx={{ display: 'flex', border: '1px solid red'}}>
+          <Container sx={{ border: '1px solid black', mb: '20px', width: '50%' }}>
+            {isAttending && (
+              <Alert severity="success" sx={{"&.MuiAlert-root": {justifyContent: 'center'} }}>
+                You are attending this event!
+              </Alert>
+            )}
+            {eventInfo?.organizer?.id === userId && (
+              <Alert severity="info" sx={{"&.MuiAlert-root": {justifyContent: 'center'} }}>
+                You are organizing this event
+              </Alert>
+            )}
             {isLoading && <LoadingScreen />}
-            <Box component='div' sx={{ border: '1px dotted black' }}>
-                {isAttending && <h1>You're attending!</h1>}
-                <h1>Event Name: {eventInfo.event_name}</h1>
-                <h2>Description: {eventInfo.event_description}</h2>
-                <h2>Availability: {eventInfo.available_spots} spot(s) left.</h2>
-                {renderEventOptions()}
-                <GoogleMaps eventInfo={eventInfo}/>
+            <Box component='div' display='flex' flexDirection='column' gap='10px' sx={{ border: '1px dotted black' }}>
+              {isAttending && <h1>You're attending!</h1>}
+              <h1>Event Name: {eventInfo.event_name}</h1>
+              <h2>Description: {eventInfo.event_description}</h2>
+              {renderEventOptions()}
+              <GoogleMaps eventInfo={eventInfo}/>
             </Box>
-        </Container>
-    )
+          </Container>
+          <Container sx={{ border: '1px solid black', mb: '20px', width: '30%' }}>
+            <Box component='div' sx={{ border: '1px dotted blue', p: '10px' }}>
+              <h2>Availability: {eventInfo.available_spots} spot(s) left.</h2>
+            </Box>
+            {/* Add any additional information or components you want to display in the second container */}
+          </Container>
+        </Box>
+      );
+      
 };

@@ -31,24 +31,36 @@ export default function EventEditForm({ eventId, setEventInfo }) {
         })
     }
     async function handleSubmit(e) {
-        console.log(venueInfo)
         e.preventDefault();
-        const { main_text: placeName, secondary_text: placeAddress } = venueInfo?.structured_formatting 
-        
+        const { main_text: placeName, secondary_text: placeAddress } = venueInfo?.structured_formatting
+
+        let updatedFormData;
+
+        if (placeId) {
+             updatedFormData = {
+                ...formData,
+                place_identifier: placeId,
+                place_name: placeName,
+                place_address: placeAddress
+            }
+        }
         //TODO: Fix place name and address updating
         const res = await fetch(`/api/events/${eventId}`, {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(formData)
+            body: JSON.stringify(updatedFormData)
         })
 
         if (res.ok) {
             const updatedEvent = await res.json()
             setEventInfo(updatedEvent)
             setSubmitted(true)
-            setTimeout(() => setOpen(false), 2000)
+            setTimeout(() => {
+                setOpen(false)
+                setSubmitted(false)
+            }, 1500)
         } else {
             const err = await res.json()
             setErrors(err.errors)
@@ -62,9 +74,7 @@ export default function EventEditForm({ eventId, setEventInfo }) {
 
                 <DialogTitle>Edit Event Details</DialogTitle>
                 <DialogContent>
-
-
-                    <TextField
+                <TextField
                         onChange={handleChange}
                         variant="standard"
                         label="Event Name"
@@ -109,7 +119,7 @@ export default function EventEditForm({ eventId, setEventInfo }) {
                     <Button variant="contained" onClick={handleClose}>Cancel</Button>
                     <Button variant="contained" type="submit">Submit</Button>
                 </DialogActions>
-                {submitted ? <Alert severity="success">Event has been successfully updated. Returning to your event page...</Alert> : null}
+                {submitted ? <Alert severity="success">Event has been successfully updated. Returning to your event...</Alert> : null}
                 {errors && errors.map((err) => <Alert severity="error">{err}</Alert>)}
             </Dialog>
         </Box>

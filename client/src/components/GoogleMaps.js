@@ -6,8 +6,7 @@ import { Button, CardActionArea, CardActions } from '@mui/material';
 
 export default function GoogleMaps({ eventInfo }) {
     const GOOGLE_MAPS_API_KEY = process.env.REACT_APP_GOOGLE_MAPS_KEY
-    console.log('hello from google maps component')
-    console.log(eventInfo)
+
     return (
         <Card sx={{ maxWidth: 500 }}>
             <CardActionArea>
@@ -21,7 +20,7 @@ export default function GoogleMaps({ eventInfo }) {
                     </CardContent>
                 <CardMedia
                     component="iframe"
-                    height="450"
+                    height="400"
                     src={`https://www.google.com/maps/embed/v1/place?key=${GOOGLE_MAPS_API_KEY}
           &q=place_id:${eventInfo.place_identifier}`}
                     alt="event location"

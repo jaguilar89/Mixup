@@ -1,6 +1,5 @@
 class Api::EventsController < ApplicationController
   wrap_parameters format: []
-  skip_before_action :authorize, only: [:index, :update]
 
   def index
     events = Event.all
@@ -19,6 +18,7 @@ class Api::EventsController < ApplicationController
 
   def update
     event = @current_user.organized_events.find_by(id: params[:id])
+
     if event.present?
       if params[:event_name].present?
         event.event_name = params[:event_name]
@@ -26,11 +26,21 @@ class Api::EventsController < ApplicationController
       if params[:place_identifier].present?
         event.place_identifier = params[:place_identifier]
       end
+
+      if params[:place_name].present?
+        event.place_name = params[:place_name]
+      end
+
+      if params[:place_address].present?
+        event.place_address = params[:place_address]
+      end
+
       if params[:max_attendees].present?
         event.max_attendees = params[:max_attendees]
       end
+
       if params[:event_description].present?
-        event.event_description = params[:event_name]
+        event.event_description = params[:event_description]
       end
     end
 
