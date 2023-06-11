@@ -65,7 +65,7 @@ export default function NavBar() {
           )}
           {user && (
             <Box sx={{ flexGrow: 0 }}>
-              <Tooltip title='USER AVATAR: THIS WILL RENDER ONLY WHEN A USER IS LOGGED IN'>
+              <Tooltip title='User Avatar'>
                 <IconButton onClick={handleOpenUserMenu}>
                   <Avatar alt='user menu'>
                     <PersonIcon />

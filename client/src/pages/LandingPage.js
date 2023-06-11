@@ -1,5 +1,3 @@
-import GooglePlacesAutocomplete from "../components/GooglePlacesAutocomplete"
-const GOOGLE_MAPS_API_KEY = 'AIzaSyCgSQTGG7GPKoFFmZt4e2aH1TL2VoS_xb4'
 export default function LandingPage() {
     return (
        <>

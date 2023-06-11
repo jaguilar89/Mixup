@@ -20,7 +20,7 @@ export default function GoogleMaps({ eventInfo }) {
                     </CardContent>
                 <CardMedia
                     component="iframe"
-                    height="400"
+                    height="350"
                     src={`https://www.google.com/maps/embed/v1/place?key=${GOOGLE_MAPS_API_KEY}
           &q=place_id:${eventInfo.place_identifier}`}
                     alt="event location"

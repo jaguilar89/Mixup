@@ -8,6 +8,7 @@ import EventEditForm from "../components/EventEditForm";
 import EventCancelDialog from "../components/EventCancelDialog";
 import Alert from "@mui/material/Alert";
 import GoogleMaps from "../components/GoogleMaps";
+import { Typography } from "@mui/material";
 
 export default function EventPage({ user, events, setEvents }) {
     const [isLoading, setIsLoading] = useState(true)
@@ -138,7 +139,7 @@ export default function EventPage({ user, events, setEvents }) {
     //handle loading screen logic
     return (
         <Box sx={{ display: 'flex', border: '1px solid red'}}>
-          <Container sx={{ border: '1px solid black', mb: '20px', width: '50%' }}>
+          <Container sx={{ border: '1px solid black', mb: '20px', width: '70%' }}>
             {isAttending && (
               <Alert severity="success" sx={{"&.MuiAlert-root": {justifyContent: 'center'} }}>
                 You are attending this event!
@@ -155,11 +156,12 @@ export default function EventPage({ user, events, setEvents }) {
               <h1>Event Name: {eventInfo.event_name}</h1>
               <h2>Description: {eventInfo.event_description}</h2>
               {renderEventOptions()}
-              <GoogleMaps eventInfo={eventInfo}/>
             </Box>
           </Container>
-          <Container sx={{ border: '1px solid black', mb: '20px', width: '30%' }}>
+          <Container sx={{ border: '1px solid black', mb: '20px', width: '35%' }}>
             <Box component='div' sx={{ border: '1px dotted blue', p: '10px' }}>
+                <Typography variant="h4">Where</Typography>
+              <GoogleMaps eventInfo={eventInfo}/>
               <h2>Availability: {eventInfo.available_spots} spot(s) left.</h2>
             </Box>
             {/* Add any additional information or components you want to display in the second container */}
