@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_06_08_171453) do
+ActiveRecord::Schema.define(version: 2023_06_11_195507) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -18,8 +18,8 @@ ActiveRecord::Schema.define(version: 2023_06_08_171453) do
   create_table "attendances", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "event_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["event_id"], name: "index_attendances_on_event_id"
     t.index ["user_id"], name: "index_attendances_on_user_id"
   end
@@ -36,13 +36,16 @@ ActiveRecord::Schema.define(version: 2023_06_08_171453) do
     t.string "event_city"
     t.text "event_description"
     t.integer "max_attendees"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.string "event_name"
     t.bigint "organizer_id"
     t.string "place_identifier"
     t.string "place_name"
     t.string "place_address"
+    t.datetime "start_time"
+    t.datetime "end_time"
+    t.date "event_date"
     t.index ["organizer_id"], name: "index_events_on_organizer_id"
   end
 
@@ -66,8 +69,8 @@ ActiveRecord::Schema.define(version: 2023_06_08_171453) do
     t.string "full_name"
     t.string "username"
     t.string "password_digest"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   add_foreign_key "attendances", "events"
