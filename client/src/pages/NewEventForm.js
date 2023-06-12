@@ -7,6 +7,8 @@ import InputLabel from "@mui/material/InputLabel";
 import Select from "@mui/material/Select"
 import MenuItem from "@mui/material/MenuItem"
 import GooglePlacesAutocomplete from "../components/GooglePlacesAutocomplete";
+import '../styles.css'
+import Editor from "../Editor";
 import { Alert } from "@mui/material";
 import { useContext, useState } from "react";
 import { UserContext } from "../context/UserContext";
@@ -129,16 +131,10 @@ export default function NewEventForm({ setEvents }) {
                     name="max_attendees"
                     onChange={(e) => setMaxAttendees(e.target.value)}
                 />
-                <TextField
-                    margin="normal"
-                    required
-                    multiline
-                    rows={4}
-                    id="event-description"
-                    label='Event Description'
-                    name="event_description"
-                    onChange={(e) => setEventDescription(e.target.value)}
-                />
+
+                {/*event details*/}
+                <Editor setEventDescription={setEventDescription}/>
+
                 <Button variant="contained" type="submit">Submit</Button>
                 {errors && errors.map((err) => <Alert key={err} severity="error">{err}</Alert>)}
             </Box>
