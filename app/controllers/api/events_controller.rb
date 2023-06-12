@@ -23,6 +23,11 @@ class Api::EventsController < ApplicationController
       if params[:event_name].present?
         event.event_name = params[:event_name]
       end
+
+      if params[:event_date].present?
+        event.event_date = params[:event_date]
+      end
+      
       if params[:place_identifier].present?
         event.place_identifier = params[:place_identifier]
       end
@@ -60,6 +65,7 @@ class Api::EventsController < ApplicationController
   def event_params
     params.permit(:event_name,
                   :event_city,
+                  :event_date,
                   :event_description,
                   :max_attendees,
                   :place_identifier,

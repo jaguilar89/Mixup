@@ -2,6 +2,7 @@ class EventSerializer < ActiveModel::Serializer
   attributes :id,
              :event_name,
              :event_city,
+             :event_date,
              :place_identifier,
              :place_name,
              :place_address,

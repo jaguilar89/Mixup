@@ -9,6 +9,7 @@ import EventCancelDialog from "../components/EventCancelDialog";
 import Alert from "@mui/material/Alert";
 import GoogleMaps from "../components/GoogleMaps";
 import { Typography } from "@mui/material";
+import dayjs from "dayjs";
 
 export default function EventPage({ user, events, setEvents }) {
     const [isLoading, setIsLoading] = useState(true)
@@ -18,8 +19,9 @@ export default function EventPage({ user, events, setEvents }) {
     const [attendees, setAttendees] = useState([])
     const [isAttending, setIsAttending] = useState(false)
     const { eventId } = useParams(); //EVENT_ID
-
+    
     const userId = user?.id
+    const eventDate = eventInfo?.event_date
 
     useEffect(() => {
         (async () => {
@@ -160,11 +162,13 @@ export default function EventPage({ user, events, setEvents }) {
           </Container>
           <Container sx={{ border: '1px solid black', mb: '20px', width: '35%' }}>
             <Box component='div' sx={{ border: '1px dotted blue', p: '10px' }}>
+                <Typography variant="h4">When</Typography>
+                <Typography variant="h6">{dayjs(eventDate).format('MMMM ' + 'D' + ', ' + 'YYYY')}</Typography>
+                <br/>
                 <Typography variant="h4">Where</Typography>
               <GoogleMaps eventInfo={eventInfo}/>
               <h2>Availability: {eventInfo.available_spots} spot(s) left.</h2>
             </Box>
-            {/* Add any additional information or components you want to display in the second container */}
           </Container>
         </Box>
       );

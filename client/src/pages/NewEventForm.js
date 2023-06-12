@@ -11,6 +11,8 @@ import { Alert } from "@mui/material";
 import { useContext, useState } from "react";
 import { UserContext } from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
+import { DatePicker } from "@mui/x-date-pickers";
+import dayjs from "dayjs";
 
 export default function NewEventForm({setEvents}) {
     const [eventName, setEventName] = useState('')
@@ -18,6 +20,7 @@ export default function NewEventForm({setEvents}) {
     const [maxAttendees, setMaxAttendees] = useState('')
     const [eventDescription, setEventDescription] = useState('')
     const [placeId, setPlaceId] = useState(null) //each location on Google Maps has a unique 'place_id' identifier
+    const [dateValue, setDateValue] = useState(null)
     const [venueInfo, setVenueInfo] = useState(null)
     const [errors, setErrors] = useState([])
     const {user} = useContext(UserContext)
@@ -35,6 +38,7 @@ export default function NewEventForm({setEvents}) {
             body: JSON.stringify({
                 event_name: eventName,
                 event_city: eventCity,
+                event_date: dateValue?.format('YYYY-MM-DD'),
                 place_identifier: placeId,
                 place_name: placeName,
                 place_address: placeAddress,
@@ -54,19 +58,20 @@ export default function NewEventForm({setEvents}) {
             console.log(errorObj)
         }
     }
-    
+
     return (
         <Container maxWidth='md' sx={{ border: '1px solid black' }}>
             <Box component='form'
                 onSubmit={handleSubmit}
                 sx={{
-                    border: '1px dotted black',
                     display: 'flex',
                     flexDirection: 'column',
+                    gap: '15px',
                     width: '50%',
                     m: 'auto'
                 }
                 }>
+
                 <TextField
                     margin="normal"
                     required
@@ -78,7 +83,11 @@ export default function NewEventForm({setEvents}) {
 
                 <GooglePlacesAutocomplete setVenueInfo={setVenueInfo} setPlaceId={setPlaceId}/>
 
-                <br />
+                <DatePicker
+                required 
+                disablePast
+                onChange={(newValue) => setDateValue(newValue)}
+                />
 
                 <FormControl required>
                     <InputLabel id='event-select-label'>City</InputLabel>
