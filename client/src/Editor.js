@@ -3,6 +3,7 @@ import { LexicalComposer } from "@lexical/react/LexicalComposer";
 import { RichTextPlugin } from "@lexical/react/LexicalRichTextPlugin";
 import { ContentEditable } from "@lexical/react/LexicalContentEditable";
 import {$generateHtmlFromNodes} from '@lexical/html';
+import { $getRoot, $getSelection } from "lexical";
 import { HistoryPlugin } from "@lexical/react/LexicalHistoryPlugin";
 import { OnChangePlugin, onChangePlugin } from "@lexical/react/LexicalOnChangePlugin"
 import { AutoFocusPlugin } from "@lexical/react/LexicalAutoFocusPlugin";
@@ -20,7 +21,7 @@ import { TRANSFORMERS } from "@lexical/markdown";
 import ListMaxIndentLevelPlugin from "./plugins/ListMaxIndentLevelPlugin";
 import CodeHighlightPlugin from "./plugins/CodeHighlightPlugin";
 import AutoLinkPlugin from "./plugins/AutoLinkPlugin";
-import { LexicalEditor, LexicalNode } from "lexical";
+
 
 
 function Placeholder() {
@@ -56,10 +57,11 @@ const editorConfig = {
 
 export default function Editor() {
 
-  const onChange = (editor: LexicalComposer) => {
-    editor.update(() => {
-      const htmlString = $generateHtmlFromNodes(editor, null)
-      console.log(htmlString)
+  const onChange = (editorState) => {
+    editorState.read(() => {
+      const root = $getRoot()
+      const selection = $getSelection()
+      console.log(root, selection)
     })
   }
 
