@@ -24,10 +24,14 @@ class Api::EventsController < ApplicationController
         event.event_name = params[:event_name]
       end
 
-      if params[:event_date].present?
-        event.event_date = params[:event_date]
+      if params[:event_start].present?
+        event.event_start = params[:event_start]
       end
-      
+
+      if params[:event_end].present?
+        event.event_end = params[:event_end]
+      end
+
       if params[:place_identifier].present?
         event.place_identifier = params[:place_identifier]
       end
@@ -65,7 +69,8 @@ class Api::EventsController < ApplicationController
   def event_params
     params.permit(:event_name,
                   :event_city,
-                  :event_date,
+                  :event_start,
+                  :event_end,
                   :event_description,
                   :max_attendees,
                   :place_identifier,

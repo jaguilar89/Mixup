@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_06_11_195507) do
+ActiveRecord::Schema.define(version: 2023_06_11_194205) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,9 +43,8 @@ ActiveRecord::Schema.define(version: 2023_06_11_195507) do
     t.string "place_identifier"
     t.string "place_name"
     t.string "place_address"
-    t.datetime "start_time"
-    t.datetime "end_time"
-    t.date "event_date"
+    t.datetime "event_start"
+    t.datetime "event_end"
     t.index ["organizer_id"], name: "index_events_on_organizer_id"
   end
 

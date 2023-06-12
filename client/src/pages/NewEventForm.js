@@ -11,25 +11,26 @@ import { Alert } from "@mui/material";
 import { useContext, useState } from "react";
 import { UserContext } from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
-import { DatePicker } from "@mui/x-date-pickers";
+import { DateTimePicker } from "@mui/x-date-pickers";
 import dayjs from "dayjs";
 
-export default function NewEventForm({setEvents}) {
+export default function NewEventForm({ setEvents }) {
     const [eventName, setEventName] = useState('')
     const [eventCity, setEventCity] = useState('')
     const [maxAttendees, setMaxAttendees] = useState('')
     const [eventDescription, setEventDescription] = useState('')
     const [placeId, setPlaceId] = useState(null) //each location on Google Maps has a unique 'place_id' identifier
-    const [dateValue, setDateValue] = useState(null)
+    const [eventStart, setEventStart] = useState(null)
+    const [eventEnd, setEventEnd] = useState(null)
     const [venueInfo, setVenueInfo] = useState(null)
     const [errors, setErrors] = useState([])
-    const {user} = useContext(UserContext)
+    const { user } = useContext(UserContext)
     const navigate = useNavigate();
 
     async function handleSubmit(e) {
         e.preventDefault();
-        const {main_text:placeName, secondary_text:placeAddress} = venueInfo.structured_formatting
-        
+        const { main_text: placeName, secondary_text: placeAddress } = venueInfo.structured_formatting
+
         const res = await fetch('/api/events', {
             method: 'POST',
             headers: {
@@ -38,7 +39,8 @@ export default function NewEventForm({setEvents}) {
             body: JSON.stringify({
                 event_name: eventName,
                 event_city: eventCity,
-                event_date: dateValue?.format('YYYY-MM-DD'),
+                event_start: eventStart,
+                event_end: eventEnd,
                 place_identifier: placeId,
                 place_name: placeName,
                 place_address: placeAddress,
@@ -57,6 +59,15 @@ export default function NewEventForm({setEvents}) {
             setErrors(errorObj.errors)
             console.log(errorObj)
         }
+    }
+
+    function handleChangeStart(value) {
+        const newValue = dayjs(value).toISOString()
+        setEventStart(newValue)
+    }
+    function handleChangeEnd(value) {
+        const newValue = dayjs(value).toISOString()
+        setEventEnd(newValue)
     }
 
     return (
@@ -81,13 +92,20 @@ export default function NewEventForm({setEvents}) {
                     onChange={(e) => setEventName(e.target.value)}
                 />
 
-                <GooglePlacesAutocomplete setVenueInfo={setVenueInfo} setPlaceId={setPlaceId}/>
-
-                <DatePicker
-                required 
-                disablePast
-                onChange={(newValue) => setDateValue(newValue)}
+                <GooglePlacesAutocomplete setVenueInfo={setVenueInfo} setPlaceId={setPlaceId} />
+                
+                <DateTimePicker
+                    disablePast
+                    label='Starts at'
+                    onChange={handleChangeStart}
                 />
+                <DateTimePicker
+                    disablePast
+                    label='Ends at'
+                    onChange={handleChangeEnd}
+                />
+
+
 
                 <FormControl required>
                     <InputLabel id='event-select-label'>City</InputLabel>
