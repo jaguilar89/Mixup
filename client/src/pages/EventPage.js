@@ -24,8 +24,14 @@ export default function EventPage({ user, events, setEvents }) {
     const userId = user?.id
 
     dayjs.extend(LocalizedFormat)
+    const userTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone
+    const timeZoneoptions = {timeZone: userTimezone, timeZoneName: 'short', hour: '2-digit', minute: '2-digit'}
     const eventStart = eventInfo?.event_start
     const eventEnd = eventInfo?.event_end               //TODO: destructure eventInfo to tidy up variables
+    const formattedTimeZone = (event) => new Date(event).toLocaleTimeString('en-US', timeZoneoptions)
+    const formattedEventDateTime = (event) => {
+        return dayjs(event).format('LL') + ' ' + formattedTimeZone(event)
+    }
 
     useEffect(() => {
         (async () => {
@@ -167,8 +173,8 @@ export default function EventPage({ user, events, setEvents }) {
 
           <Container sx={{ border: '1px solid black', mb: '20px', width: '35%' }}>
             <Box component='div' sx={{ border: '1px dotted blue', p: '10px' }}>
-                <Typography variant="h6">Starts at: {dayjs(eventStart).format('LLLL')} </Typography>
-                <Typography variant="h6">Ends at: {dayjs(eventEnd).format('LLLL')} </Typography>
+                <Typography variant="h6">Starts at: {formattedEventDateTime(eventStart)} </Typography>
+                <Typography variant="h6">Ends at: {formattedEventDateTime(eventEnd)} </Typography>
                 
                 <br/>
 
