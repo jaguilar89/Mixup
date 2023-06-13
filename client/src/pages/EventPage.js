@@ -11,6 +11,7 @@ import GoogleMaps from "../components/GoogleMaps";
 import { Typography } from "@mui/material";
 import * as dayjs from 'dayjs'
 import LocalizedFormat from 'dayjs/plugin/localizedFormat'
+import parse from 'html-react-parser'
 
 export default function EventPage({ user, events, setEvents }) {
     const [isLoading, setIsLoading] = useState(true)
@@ -22,6 +23,8 @@ export default function EventPage({ user, events, setEvents }) {
     const { eventId } = useParams(); //EVENT_ID
     
     const userId = user?.id
+    const eventDetails = eventInfo?.event_description
+    const parsedEventDetails = eventDetails && eventDetails.toString() && parse(eventDetails)
 
     dayjs.extend(LocalizedFormat)
     const userTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone
@@ -148,6 +151,7 @@ export default function EventPage({ user, events, setEvents }) {
             )
         }
     }
+   
     //handle loading screen logic
     return (
         <Box sx={{ display: 'flex', border: '1px solid red'}}>
@@ -163,11 +167,14 @@ export default function EventPage({ user, events, setEvents }) {
               </Alert>
             )}
             {isLoading && <LoadingScreen />}
-            <Box component='div' display='flex' flexDirection='column' gap='10px' sx={{ border: '1px dotted black' }}>
+            <Box component='div' display='flex' flexDirection='column' gap='1px' sx={{ border: '1px dotted black' }}>
               {isAttending && <h1>You're attending!</h1>}
-              <h1>Event Name: {eventInfo.event_name}</h1>
-              <h2>Description: {eventInfo.event_description}</h2>
+              <h1>{eventInfo.event_name}</h1>
               {renderEventOptions()}
+            </Box>
+            <Box component='div'>
+              <h2>Details </h2>
+            {parsedEventDetails}
             </Box>
           </Container>
 

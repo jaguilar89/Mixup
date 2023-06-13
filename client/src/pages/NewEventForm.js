@@ -7,14 +7,13 @@ import InputLabel from "@mui/material/InputLabel";
 import Select from "@mui/material/Select"
 import MenuItem from "@mui/material/MenuItem"
 import GooglePlacesAutocomplete from "../components/GooglePlacesAutocomplete";
-import '../styles.css'
-import Editor from "../Editor";
-import { Alert } from "@mui/material";
+import Alert from "@mui/material/Alert";
 import { useContext, useState } from "react";
 import { UserContext } from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
 import { DateTimePicker } from "@mui/x-date-pickers";
 import dayjs from "dayjs";
+import TextEditor from "../components/TextEditor";
 
 export default function NewEventForm({ setEvents }) {
     const [eventName, setEventName] = useState('')
@@ -73,14 +72,14 @@ export default function NewEventForm({ setEvents }) {
     }
 
     return (
-        <Container maxWidth='md' sx={{ border: '1px solid black' }}>
+        <Container maxWidth='md'>
             <Box component='form'
                 onSubmit={handleSubmit}
                 sx={{
                     display: 'flex',
                     flexDirection: 'column',
                     gap: '15px',
-                    width: '50%',
+                    width: '60%',
                     m: 'auto'
                 }
                 }>
@@ -133,7 +132,7 @@ export default function NewEventForm({ setEvents }) {
                 />
 
                 {/*event details*/}
-                <Editor setEventDescription={setEventDescription}/>
+                <TextEditor setEventDescription={setEventDescription}/>
 
                 <Button variant="contained" type="submit">Submit</Button>
                 {errors && errors.map((err) => <Alert key={err} severity="error">{err}</Alert>)}

@@ -5,11 +5,10 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
 import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import PersonIcon from '@mui/icons-material/Person';
+import BackgroundLetterAvatar from './BackgroundLetterAvatar';
 import { useContext, useState } from 'react';
 import { UserContext } from '../context/UserContext';
 import { useNavigate } from 'react-router-dom';
@@ -18,6 +17,7 @@ export default function NavBar() {
   const [anchorElUser, setAnchorElUser] = useState(null)
   const { user, setUser } = useContext(UserContext)
   const navigate = useNavigate();
+  const userFullName = user?.full_name
 
   const linkStyle = {
     textDecoration: 'none',
@@ -67,16 +67,13 @@ export default function NavBar() {
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title='User Avatar'>
                 <IconButton onClick={handleOpenUserMenu}>
-                  <Avatar alt='user menu'>
-                    <PersonIcon />
-                  </Avatar>
+                  <BackgroundLetterAvatar name={userFullName} />
                 </IconButton>
               </Tooltip>
 
               <Menu
                 anchorEl={anchorElUser}
                 open={Boolean(anchorElUser)}
-
                 onClose={handleCloseUserMenu}
                 anchorOrigin={{
                   vertical: 'top',
