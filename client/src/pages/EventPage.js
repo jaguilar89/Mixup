@@ -158,7 +158,7 @@ export default function EventPage({ user, events, setEvents }) {
     return (
         <>
         <Box sx={{ display: 'flex', border: '1px solid red'}}>
-          <Container sx={{ border: '1px solid black', mb: '20px', width: '70%' }}>
+          <Container sx={{ border: '1px solid black', mb: '20px', width: '70%', textAlign: 'center' }}>
             {isAttending && (
               <Alert severity="success" sx={{"&.MuiAlert-root": {justifyContent: 'center'} }}>
                 You are attending this event!
@@ -178,7 +178,7 @@ export default function EventPage({ user, events, setEvents }) {
               </Typography>
             </Box>
             <Box component='div'>
-              <h2>Details </h2>
+              <Typography variant="h4">Details</Typography>
             {parsedEventDetails}
             </Box>
           </Container>
@@ -199,11 +199,16 @@ export default function EventPage({ user, events, setEvents }) {
 
         <Typography variant="h3" sx={{textAlign: 'center', pb: 2}}> RSVPs</Typography>
         <Box component='div' display='flex' justifyContent='center' marginBottom='50px'>
-        <AvatarGroup total={attendees.length}>
+        {attendees && (
+            <AvatarGroup total={attendees.length}>
             {attendees && attendees.slice(0,4).map((obj, index) => (
                 <BackgroundLetterAvatar key={index} alt={obj.user.full_name} userFullName={obj.user.full_name} />
             ))}
         </AvatarGroup>
+        )}
+        {attendees.length === 0 && (
+            <Typography variant="h5">There are no RSVPs for this event so far</Typography>
+        )}
         </Box>
         </>
       );

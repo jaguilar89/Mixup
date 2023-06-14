@@ -6,6 +6,9 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import GooglePlacesAutocomplete from "./GooglePlacesAutocomplete";
+import { DateTimePicker } from "@mui/x-date-pickers";
+import TextEditor from "./TextEditor";
+import dayjs from "dayjs";
 
 export default function EventEditForm({ eventId, setEventInfo }) {
     const [submitted, setSubmitted] = useState(false); // Display an success alert once submitted state is set to 'true'.
@@ -14,6 +17,9 @@ export default function EventEditForm({ eventId, setEventInfo }) {
     const [placeId, setPlaceId] = useState(null)
     const [errors, setErrors] = useState([])
     const [formData, setFormData] = useState({})
+    const [eventDescription, setEventDescription] = useState('')
+    const [eventStart, setEventStart] = useState(null)
+    const [eventEnd, setEventEnd] = useState(null)
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -30,6 +36,16 @@ export default function EventEditForm({ eventId, setEventInfo }) {
             [e.target.name]: e.target.value
         })
     }
+
+    function handleChangeStart(value) {
+        const newValue = dayjs(value).toISOString()
+        setEventStart(newValue)
+    }
+    function handleChangeEnd(value) {
+        const newValue = dayjs(value).toISOString()
+        setEventEnd(newValue)
+    }
+
     async function handleSubmit(e) {
         e.preventDefault();
         const { main_text: placeName, secondary_text: placeAddress } = venueInfo?.structured_formatting
@@ -37,14 +53,17 @@ export default function EventEditForm({ eventId, setEventInfo }) {
         let updatedFormData;
 
         if (placeId) {
-             updatedFormData = {
+            updatedFormData = {
                 ...formData,
                 place_identifier: placeId,
                 place_name: placeName,
-                place_address: placeAddress
+                place_address: placeAddress,
+                event_start: eventStart,
+                event_end: eventEnd,
+                event_description: eventDescription
             }
         }
-        //TODO: Fix place name and address updating
+
         const res = await fetch(`/api/events/${eventId}`, {
             method: 'PATCH',
             headers: {
@@ -74,45 +93,40 @@ export default function EventEditForm({ eventId, setEventInfo }) {
 
                 <DialogTitle>Edit Event Details</DialogTitle>
                 <DialogContent>
-                <TextField
+                    <TextField
                         onChange={handleChange}
                         variant="standard"
                         label="Event Name"
                         name="event_name"
                         margin="dense"
+                        sx={{ marginBottom: '20px' }}
                     />
-                    <br />
-                    {/* <TextField
-                variant="standard"
-                label="Upload Image"
-                name="event_image"
-                margin="dense"
-            /> */}
-                    <br />
 
                     <GooglePlacesAutocomplete setVenueInfo={setVenueInfo} setPlaceId={setPlaceId} />
-
-
+                    <br />
+                    <DateTimePicker
+                        disablePast
+                        label='Starts at'
+                        onChange={handleChangeStart}
+                    />
+                    <DateTimePicker
+                        disablePast
+                        label='Ends at'
+                        onChange={handleChangeEnd}
+                    />
+                    <br />
                     <TextField
                         onChange={handleChange}
                         variant="standard"
                         label="Max # of attendees"
                         name="max_attendees"
                         margin="dense"
-                    />
-                    <br />
-                    <TextField
-                        onChange={handleChange}
-                        fullWidth
-                        multiline
-                        rows={4}
-                        variant="standard"
-                        label="Event Description"
-                        name="event_description"
-                        margin="dense"
+                        sx={{ marginBottom: '20px' }}
                     />
 
-                    <br />
+
+                    <TextEditor setEventDescription={setEventDescription} />
+
 
                 </DialogContent>
                 <DialogActions>
