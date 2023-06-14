@@ -18,6 +18,7 @@ export default function NavBar() {
   const { user, setUser } = useContext(UserContext)
   const navigate = useNavigate();
   const userFullName = user?.full_name
+  console.log(userFullName)
 
   const linkStyle = {
     textDecoration: 'none',
@@ -67,7 +68,7 @@ export default function NavBar() {
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title='User Avatar'>
                 <IconButton onClick={handleOpenUserMenu}>
-                  <BackgroundLetterAvatar name={userFullName} />
+                  <BackgroundLetterAvatar userFullName={userFullName} />
                 </IconButton>
               </Tooltip>
 

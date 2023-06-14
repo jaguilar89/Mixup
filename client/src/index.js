@@ -7,13 +7,22 @@ import { BrowserRouter } from 'react-router-dom';
 import { UserContextProvider } from './context/UserContext';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
+import { ThemeProvider, createTheme } from '@mui/material';
+
+const theme = createTheme({
+  typography: {
+    fontFamily: 'Roboto, sans-serif'
+  }
+})
 
 ReactDOM.render(
   <BrowserRouter>
     <React.StrictMode>
       <LocalizationProvider dateAdapter={AdapterDayjs}>
         <UserContextProvider>
+          <ThemeProvider theme={theme}>
           <App />
+          </ThemeProvider>
         </UserContextProvider>
       </LocalizationProvider>
     </React.StrictMode>

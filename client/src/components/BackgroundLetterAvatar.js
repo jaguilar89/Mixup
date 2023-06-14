@@ -21,16 +21,19 @@ function stringToColor(string) {
 }
 
 function stringAvatar(name) {
-  return {
-    sx: {
-      bgcolor: stringToColor(name),
-    },
-    children: `${name.split(' ')[0][0]}${name.split(' ')[1][0]}`,
-  };
+  if (name) {
+    return {
+      sx: {
+        bgcolor: stringToColor(name),
+      },
+      children: `${name.split(' ')[0][0]}${name.split(' ')[1][0]}`,
+    };
+  }
 }
 
-export default function BackgroundLetterAvatar({name}) {
+export default function BackgroundLetterAvatar({userFullName}) {
+  const name = userFullName || ''
   return (
-      <Avatar {...stringAvatar(`Jose Aguilar`)} />
+      <Avatar {...stringAvatar(name)} />
   );
 }

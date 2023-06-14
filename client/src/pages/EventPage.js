@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom"
+import BackgroundLetterAvatar from "../components/BackgroundLetterAvatar"
 import Button from "@mui/material/Button"
 import Box from "@mui/material/Box";
 import LoadingScreen from "../components/LoadingScreen";
@@ -8,7 +9,7 @@ import EventEditForm from "../components/EventEditForm";
 import EventCancelDialog from "../components/EventCancelDialog";
 import Alert from "@mui/material/Alert";
 import GoogleMaps from "../components/GoogleMaps";
-import { Typography } from "@mui/material";
+import { AvatarGroup, Typography } from "@mui/material";
 import * as dayjs from 'dayjs'
 import LocalizedFormat from 'dayjs/plugin/localizedFormat'
 import parse from 'html-react-parser'
@@ -23,6 +24,7 @@ export default function EventPage({ user, events, setEvents }) {
     const { eventId } = useParams(); //EVENT_ID
     
     const userId = user?.id
+    const organizerName = organizer?.full_name
     const eventDetails = eventInfo?.event_description
     const parsedEventDetails = eventDetails && eventDetails.toString() && parse(eventDetails)
 
@@ -60,6 +62,7 @@ export default function EventPage({ user, events, setEvents }) {
             if (res.ok) {
                 const attendanceRecords = await res.json()
                 setAttendees(attendanceRecords)
+                console.log(attendees)
                 const userRecord = attendanceRecords.filter((rec) => rec.user_id === userId)
                 if (userRecord.length !== 0) setUserAttendanceInfo(userRecord)
             } else {
@@ -151,9 +154,9 @@ export default function EventPage({ user, events, setEvents }) {
             )
         }
     }
-   
-    //handle loading screen logic
+
     return (
+        <>
         <Box sx={{ display: 'flex', border: '1px solid red'}}>
           <Container sx={{ border: '1px solid black', mb: '20px', width: '70%' }}>
             {isAttending && (
@@ -167,10 +170,12 @@ export default function EventPage({ user, events, setEvents }) {
               </Alert>
             )}
             {isLoading && <LoadingScreen />}
-            <Box component='div' display='flex' flexDirection='column' gap='1px' sx={{ border: '1px dotted black' }}>
-              {isAttending && <h1>You're attending!</h1>}
-              <h1>{eventInfo.event_name}</h1>
-              {renderEventOptions()}
+            <Box component='div' sx={{pb: '20px'}}>
+                <Typography variant="h3">{eventInfo.event_name}</Typography>
+              <Typography variant="h6" sx={{ display: 'inline-flex', gap: '10px', pt: '10px'}}>
+              <BackgroundLetterAvatar userFullName={organizerName}/>
+                Hosted by {organizerName}
+              </Typography>
             </Box>
             <Box component='div'>
               <h2>Details </h2>
@@ -178,18 +183,29 @@ export default function EventPage({ user, events, setEvents }) {
             </Box>
           </Container>
 
-          <Container sx={{ border: '1px solid black', mb: '20px', width: '35%' }}>
-            <Box component='div' sx={{ border: '1px dotted blue', p: '10px' }}>
+          <Container sx={{ mb: '20px', mt:'15px', width: '35%' }}>
+             {renderEventOptions()} 
+            <Box component='div' sx={{ p: '10px' }}>
                 <Typography variant="h6">Starts at: {formattedEventDateTime(eventStart)} </Typography>
                 <Typography variant="h6">Ends at: {formattedEventDateTime(eventEnd)} </Typography>
+                 <Typography variant="h6">Spots open: {eventInfo.available_spots} spots(s) left</Typography>
                 
                 <br/>
 
               <GoogleMaps eventInfo={eventInfo}/>
-              <h2>Availability: {eventInfo.available_spots} spot(s) left.</h2>
             </Box>
           </Container>
         </Box>
+
+        <Typography variant="h3" sx={{textAlign: 'center', pb: 2}}> RSVPs</Typography>
+        <Box component='div' display='flex' justifyContent='center'>
+        <AvatarGroup total={attendees.length}>
+            {attendees && attendees.slice(0,4).map((obj, index) => (
+                <BackgroundLetterAvatar key={index} alt={obj.user.full_name} userFullName={obj.user.full_name} />
+            ))}
+        </AvatarGroup>
+        </Box>
+        </>
       );
       
 };

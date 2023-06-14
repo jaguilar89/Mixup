@@ -14,7 +14,7 @@ export default function TextEditor({setEventDescription}) {
         <Editor
           apiKey={TINY_MCE_API_KEY}
           onInit={(evt, editor) => editorRef.current = editor}
-          initialValue="<p>This is the initial content of the editor.</p>"
+          initialValue="<p>Enter event details...</p>"
           onEditorChange={handleEditorChange}
           init={{
             height: 300,
@@ -34,27 +34,3 @@ export default function TextEditor({setEventDescription}) {
       </>
     );
   }
-   /*  const editorRef = useRef(null);
-  const TINY_MCE_API_KEY = process.env.TINY_MCE_API_KEY;
-
-  const handleEditorChange = () => {
-    const content = editorRef.current.getContent();
-    setEventDescription(content);
-  };
-
-  return (
-    <>
-      <Editor
-        apiKey={TINY_MCE_API_KEY}
-        initialValue="<p>Enter event details...</p>"
-        onInit={(event, editor) => {
-          editorRef.current = editor;
-        }}
-        onEditorChange={handleEditorChange}
-        init={{
-          height: 300,
-          // ... other TinyMCE configuration options
-        }}
-      />
-    </>
-  ); */
