@@ -9,6 +9,7 @@ import { useContext, useState } from 'react';
 import { UserContext } from './context/UserContext';
 import NewEventForm from './pages/NewEventForm';
 import EventPage from './pages/EventPage';
+import Footer from './components/Footer';
 
 function App() {
   const { user, setUser } = useContext(UserContext)
@@ -26,6 +27,7 @@ function App() {
     <Route path='/events/:eventId' element={<EventPage user={user} events={events} setEvents={events}/>} />
     <Route path='*' element={<LandingPage />} />
   </Routes>
+  <Footer />
   </>
   );
 }
