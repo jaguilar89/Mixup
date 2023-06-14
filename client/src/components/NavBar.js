@@ -18,7 +18,6 @@ export default function NavBar() {
   const { user, setUser } = useContext(UserContext)
   const navigate = useNavigate();
   const userFullName = user?.full_name
-  console.log(userFullName)
 
   const linkStyle = {
     textDecoration: 'none',
@@ -66,6 +65,14 @@ export default function NavBar() {
           )}
           {user && (
             <Box sx={{ flexGrow: 0 }}>
+              <Button
+                    variant='contained'
+                    component='a'
+                    href='/events/new'
+                    sx={{marginRight: '20px'}}
+                >
+                  Create Event
+                </Button>
               <Tooltip title='User Avatar'>
                 <IconButton onClick={handleOpenUserMenu}>
                   <BackgroundLetterAvatar userFullName={userFullName} />
@@ -89,9 +96,6 @@ export default function NavBar() {
               >
                 <MenuItem>
                   <Typography sx={linkStyle} textAlign='center' component='a' href='profile'>Profile</Typography>
-                </MenuItem>
-                <MenuItem>
-                  <Typography sx={linkStyle} textAlign='center' component='a' href='account'>Account</Typography>
                 </MenuItem>
                 <MenuItem onClick={handleLogout}>
                   <Typography sx={linkStyle} textAlign='center' component='a' href='logout'>Log Out {user.username}</Typography>

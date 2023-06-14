@@ -59,7 +59,7 @@ export default function LoginForm({ setUser }) {
   return (
     <ThemeProvider theme={theme}>
         <CssBaseline />
-      <Container component="main" maxWidth="xs">
+      <Container component="main" maxWidth="xs" sx={{marginBottom: '14%'}}>
         <Box
           sx={{
             marginTop: 8,

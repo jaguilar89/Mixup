@@ -1,4 +1,4 @@
-#TODO
+# TODO
 - Finish event editing functionality
 - create page listing event attendees in full
 - create profile pages for users (maybe)
