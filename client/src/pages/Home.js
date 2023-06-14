@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import LoadingScreen from '../components/LoadingScreen';
 
 
-export default function Home({ user, events, setEvents }) {
+export default function Home({ user, setUser, events, setEvents }) {
     const [isLoading, setIsLoading] = useState(true)
     const navigate = useNavigate();
 
@@ -41,7 +41,7 @@ export default function Home({ user, events, setEvents }) {
         </Grid>
     ))
 
-   
+   if (!user) return <LoginForm setUser={setUser}/>
     return (
         <>
             <h1>The event cards will be in a grid layout, able to be sorted by distance as well as categories </h1>

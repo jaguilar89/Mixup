@@ -198,7 +198,7 @@ export default function EventPage({ user, events, setEvents }) {
         </Box>
 
         <Typography variant="h3" sx={{textAlign: 'center', pb: 2}}> RSVPs</Typography>
-        <Box component='div' display='flex' justifyContent='center'>
+        <Box component='div' display='flex' justifyContent='center' marginBottom='50px'>
         <AvatarGroup total={attendees.length}>
             {attendees && attendees.slice(0,4).map((obj, index) => (
                 <BackgroundLetterAvatar key={index} alt={obj.user.full_name} userFullName={obj.user.full_name} />
