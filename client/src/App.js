@@ -10,6 +10,8 @@ import { UserContext } from './context/UserContext';
 import NewEventForm from './pages/NewEventForm';
 import EventPage from './pages/EventPage';
 import Footer from './components/Footer';
+import NewProfileForm from './pages/NewProfileForm';
+import UserProfile from './pages/UserProfile';
 
 function App() {
   const { user, setUser } = useContext(UserContext)
@@ -25,6 +27,8 @@ function App() {
     <Route path='/login/signup' element={<SignupForm setUser={setUser}/>} />
     <Route path='/events/new' element={<NewEventForm setEvents={setEvents}/>} />
     <Route path='/events/:eventId' element={<EventPage user={user} events={events} setEvents={events}/>} />
+    <Route path='/profile/new' element={<NewProfileForm />} />
+    <Route path='/profile/:id' element={<UserProfile />} />
     <Route path='*' element={<LandingPage />} />
   </Routes>
   <Footer />

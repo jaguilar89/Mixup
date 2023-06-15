@@ -66,7 +66,7 @@ export default function Home({ user, setUser, events, setEvents }) {
             </Select>
         </FormControl>
         </Box>
-            <Container sx={{ marginBottom:'21%' }}>
+            <Container sx={{ marginBottom:'40%' }}>
                 {isLoading && <LoadingScreen />}
                 <br />
                 <Grid container rowSpacing={5} columnSpacing={{ xs: 4, sm: 8, md: 10 }}>

@@ -7,9 +7,9 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Alert from '@mui/material/Alert';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import logo from '../images/logo-transparent.png'
 
 function Copyright() {
     return (
@@ -31,7 +31,6 @@ export default function SignupForm({ setUser }) {
     const [passwordConfirmation, setPasswordConfirmation] = useState("")
     const [errors, setErrors] = useState([])
     const navigate = useNavigate()
-    const theme = createTheme()
 
     async function handleSubmit(e) {
         e.preventDefault();
@@ -52,7 +51,7 @@ export default function SignupForm({ setUser }) {
         if (res.ok) {
             const user = await res.json()
             setUser(user)
-            navigate('/home')
+            navigate('/profile/new')
         } else {
             const err = await res.json()
             //setIsLoading(false)
@@ -62,7 +61,7 @@ export default function SignupForm({ setUser }) {
     }
 
     return (
-        <ThemeProvider theme={theme}>
+            <>
             <Container component="main" maxWidth="xs">
 
                 <CssBaseline />
@@ -74,7 +73,7 @@ export default function SignupForm({ setUser }) {
                         alignItems: 'center',
                     }}
                 >
-                    <img src='LOGO' width="300px" height="40px" alt='logo'/>
+                    <img src={logo} width="350px" height="50px" alt='logo'/>
                     <br />
                     <Typography component="h1" variant="h5">
                         Sign Up For An Account
@@ -144,7 +143,7 @@ export default function SignupForm({ setUser }) {
             </Container>
             <br />
             {Copyright()}
-        </ThemeProvider>
+            </>
     );
 }
 

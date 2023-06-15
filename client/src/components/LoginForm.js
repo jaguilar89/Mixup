@@ -10,6 +10,7 @@ import Alert from '@mui/material/Alert';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import logo from '../images/logo-transparent.png'
 
 
 export default function LoginForm({ setUser }) {
@@ -57,7 +58,7 @@ export default function LoginForm({ setUser }) {
   } 
 
   return (
-    <ThemeProvider theme={theme}>
+    <>
         <CssBaseline />
       <Container component="main" maxWidth="xs" sx={{marginBottom: '14%'}}>
         <Box
@@ -68,7 +69,7 @@ export default function LoginForm({ setUser }) {
             alignItems: 'center',
           }}
         >
-          <img src='LOGO' width="300px" height="40px" alt='logo'/>
+          <img src={logo} width="350px" height="50px" alt='logo'/>
           <br />
           <Typography component="h1" variant="h5">
             Sign in
@@ -119,6 +120,6 @@ export default function LoginForm({ setUser }) {
       </Container>
       <br />
       {Copyright()}
-    </ThemeProvider>
+          </>
   );
 }

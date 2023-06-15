@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_06_11_194205) do
+ActiveRecord::Schema.define(version: 2023_06_15_175628) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -57,6 +57,15 @@ ActiveRecord::Schema.define(version: 2023_06_11_194205) do
     t.index ["user_account_id"], name: "index_posts_on_user_account_id"
   end
 
+  create_table "profiles", force: :cascade do |t|
+    t.string "home_city"
+    t.text "bio"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_profiles_on_user_id"
+  end
+
   create_table "user_accounts", force: :cascade do |t|
     t.string "username"
     t.string "password_digest"
@@ -76,4 +85,5 @@ ActiveRecord::Schema.define(version: 2023_06_11_194205) do
   add_foreign_key "attendances", "users"
   add_foreign_key "events", "users", column: "organizer_id"
   add_foreign_key "posts", "user_accounts"
+  add_foreign_key "profiles", "users"
 end
