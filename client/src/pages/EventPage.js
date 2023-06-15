@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom"
+import { useParams } from "react-router-dom"
 import BackgroundLetterAvatar from "../components/BackgroundLetterAvatar"
 import Button from "@mui/material/Button"
 import Box from "@mui/material/Box";
@@ -9,7 +9,8 @@ import EventEditForm from "../components/EventEditForm";
 import EventCancelDialog from "../components/EventCancelDialog";
 import Alert from "@mui/material/Alert";
 import GoogleMaps from "../components/GoogleMaps";
-import { AvatarGroup, Typography } from "@mui/material";
+import { Accordion, Grid, AccordionSummary, AccordionDetails, AvatarGroup, Typography } from "@mui/material";
+import { Link } from "react-router-dom";
 import * as dayjs from 'dayjs'
 import LocalizedFormat from 'dayjs/plugin/localizedFormat'
 import parse from 'html-react-parser'
@@ -21,8 +22,9 @@ export default function EventPage({ user, events, setEvents }) {
     const [userAttendanceInfo, setUserAttendanceInfo] = useState([])
     const [attendees, setAttendees] = useState([])
     const [isAttending, setIsAttending] = useState(false)
+    const [expanded, setExpanded] = useState(false) //Expand RSVP list
     const { eventId } = useParams(); //EVENT_ID
-    
+
     const userId = user?.id
     const organizerName = organizer?.full_name
     const eventDetails = eventInfo?.event_description
@@ -30,7 +32,7 @@ export default function EventPage({ user, events, setEvents }) {
 
     dayjs.extend(LocalizedFormat)
     const userTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone
-    const timeZoneoptions = {timeZone: userTimezone, timeZoneName: 'short', hour: '2-digit', minute: '2-digit'}
+    const timeZoneoptions = { timeZone: userTimezone, timeZoneName: 'short', hour: '2-digit', minute: '2-digit' }
     const eventStart = eventInfo?.event_start
     const eventEnd = eventInfo?.event_end               //TODO: destructure eventInfo to tidy up variables
     const formattedTimeZone = (event) => new Date(event).toLocaleTimeString('en-US', timeZoneoptions)
@@ -62,7 +64,6 @@ export default function EventPage({ user, events, setEvents }) {
             if (res.ok) {
                 const attendanceRecords = await res.json()
                 setAttendees(attendanceRecords)
-                console.log(attendees)
                 const userRecord = attendanceRecords.filter((rec) => rec.user_id === userId)
                 if (userRecord.length !== 0) setUserAttendanceInfo(userRecord)
             } else {
@@ -127,90 +128,118 @@ export default function EventPage({ user, events, setEvents }) {
         }
     }
 
-    function renderEventOptions() {  
+    function renderEventOptions() {
         if (organizer.id === userId) {
             return (
                 <Box component='div' display='flex' justifyContent='flex-start' alignItems='flex-start'>
-                    <EventEditForm eventId={eventId} setEventInfo={setEventInfo}/>
-                    <br/>
-                    <EventCancelDialog onCancelEvent={handleCancelEvent}/>
+                    <EventEditForm eventId={eventId} setEventInfo={setEventInfo} />
+                    <br />
+                    <EventCancelDialog onCancelEvent={handleCancelEvent} />
                 </Box>
             )
         } else if (isAttending && organizer.id !== userId) {
             return (
-               <div>
-                <Box component='form' onSubmit={handleRemoveRsvp}>
-                    <Button variant="contained" type="submit">Cancel RSVP</Button>
-                </Box>
-               </div>
+                <div>
+                    <Box component='form' onSubmit={handleRemoveRsvp}>
+                        <Button variant="contained" type="submit">Cancel RSVP</Button>
+                    </Box>
+                </div>
             )
         } else if (!isAttending) {
             return (
                 <div>
-                <Box component='form' onSubmit={handleSubmitRsvp}>
-                    <Button variant="contained" type="submit">RSVP</Button>
-                </Box>
-            </div>
+                    <Box component='form' onSubmit={handleSubmitRsvp}>
+                        <Button variant="contained" type="submit">RSVP</Button>
+                    </Box>
+                </div>
             )
         }
     }
 
+    function handleToggleExpand() {
+        setExpanded(!expanded)
+    }
+
     return (
         <>
-        <Box sx={{ display: 'flex', border: '1px solid red'}}>
-          <Container sx={{ border: '1px solid black', mb: '20px', width: '70%', textAlign: 'center' }}>
-            {isAttending && (
-              <Alert severity="success" sx={{"&.MuiAlert-root": {justifyContent: 'center'} }}>
-                You are attending this event!
-              </Alert>
-            )}
-            {eventInfo?.organizer?.id === userId && (
-              <Alert severity="info" sx={{"&.MuiAlert-root": {justifyContent: 'center'} }}>
-                You are organizing this event
-              </Alert>
-            )}
             {isLoading && <LoadingScreen />}
-            <Box component='div' sx={{pb: '20px'}}>
-                <Typography variant="h3">{eventInfo.event_name}</Typography>
-              <Typography variant="h6" sx={{ display: 'inline-flex', gap: '10px', pt: '10px'}}>
-              <BackgroundLetterAvatar userFullName={organizerName}/>
-                Hosted by {organizerName}
-              </Typography>
-            </Box>
-            <Box component='div'>
-              <Typography variant="h4">Details</Typography>
-            {parsedEventDetails}
-            </Box>
-          </Container>
+            <Box sx={{ display: 'flex'}}>
+                <Container sx={{ mb: '20px', width: '70%', textAlign: 'center' }}>
+                    {isAttending && (
+                        <Alert severity="success" sx={{ "&.MuiAlert-root": { justifyContent: 'center' } }}>
+                            You are attending this event!
+                        </Alert>
+                    )}
+                    {eventInfo?.organizer?.id === userId && (
+                        <Alert severity="info" sx={{ "&.MuiAlert-root": { justifyContent: 'center' } }}>
+                            You are organizing this event
+                        </Alert>
+                    )}
+                    <Box component='div' sx={{ pb: '20px', marginTop: '10px' }}>
+                        <Typography variant="h3">{eventInfo.event_name}</Typography>
+                        <Typography variant="h6" sx={{ display: 'inline-flex', gap: '10px', pt: '10px' }}>
+                            <BackgroundLetterAvatar userFullName={organizerName} />
+                            Hosted by {organizerName}
+                        </Typography>
+                    </Box>
+                    <Box component='div'>
+                        <Typography variant="h4">Details</Typography>
+                        {parsedEventDetails}
+                    </Box>
+                </Container>
 
-          <Container sx={{ mb: '20px', mt:'15px', width: '35%' }}>
-             {renderEventOptions()} 
-            <Box component='div' sx={{ p: '10px' }}>
-                <Typography variant="h6">Starts at: {formattedEventDateTime(eventStart)} </Typography>
-                <Typography variant="h6">Ends at: {formattedEventDateTime(eventEnd)} </Typography>
-                 <Typography variant="h6">Spots open: {eventInfo.available_spots} spots(s) left</Typography>
-                
-                <br/>
+                <Container sx={{ mb: '20px', mt: '15px', width: '35%' }}>
+                    {renderEventOptions()}
+                    <Box component='div' sx={{ p: '10px' }}>
+                        <Typography variant="h6">Starts at: {formattedEventDateTime(eventStart)} </Typography>
+                        <Typography variant="h6">Ends at: {formattedEventDateTime(eventEnd)} </Typography>
+                        <Typography variant="h6">Spots open: {eventInfo.available_spots} spots(s) left</Typography>
 
-              <GoogleMaps eventInfo={eventInfo}/>
+                        <br />
+
+                        <GoogleMaps eventInfo={eventInfo} />
+                    </Box>
+                </Container>
             </Box>
-          </Container>
-        </Box>
 
-        <Typography variant="h3" sx={{textAlign: 'center', pb: 2}}> RSVPs</Typography>
-        <Box component='div' display='flex' justifyContent='center' marginBottom='50px'>
-        {attendees && (
-            <AvatarGroup total={attendees.length}>
-            {attendees && attendees.slice(0,4).map((obj, index) => (
-                <BackgroundLetterAvatar key={index} alt={obj.user.full_name} userFullName={obj.user.full_name} />
-            ))}
-        </AvatarGroup>
-        )}
-        {attendees.length === 0 && (
-            <Typography variant="h5">There are no RSVPs for this event so far</Typography>
-        )}
-        </Box>
+            {/*----------------------------------------RSVPs------------------------------------------------------ */}
+
+            <Typography variant="h3" sx={{ textAlign: 'center', pb: 2 }}> RSVPs</Typography>
+
+            <Accordion expanded={expanded} onChange={handleToggleExpand}>
+                <AccordionSummary>
+                    <Box component='div' display='flex' alignItems='center' justifyContent='center' m='auto'>
+                        {attendees && (
+                                <AvatarGroup total={attendees.length}>
+                                    {attendees && attendees.slice(0, 4).map((obj, index) => (
+                                        <BackgroundLetterAvatar key={index} alt={obj.user.full_name} userFullName={obj.user.full_name} />
+                                    ))}
+                                </AvatarGroup>
+                        )}
+                        {attendees.length === 0 && (
+                            <Typography variant="h5">There are no RSVPs for this event so far</Typography>
+                        )}
+                    </Box>
+                </AccordionSummary>
+                <Box display='flex' justifyContent='center' alignItems='center'>
+                    <Grid container rowSpacing={1} columnSpacing={10} sx={{ justifyContent: 'center' }}>
+                        {attendees && attendees.map((el, index) => (
+                            <Grid item key={index} xs={6} sm={6} md={6} sx={{ display: 'flex', flexDirection: 'row', gap: '10px', justifyContent: 'center', alignItems: 'center' }}>
+                                <Box
+                                    display='flex'
+                                    flexDirection='column'
+                                    alignItems='center'
+                                    sx={{ width: '80%', maxWidth: '300px' }} // Adjust the width as per your requirement
+                                >
+                                    <BackgroundLetterAvatar userFullName={el.user.full_name} />
+                                    <Typography variant="h6">{el.user.full_name}</Typography>
+                                </Box>
+                            </Grid>
+                        ))}
+                    </Grid>
+                </Box>
+            </Accordion>
         </>
-      );
-      
+    );
+
 };

@@ -4,7 +4,7 @@ import Card from '@mui/material/Card'
 import Typography from '@mui/material/Typography';
 import CardActionArea from '@mui/material/CardActionArea';
 import cardImage from '../images/cardimage.jpeg'
-import dayjs from 'dayjs';
+import * as dayjs from 'dayjs';
 
 export default function EventCard({ eventName, eventDate, eventLocation, attendances, availableSpots, organizer }) {
   const formattedDate = dayjs(eventDate).format('llll')

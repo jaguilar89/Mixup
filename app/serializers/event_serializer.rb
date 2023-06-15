@@ -13,6 +13,7 @@ class EventSerializer < ActiveModel::Serializer
              :is_attending
 
   has_many :attendances
+  has_many :attendances
   belongs_to :organizer
 
   #Serialized attribute showing whether the logged in user is attending the event.

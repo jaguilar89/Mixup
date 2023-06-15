@@ -30,6 +30,7 @@ export default function NavBar() {
       textDecoration: 'none'
     }
   }
+  
   function handleOpenUserMenu(e) {
     setAnchorElUser(e.currentTarget)
   }

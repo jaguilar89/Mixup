@@ -81,7 +81,7 @@ export default function LoginForm({ setUser }) {
               id="username"
               label="Username"
               name="username"
-              autoComplete='username'
+              autoComplete
               autoFocus
               onChange={(e) => setUsername(e.currentTarget.value)}
             />
