@@ -7,9 +7,14 @@ import { BrowserRouter } from 'react-router-dom';
 import { UserContextProvider } from './context/UserContext';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
-import { ThemeProvider, createTheme } from '@mui/material';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
 
 const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#de6251'
+    }
+  },
   typography: {
     fontFamily: 'Roboto, sans-serif'
   }

@@ -1,15 +1,18 @@
 import Grid from '@mui/material/Grid'
 import EventCard from "../components/EventCard";
 import Container from '@mui/material/Container';
+import Box from '@mui/material/Box'
 import Button from '@mui/material/Button';
 import LoginForm from '../components/LoginForm';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import LoadingScreen from '../components/LoadingScreen';
+import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 
 
 export default function Home({ user, setUser, events, setEvents }) {
     const [isLoading, setIsLoading] = useState(true)
+    const [cityFilter, setCityFilter] = useState("all")
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -26,8 +29,9 @@ export default function Home({ user, setUser, events, setEvents }) {
         })()
     }, []);
 
-    const eventCards = events.map((event) => (
-        <Grid item
+    const eventCards = events.filter((event) => cityFilter === 'all' ? true : event.event_city === cityFilter)
+                             .map((event) => (
+                                <Grid item
             onClick={() => navigate(`/events/${event.id}`)}
             key={event.id}
         >
@@ -40,12 +44,29 @@ export default function Home({ user, setUser, events, setEvents }) {
                 organizer={event.organizer.full_name}
             />
         </Grid>
-    ))
+                             ))
+
+    function handleCityChange(e) {
+        setCityFilter(e.target.value)
+    }
 
    if (!user) return <LoginForm setUser={setUser}/>
     return (
         <>
-            <Container sx={{ border: '1px solid black', marginBottom:'21%' }}>
+        <Box display='flex' justifyContent='center' marginTop='50px' marginBottom='25px'>
+        <FormControl sx={{ width: '25%'}}>
+            <InputLabel>Search By City</InputLabel>
+            <Select
+            id='city-select'
+            onChange={handleCityChange}
+            >
+                <MenuItem value='all'>All</MenuItem>
+                <MenuItem value='nyc'>NYC</MenuItem>
+                <MenuItem value='denver'>Denver</MenuItem>
+            </Select>
+        </FormControl>
+        </Box>
+            <Container sx={{ marginBottom:'21%' }}>
                 {isLoading && <LoadingScreen />}
                 <br />
                 <Grid container rowSpacing={5} columnSpacing={{ xs: 4, sm: 8, md: 10 }}>
@@ -55,3 +76,4 @@ export default function Home({ user, setUser, events, setEvents }) {
         </>
     )
 }
+

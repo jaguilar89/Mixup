@@ -30,7 +30,7 @@ export default function NewEventForm({ setEvents }) {
 
     async function handleSubmit(e) {
         e.preventDefault();
-        const { main_text: placeName, secondary_text: placeAddress } = venueInfo.structured_formatting
+        const { main_text: placeName, secondary_text: placeAddress } = venueInfo?.structured_formatting
 
         const res = await fetch('/api/events', {
             method: 'POST',

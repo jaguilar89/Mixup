@@ -163,7 +163,7 @@ export default function EventPage({ user, events, setEvents }) {
     return (
         <>
             {isLoading && <LoadingScreen />}
-            <Box sx={{ display: 'flex'}}>
+            <Box sx={{ display: 'flex', marginBottom: '25px'}}>
                 <Container sx={{ mb: '20px', width: '70%', textAlign: 'center' }}>
                     {isAttending && (
                         <Alert severity="success" sx={{ "&.MuiAlert-root": { justifyContent: 'center' } }}>

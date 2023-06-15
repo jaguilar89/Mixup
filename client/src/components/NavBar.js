@@ -12,6 +12,8 @@ import BackgroundLetterAvatar from './BackgroundLetterAvatar';
 import { useContext, useState } from 'react';
 import { UserContext } from '../context/UserContext';
 import { useNavigate } from 'react-router-dom';
+import { Link } from '@mui/material';
+import logo from '../images/logo-transparent.png'
 
 export default function NavBar() {
   const [anchorElUser, setAnchorElUser] = useState(null)
@@ -52,15 +54,19 @@ export default function NavBar() {
   }
 
   return (
-    <AppBar position='sticky' sx={{ bgcolor: '#f5f5f5', boxShadow: '1px' }}>
+    <AppBar position='sticky' sx={{ bgcolor: '#ffffff', boxShadow: '1px' }}>
       <Container maxWidth>
         <Toolbar disableGutters>
-          <Box sx={{ flexGrow: 1, color: 'black' }}><a href='/home'>LOGO</a></Box>
+          <Box sx={{ flexGrow: 1, color: 'black' }}>
+            <Link href='/home'>
+              <img src={logo} width='200px' height='33px' alt='logo'/>
+            </Link>
+          </Box>
 
 
           {!user && (
-            <Box sx={{ flexGrow: 0 }}>
-              <Button variant='contained' component='a' href='/login'>Log In</Button>
+            <Box sx={{ flexGrow: 0}}>
+              <Button variant='contained' component='a' href='/login' sx={{marginRight: '20px'}}>Log In</Button>
               <Button variant='contained' component='a' href='/login/signup'>Sign Up</Button>
             </Box>
           )}
