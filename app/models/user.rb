@@ -4,7 +4,6 @@ class User < ApplicationRecord
   has_many :events, through: :attendances
   has_many :organized_events, class_name: "Event", foreign_key: "organizer_id" #aliased attribute which will list events organized by the user
   has_one :profile, dependent: :destroy
-  before_create :build_profile
 
   validates :full_name, presence: true
   validates :username, presence: true, uniqueness: true

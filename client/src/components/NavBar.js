@@ -102,7 +102,7 @@ export default function NavBar() {
                 sx={{ mt: '45px' }}
               >
                 <MenuItem>
-                  <Typography sx={linkStyle} textAlign='center' component='a' href={`/profile/${user.profile?.id}`}>Profile</Typography>
+                  <Typography sx={linkStyle} textAlign='center' component='a' href={`/profiles/${user.profile?.id}`}>Profile</Typography>
                 </MenuItem>
                 <MenuItem onClick={handleLogout}>
                   <Typography sx={linkStyle} textAlign='center' component='a' href='logout'>Log Out {user.username}</Typography>

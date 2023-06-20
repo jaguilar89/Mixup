@@ -51,7 +51,7 @@ export default function SignupForm({ setUser }) {
         if (res.ok) {
             const user = await res.json()
             setUser(user)
-            navigate('/profile/new')
+            navigate('/profiles/new')
         } else {
             const err = await res.json()
             //setIsLoading(false)

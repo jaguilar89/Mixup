@@ -9,8 +9,7 @@ import EventEditForm from "../components/EventEditForm";
 import EventCancelDialog from "../components/EventCancelDialog";
 import Alert from "@mui/material/Alert";
 import GoogleMaps from "../components/GoogleMaps";
-import { Accordion, Grid, AccordionSummary, AccordionDetails, AvatarGroup, Typography } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Accordion, Grid, AccordionSummary, AvatarGroup, Typography } from "@mui/material";
 import * as dayjs from 'dayjs'
 import LocalizedFormat from 'dayjs/plugin/localizedFormat'
 import parse from 'html-react-parser'
@@ -28,7 +27,7 @@ export default function EventPage({ user, events, setEvents }) {
     const userId = user?.id
     const organizerName = organizer?.full_name
     const eventDetails = eventInfo?.event_description
-    const parsedEventDetails = eventDetails && eventDetails.toString() && parse(eventDetails)
+    const parsedEventDetails = eventDetails && eventDetails.toString() && parse(eventDetails) //parse the event details in HTML format in order to render correctly
 
     dayjs.extend(LocalizedFormat)
     const userTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone
@@ -105,7 +104,6 @@ export default function EventPage({ user, events, setEvents }) {
                 const msg = await res.json()
                 setUserAttendanceInfo(null)
                 setIsAttending((isAttending) => !isAttending)
-                console.log(msg)
             } else {
                 const error = await res.json()
                 console.log(error)

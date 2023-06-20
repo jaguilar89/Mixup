@@ -1,7 +1,9 @@
 class Api::ProfilesController < ApplicationController
   def create
-    profile = @current_user.profile.update!(profile_params)
-    render json: profile, scope: @current_user, status: :created
+    profile = @current_user.build_profile(profile_params)
+    if profile.save!
+      render json: profile, scope: @current_user, status: :created
+    end
   end
 
   def show
@@ -12,6 +14,6 @@ class Api::ProfilesController < ApplicationController
   private
 
   def profile_params
-    params.permit(:home_city, :bio)
+    params.permit(:home_city, :bio, :profile)
   end
 end
