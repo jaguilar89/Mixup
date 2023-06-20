@@ -4,7 +4,7 @@ Rails.application.routes.draw do
       resources :attendances, only: [:index, :create, :destroy]
     end
 
-    resources :profiles, only: [:show]
+    resources :profiles, only: [:show, :create]
     post "/signup", to: "users#create"
     post "/login", to: "sessions#create"
     get "/me", to: "users#show"

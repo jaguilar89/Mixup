@@ -50,7 +50,6 @@ export default function Home({ user, setUser, events, setEvents }) {
         setCityFilter(e.target.value)
     }
 
-   if (!user) return <LoginForm setUser={setUser}/>
     return (
         <>
         <Box display='flex' justifyContent='center' marginTop='50px' marginBottom='25px'>
@@ -59,6 +58,7 @@ export default function Home({ user, setUser, events, setEvents }) {
             <Select
             id='city-select'
             onChange={handleCityChange}
+            value={cityFilter}
             >
                 <MenuItem value='all'>All</MenuItem>
                 <MenuItem value='nyc'>NYC</MenuItem>

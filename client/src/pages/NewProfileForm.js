@@ -9,7 +9,9 @@ export default function NewProfileForm() {
     const [errors, setErrors] = useState([])
     const navigate = useNavigate()
 
-    async function handleSubmit() {
+    async function handleSubmit(e) {
+        e.preventDefault();
+
         const res = await fetch('/api/profiles', {
             method: 'POST',
             headers: {
@@ -30,9 +32,10 @@ export default function NewProfileForm() {
         }
     }
     return (
-         <Container maxWidth='md'>
+         <Container maxWidth='md' sx={{marginBottom: '15%', marginTop: '2%'}}>
             <Typography variant="h4" textAlign='center'>Create your profile</Typography>
             <Box component='form'
+                onSubmit={handleSubmit}
                 sx={{
                     display: 'flex',
                     flexDirection: 'column',

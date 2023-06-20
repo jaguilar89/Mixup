@@ -1,4 +1,4 @@
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate, Outlet } from 'react-router-dom';
 import './App.css';
 import NavBar from './components/NavBar';
 import LoginForm from './components/LoginForm';
@@ -12,28 +12,32 @@ import EventPage from './pages/EventPage';
 import Footer from './components/Footer';
 import NewProfileForm from './pages/NewProfileForm';
 import UserProfile from './pages/UserProfile';
+import PrivateRoutes from './components/PrivateRoutes';
 
-function App() {
+export default function App() {
   const { user, setUser } = useContext(UserContext)
   const [events, setEvents] = useState([])
 
   return (
     <>
- <NavBar />
-  <Routes>
-    <Route path='/' element={<LandingPage />} />
-    <Route path='/home' element={<Home user={user} setUser={setUser} events={events} setEvents={setEvents}/>} />
-    <Route path='/login' element={<LoginForm setUser={setUser}/>} />
-    <Route path='/login/signup' element={<SignupForm setUser={setUser}/>} />
-    <Route path='/events/new' element={<NewEventForm setEvents={setEvents}/>} />
-    <Route path='/events/:eventId' element={<EventPage user={user} events={events} setEvents={events}/>} />
-    <Route path='/profile/new' element={<NewProfileForm />} />
-    <Route path='/profile/:id' element={<UserProfile />} />
-    <Route path='*' element={<LandingPage />} />
-  </Routes>
-  <Footer />
-  </>
+      <NavBar />
+      <Routes>
+        <Route path='/' element={<LandingPage />} />
+        <Route path='/login' element={<LoginForm setUser={setUser} />} />
+        <Route path='/login/signup' element={<SignupForm setUser={setUser} />} />
+        <Route path='*' element={<LandingPage />} />
+        
+        {/*Protected Routes */}
+        <Route element={<PrivateRoutes />} >
+          <Route path='/home' element={<Home user={user} setUser={setUser} events={events} setEvents={setEvents} />} />
+          <Route path='/events/new' element={<NewEventForm setEvents={setEvents} />} />
+          <Route path='/events/:eventId' element={<EventPage user={user} events={events} setEvents={events} />} />
+          <Route path='/profile/new' element={<NewProfileForm />} />
+          <Route path='/profiles/:id' element={<UserProfile />} />
+        </Route>
+      </Routes>
+      <Footer />
+    </>
   );
 }
 
-export default App;
