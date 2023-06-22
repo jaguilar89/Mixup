@@ -29,22 +29,24 @@ export default function Home({ user, setUser, events, setEvents }) {
         })()
     }, []);
 
-    const eventCards = events.filter((event) => cityFilter === 'all' ? true : event.event_city === cityFilter)
-                             .map((event) => (
-                                <Grid item
-            onClick={() => navigate(`/events/${event.id}`)}
-            key={event.id}
-        >
-            <EventCard
-                eventName={event.event_name}
-                eventLocation={event.place_name}
-                eventDate={event.event_start}
-                attendances={event.attendances.length}
-                availableSpots={event.available_spots}
-                organizer={event.organizer.full_name}
-            />
-        </Grid>
-                             ))
+    const eventCards =
+        events.filter((event) => cityFilter === 'all' ? true : event.event_city === cityFilter)
+              .filter((event) => new Date() < new Date(event.event_end)) //filter out events that have already passed
+              .map((event) => (
+                    <Grid item
+                        onClick={() => navigate(`/events/${event.id}`)}
+                        key={event.id}
+                    >
+                        <EventCard
+                            eventName={event.event_name}
+                            eventLocation={event.place_name}
+                            eventDate={event.event_start}
+                            attendances={event.attendances.length}
+                            availableSpots={event.available_spots}
+                            organizer={event.organizer.full_name}
+                        />
+                    </Grid>
+            ))
 
     function handleCityChange(e) {
         setCityFilter(e.target.value)
@@ -52,24 +54,24 @@ export default function Home({ user, setUser, events, setEvents }) {
 
     return (
         <>
-        <Box display='flex' justifyContent='center' marginTop='50px' marginBottom='25px'>
-        <FormControl sx={{ width: '25%'}}>
-            <InputLabel>Search By City</InputLabel>
-            <Select
-            id='city-select'
-            onChange={handleCityChange}
-            value={cityFilter}
-            >
-                <MenuItem value='all'>All</MenuItem>
-                <MenuItem value='nyc'>NYC</MenuItem>
-                <MenuItem value='denver'>Denver</MenuItem>
-            </Select>
-        </FormControl>
-        </Box>
-            <Container sx={{ marginBottom:'40%' }}>
+            <Box display='flex' justifyContent='center' marginTop='50px' marginBottom='25px'>
+                <FormControl sx={{ width: '25%' }}>
+                    <InputLabel>Search By City</InputLabel>
+                    <Select
+                        id='city-select'
+                        onChange={handleCityChange}
+                        value={cityFilter}
+                    >
+                        <MenuItem value='all'>All</MenuItem>
+                        <MenuItem value='nyc'>NYC</MenuItem>
+                        <MenuItem value='denver'>Denver</MenuItem>
+                    </Select>
+                </FormControl>
+            </Box>
+            <Container sx={{ marginBottom: '40%', paddingTop: '50px' }}>
                 {isLoading && <LoadingScreen />}
                 <br />
-                <Grid container rowSpacing={5} columnSpacing={{ xs: 4, sm: 8, md: 10 }}>
+                <Grid container justifyContent='center' rowSpacing={5} columnSpacing={{ xs: 4, sm: 8, md: 10 }}>
                     {events && eventCards}
                 </Grid>
             </Container>

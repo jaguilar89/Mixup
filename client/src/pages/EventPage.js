@@ -30,14 +30,17 @@ export default function EventPage({ user, events, setEvents }) {
     const parsedEventDetails = eventDetails && eventDetails.toString() && parse(eventDetails) //parse the event details in HTML format in order to render correctly
 
     dayjs.extend(LocalizedFormat)
+    const currentDate = new Date()
     const userTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone
     const timeZoneoptions = { timeZone: userTimezone, timeZoneName: 'short', hour: '2-digit', minute: '2-digit' }
     const eventStart = eventInfo?.event_start
-    const eventEnd = eventInfo?.event_end               //TODO: destructure eventInfo to tidy up variables
+    const eventEnd = eventInfo?.event_end
     const formattedTimeZone = (event) => new Date(event).toLocaleTimeString('en-US', timeZoneoptions)
     const formattedEventDateTime = (event) => {
         return dayjs(event).format('LL') + ' ' + formattedTimeZone(event)
     }
+
+    const eventHasPassed = currentDate > new Date(eventEnd)
 
     useEffect(() => {
         (async () => {
@@ -127,6 +130,8 @@ export default function EventPage({ user, events, setEvents }) {
     }
 
     function renderEventOptions() {
+        if (eventHasPassed) return;
+
         if (organizer.id === userId) {
             return (
                 <Box component='div' display='flex' justifyContent='flex-start' alignItems='flex-start'>
@@ -158,21 +163,34 @@ export default function EventPage({ user, events, setEvents }) {
         setExpanded(!expanded)
     }
 
+    function displayAlert() {
+        if (eventHasPassed) {
+            return (
+                <Alert severity="error" sx={{ "&.MuiAlert-root": { justifyContent: 'center' } }}>
+                    This event has already ended.
+                </Alert>
+            )
+        } else if (isAttending && !eventHasPassed) {
+            return (
+                <Alert severity="success" sx={{ "&.MuiAlert-root": { justifyContent: 'center' } }}>
+                    You are attending this event!
+                </Alert>
+            )
+        } else if (eventInfo?.organizer?.id === userId && !eventHasPassed) {
+            return (
+                <Alert severity="info" sx={{ "&.MuiAlert-root": { justifyContent: 'center' } }}>
+                    You are organizing this event.
+                </Alert>
+            )
+        }
+    }
     return (
         <>
             {isLoading && <LoadingScreen />}
-            <Box sx={{ display: 'flex', marginBottom: '25px'}}>
+            <Box sx={{ display: 'flex', marginBottom: '25px' }}>
                 <Container sx={{ mb: '20px', width: '70%', textAlign: 'center' }}>
-                    {isAttending && (
-                        <Alert severity="success" sx={{ "&.MuiAlert-root": { justifyContent: 'center' } }}>
-                            You are attending this event!
-                        </Alert>
-                    )}
-                    {eventInfo?.organizer?.id === userId && (
-                        <Alert severity="info" sx={{ "&.MuiAlert-root": { justifyContent: 'center' } }}>
-                            You are organizing this event
-                        </Alert>
-                    )}
+                    {displayAlert()}
+
                     <Box component='div' sx={{ pb: '20px', marginTop: '10px' }}>
                         <Typography variant="h3">{eventInfo.event_name}</Typography>
                         <Typography variant="h6" sx={{ display: 'inline-flex', gap: '10px', pt: '10px' }}>
@@ -208,11 +226,11 @@ export default function EventPage({ user, events, setEvents }) {
                 <AccordionSummary>
                     <Box component='div' display='flex' alignItems='center' justifyContent='center' m='auto'>
                         {attendees && (
-                                <AvatarGroup total={attendees.length}>
-                                    {attendees && attendees.slice(0, 4).map((obj, index) => (
-                                        <BackgroundLetterAvatar key={index} alt={obj.user.full_name} userFullName={obj.user.full_name} />
-                                    ))}
-                                </AvatarGroup>
+                            <AvatarGroup total={attendees.length}>
+                                {attendees && attendees.slice(0, 4).map((obj, index) => (
+                                    <BackgroundLetterAvatar key={index} alt={obj.user.full_name} userFullName={obj.user.full_name} />
+                                ))}
+                            </AvatarGroup>
                         )}
                         {attendees.length === 0 && (
                             <Typography variant="h5">There are no RSVPs for this event so far</Typography>
