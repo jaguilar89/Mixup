@@ -1,6 +1,7 @@
-import { Avatar, Box, Typography, Container } from "@mui/material";
+import { Avatar, Box, Typography, Container, Grid } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import EventCard from "../components/EventCard";
 import parse from 'html-react-parser'
 
 import * as dayjs from 'dayjs'
@@ -11,6 +12,7 @@ export default function UserProfile() {
 
     const userBio = profile?.bio
     const parsedBio = userBio && userBio.toString() && parse(userBio)
+    const currentDate = new Date()
 
     useEffect(() => {
         (async () => {
@@ -26,6 +28,24 @@ export default function UserProfile() {
         })()
     }, [id])
 
+
+    const userPastEvents = 
+     profile.user.attendances.filter((event) => new Date(event.event_end) < currentDate)
+    .map((event) => (
+        <Grid item
+            key={event.id}
+        >
+            <EventCard
+                eventName={event.event_name}
+                eventLocation={event.place_name}
+                eventDate={event.event_start}
+                attendances={event.attendances.length}
+                availableSpots={event.available_spots}
+                organizer={event.organizer.full_name}
+            />
+        </Grid>
+))
+console.log(profile.user.attendances)
     return (
         <Container maxWidth='lg'>
             <Box display='flex' flexDirection='column' alignItems='center' sx={{ marginTop: '2%', marginBottom: '50%' }}>
@@ -37,9 +57,12 @@ export default function UserProfile() {
                 <Box sx={{ marginTop: '50px', paddingBottom: '50px' }}>
                     <Typography variant="body1">{parsedBio}</Typography>
                 </Box>
-                <Box>
+
                     <Typography variant="h4">Past Events</Typography>
-                </Box>
+
+                    <Grid container justifyContent='center' rowSpacing={5} columnSpacing={{ xs: 4, sm: 8, md: 10 }}>
+                        {/* TODO: Figure this shit out */}
+                    </Grid>
             </Box>
         </Container>
     )

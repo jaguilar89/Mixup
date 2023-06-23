@@ -34,7 +34,7 @@ export default function App() {
           <Route path='/events/new' element={<NewEventForm setEvents={setEvents} />} />
           <Route path='/events/:eventId' element={<EventPage user={user} events={events} setEvents={events} />} />
           <Route path='/profiles/new' element={<NewProfileForm />} />
-          <Route path='/profiles/:id' element={<UserProfile />} />
+          <Route path='/profiles/:id' element={<UserProfile user={user}/>} />
           <Route path='*' element={<PageNotFound />} />
         </Route>
       </Routes>

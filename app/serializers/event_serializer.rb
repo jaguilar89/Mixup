@@ -13,9 +13,7 @@ class EventSerializer < ActiveModel::Serializer
              :is_attending
 
   has_many :attendances
-  has_many :attendances
   belongs_to :organizer
-
   #Serialized attribute showing whether the logged in user is attending the event.
   def is_attending
     current_user = scope #equals scope defined in the events controller

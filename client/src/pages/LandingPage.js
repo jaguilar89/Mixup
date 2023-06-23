@@ -64,7 +64,7 @@ export default function LandingPage() {
           </Button>
         </Container>
       </HeroSection>
-      <CardContainer maxWidth="md">
+      <CardContainer maxWidth="md" sx={{marginBottom: '50px'}}>
         <Grid container spacing={4}>
           <Grid item xs={12} sm={6}>
             <EventCard>

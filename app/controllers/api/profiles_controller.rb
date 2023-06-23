@@ -8,12 +8,15 @@ class Api::ProfilesController < ApplicationController
 
   def show
     profile = Profile.find_by(id: params[:id])
-    render json: profile
+    user = profile.user
+    user_attendances = Attendance.where("user_id = ?", user.id)
+    #TODO: figure this shit out
+    render json: profile.as_json(include: { user: { include: { attendances: {} } } }), status: :ok
   end
 
   private
 
   def profile_params
-    params.permit(:home_city, :bio, :profile)
+    params.permit(:home_city, :bio)
   end
 end
