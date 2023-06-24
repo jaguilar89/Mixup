@@ -209,11 +209,11 @@ export default function EventPage({ user, events, setEvents }) {
                     <Box component='div' sx={{ p: '10px' }}>
                         <Typography variant="h6">Starts at: {formattedEventDateTime(eventStart)} </Typography>
                         <Typography variant="h6">Ends at: {formattedEventDateTime(eventEnd)} </Typography>
-                        <Typography variant="h6">Spots open: {eventInfo.available_spots} spots(s) left</Typography>
+                        <Typography variant="h6">Spots available: {eventInfo.available_spots} spots(s) left</Typography>
 
                         <br />
 
-                        <GoogleMaps eventInfo={eventInfo} />
+                        {eventInfo?.place_identifier && <GoogleMaps eventInfo={eventInfo} />}
                     </Box>
                 </Container>
             </Box>

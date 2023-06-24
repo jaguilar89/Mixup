@@ -22,11 +22,15 @@ export default function EventCard({ eventName, eventDate, eventLocation, attenda
         </Typography>
         <Typography gutterBottom variant="body1">{eventLocation}</Typography>
         <Typography gutterBottom variant="body1">{formattedDate}</Typography>
-        <Typography variant="body1">
-          Hosted by {organizer}
-        </Typography>
+        {organizer && (
+          <Typography variant="body1">
+            Hosted by {organizer}
+          </Typography>
+        )}
         <Box sx={{ display: 'flex', marginTop: '5px' }}>
-          <Typography variant='subtitle2'>{attendances} RSVP(s) • {availableSpots - attendances} spot(s) left</Typography>
+          {availableSpots && attendances && (
+            <Typography variant='subtitle2'>{attendances} RSVP(s) • {availableSpots - attendances} spot(s) left</Typography>
+          )}
         </Box>
       </CardActionArea>
     </Card>

@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import EventCard from "../components/EventCard";
 import parse from 'html-react-parser'
-
 import * as dayjs from 'dayjs'
 
 export default function UserProfile() {
@@ -29,9 +28,10 @@ export default function UserProfile() {
     }, [id])
 
 
-    const userPastEvents = 
-     profile.user.attendances.filter((event) => new Date(event.event_end) < currentDate)
-    .map((event) => (
+    const pastAttendedEvents = 
+     profile.attended_events && 
+     profile.attended_events.filter((event) => new Date(event.event_end) < currentDate)
+     .map((event) => (
         <Grid item
             key={event.id}
         >
@@ -39,13 +39,11 @@ export default function UserProfile() {
                 eventName={event.event_name}
                 eventLocation={event.place_name}
                 eventDate={event.event_start}
-                attendances={event.attendances.length}
-                availableSpots={event.available_spots}
-                organizer={event.organizer.full_name}
             />
         </Grid>
-))
-console.log(profile.user.attendances)
+     ))
+
+     //console.log(pastAttendedEvents)
     return (
         <Container maxWidth='lg'>
             <Box display='flex' flexDirection='column' alignItems='center' sx={{ marginTop: '2%', marginBottom: '50%' }}>
@@ -61,9 +59,23 @@ console.log(profile.user.attendances)
                     <Typography variant="h4">Past Events</Typography>
 
                     <Grid container justifyContent='center' rowSpacing={5} columnSpacing={{ xs: 4, sm: 8, md: 10 }}>
-                        {/* TODO: Figure this shit out */}
+                        {pastAttendedEvents ? pastAttendedEvents : <Typography variant="h4">This person has not attended any events</Typography>}
                     </Grid>
             </Box>
         </Container>
     )
 }
+
+/* .map((event) => (
+    <Grid item
+        key={event.id}
+    >
+        <EventCard
+            eventName={event.event_name}
+            eventLocation={event.place_name}
+            eventDate={event.event_start}
+            attendances={event.attendances.length}
+            availableSpots={event.available_spots}
+            organizer={event.organizer.full_name}
+        />
+    </Grid> */

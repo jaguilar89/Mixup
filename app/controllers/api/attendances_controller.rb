@@ -11,7 +11,6 @@ class Api::AttendancesController < ApplicationController
   end
 
   def destroy
-    #byebug
     attendance = @current_user.attendances.find_by(id: params[:id]) #userAttendance.id / EventPage.js
     if attendance
       attendance.destroy

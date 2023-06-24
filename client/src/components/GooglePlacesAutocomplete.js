@@ -151,7 +151,7 @@ export default function GooglePlacesAutocomplete({setVenueInfo, setPlaceId}) {
                   {option.structured_formatting.secondary_text}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                  {option.structured_formatting.secondary_text.match(/(.*),\s(.*)/)?.[2]} {/*beginning search with the letter 'E' throws an error, WTF?*/}
+                  {option.structured_formatting.secondary_text.match(/(.*),\s(.*)/)?.[2]} {/*beginning search with the letter 'E' throws an error (without optional chaining), WTF?*/}
                 </Typography>
               </Grid>
             </Grid>
