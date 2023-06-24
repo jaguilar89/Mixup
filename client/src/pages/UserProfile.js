@@ -46,7 +46,7 @@ export default function UserProfile() {
      //console.log(pastAttendedEvents)
     return (
         <Container maxWidth='lg'>
-            <Box display='flex' flexDirection='column' alignItems='center' sx={{ marginTop: '2%', marginBottom: '50%' }}>
+            <Box display='flex' flexDirection='column' alignItems='center' sx={{ marginTop: '2%' }}>
                 <Box sx={{ paddingLeft: '2%', marginTop: '5px' }} flexDirection='column'>
                     <Avatar sx={{ height: 200, width: 200, marginBottom: '15px' }} />
                     <Typography variant="h4" >{profile.user?.full_name} </Typography>
@@ -56,12 +56,12 @@ export default function UserProfile() {
                     <Typography variant="body1">{parsedBio}</Typography>
                 </Box>
 
-                    <Typography variant="h4">Past Events</Typography>
+                    <Box><Typography variant="h4">Past Events</Typography></Box>
 
-                    <Grid container justifyContent='center' rowSpacing={5} columnSpacing={{ xs: 4, sm: 8, md: 10 }}>
-                        {pastAttendedEvents ? pastAttendedEvents : <Typography variant="h4">This person has not attended any events</Typography>}
-                    </Grid>
             </Box>
+                    <Grid container sx={{border: '1px solid black',}} justifyContent='center' rowSpacing={5} columnSpacing={{ xs: 4, sm: 8, md: 10 }}>
+                        {<Typography variant="h4">This person has not attended any events</Typography>}
+                    </Grid>
         </Container>
     )
 }

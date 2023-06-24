@@ -11,6 +11,9 @@ export default function Footer() {
         backgroundColor: '#ffffff',
         padding: '1rem',
         display: 'flex',
+        position: 'absolute',
+        bottom: 0,
+        width: '100%',
         justifyContent: 'center',
         alignItems: 'center',
         marginTop: 'auto'

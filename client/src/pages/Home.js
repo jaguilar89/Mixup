@@ -54,7 +54,7 @@ export default function Home({ user, setUser, events, setEvents }) {
 
     return (
         <>
-            <Box display='flex' justifyContent='center' marginTop='50px' marginBottom='25px'>
+            <Box display='flex' justifyContent='center' marginTop='50px' >
                 <FormControl sx={{ width: '25%' }}>
                     <InputLabel>Search By City</InputLabel>
                     <Select

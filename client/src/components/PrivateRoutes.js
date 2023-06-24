@@ -4,7 +4,7 @@ import { UserContext } from "../context/UserContext";
 
 export default function PrivateRoutes() {
     const { user } = useContext(UserContext)
-    const isAuthenticated = typeof user !== undefined && typeof user !== null
+    const isAuthenticated = !!user
 
     return (
         isAuthenticated ? <Outlet /> : <Navigate to='/login' />
