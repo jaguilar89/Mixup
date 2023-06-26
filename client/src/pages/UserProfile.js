@@ -1,7 +1,7 @@
 import { Avatar, Box, Typography, Container, Grid } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import EventCard from "../components/EventCard";
+import PastEventCard from "../components/PastEventCard";
 import parse from 'html-react-parser'
 import * as dayjs from 'dayjs'
 
@@ -35,7 +35,7 @@ export default function UserProfile() {
         <Grid item
             key={event.id}
         >
-            <EventCard
+            <PastEventCard
                 eventName={event.event_name}
                 eventLocation={event.place_name}
                 eventDate={event.event_start}
@@ -43,28 +43,44 @@ export default function UserProfile() {
         </Grid>
      ))
 
-     //console.log(pastAttendedEvents)
-    return (
-        <Container maxWidth='lg'>
-            <Box display='flex' flexDirection='column' alignItems='center' sx={{ marginTop: '2%' }}>
-                <Box sx={{ paddingLeft: '2%', marginTop: '5px' }} flexDirection='column'>
-                    <Avatar sx={{ height: 200, width: 200, marginBottom: '15px' }} />
-                    <Typography variant="h4" >{profile.user?.full_name} </Typography>
-                    <Typography variant="body1" textAlign='center'>Joined on {dayjs(new Date(profile.user?.created_at).toLocaleDateString()).format('MMMM YYYY')}</Typography>
-                </Box>
-                <Box sx={{ marginTop: '50px', paddingBottom: '50px' }}>
-                    <Typography variant="body1">{parsedBio}</Typography>
-                </Box>
-
-                    <Box><Typography variant="h4">Past Events</Typography></Box>
-
-            </Box>
-                    <Grid container sx={{border: '1px solid black',}} justifyContent='center' rowSpacing={5} columnSpacing={{ xs: 4, sm: 8, md: 10 }}>
-                        {<Typography variant="h4">This person has not attended any events</Typography>}
-                    </Grid>
-        </Container>
-    )
-}
+     return (
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            minHeight: '100vh',
+            justifyContent: 'space-between',
+          }}
+        >
+          <Box sx={{ paddingTop: '2%', paddingBottom: '2%' }}>
+            <Avatar sx={{ height: 200, width: 200 }} />
+            <Typography variant="h4">{profile.user?.full_name}</Typography>
+            <Typography variant="body1" textAlign="center">
+              Joined on{' '}
+              {dayjs(new Date(profile.user?.created_at).toLocaleDateString()).format(
+                'MMMM YYYY'
+              )}
+            </Typography>
+          </Box>
+          <Box sx={{ paddingBottom: '50px' }}>
+            <Typography variant="body1">{parsedBio}</Typography>
+          </Box>
+          <Box>
+            <Typography variant="h4">Past Events</Typography>
+          </Box>
+          <Grid
+            container
+            sx={{ border: '1px solid black' }}
+            justifyContent="center"
+            rowSpacing={5}
+            columnSpacing={{ xs: 4, sm: 8, md: 10 }}
+          >
+            {pastAttendedEvents}
+          </Grid>
+        </Box>
+      );
+              }
 
 /* .map((event) => (
     <Grid item

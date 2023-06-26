@@ -32,7 +32,7 @@ export default function NewProfileForm() {
         }
     }
     return (
-         <Container maxWidth='md' sx={{marginBottom: '15%', marginTop: '2%'}}>
+         <Container maxWidth='md' >
             <Typography variant="h4" textAlign='center'>Create your profile</Typography>
             <Box component='form'
                 onSubmit={handleSubmit}

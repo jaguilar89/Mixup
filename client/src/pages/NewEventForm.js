@@ -72,7 +72,7 @@ export default function NewEventForm({ setEvents }) {
     }
 
     return (
-        <Container maxWidth='md'>
+        <Container maxWidth='md' sx={{paddingBottom: '50px'}}>
             <Box component='form'
                 onSubmit={handleSubmit}
                 sx={{

@@ -11,9 +11,10 @@ export default function Footer() {
         backgroundColor: '#ffffff',
         padding: '1rem',
         display: 'flex',
-        position: 'absolute',
+        position: 'sticky',
         bottom: 0,
         width: '100%',
+        height: '30px',
         justifyContent: 'center',
         alignItems: 'center',
         marginTop: 'auto'
