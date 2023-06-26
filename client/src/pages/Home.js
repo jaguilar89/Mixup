@@ -7,7 +7,7 @@ import LoginForm from '../components/LoginForm';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import LoadingScreen from '../components/LoadingScreen';
-import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
+import { FormControl, InputLabel, MenuItem, Select, Typography } from '@mui/material';
 
 
 export default function Home({ user, setUser, events, setEvents }) {
@@ -54,7 +54,7 @@ export default function Home({ user, setUser, events, setEvents }) {
 
     return (
         <>
-            <Box display='flex' justifyContent='center' marginTop='50px' >
+            <Box display='flex' justifyContent='center' marginTop='50px' minHeight='100vh' >
                 <FormControl sx={{ width: '25%' }}>
                     <InputLabel>Search By City</InputLabel>
                     <Select
@@ -68,7 +68,7 @@ export default function Home({ user, setUser, events, setEvents }) {
                     </Select>
                 </FormControl>
             </Box>
-            <Container sx={{ marginBottom: '40%', paddingTop: '50px' }}>
+            <Container sx={{paddingTop: '50px' }}>
                 {isLoading && <LoadingScreen />}
                 <br />
                 <Grid container justifyContent='center' rowSpacing={5} columnSpacing={{ xs: 4, sm: 8, md: 10 }}>

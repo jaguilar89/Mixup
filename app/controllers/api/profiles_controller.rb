@@ -8,8 +8,6 @@ class Api::ProfilesController < ApplicationController
 
   def show
     profile = Profile.find_by(id: params[:id])
-    user = profile.user
-    user_attendances = Attendance.where("user_id = ?", user.id)
     render json: profile, status: :ok
   end
 

@@ -51,9 +51,10 @@ export default function UserProfile() {
             alignItems: 'center',
             minHeight: '100vh',
             justifyContent: 'space-between',
+            border: '1px solid black'
           }}
         >
-          <Box sx={{ paddingTop: '2%', paddingBottom: '2%' }}>
+          <Box sx={{ paddingTop: '2%' }}>
             <Avatar sx={{ height: 200, width: 200 }} />
             <Typography variant="h4">{profile.user?.full_name}</Typography>
             <Typography variant="body1" textAlign="center">
@@ -63,7 +64,7 @@ export default function UserProfile() {
               )}
             </Typography>
           </Box>
-          <Box sx={{ paddingBottom: '50px' }}>
+          <Box sx={{ paddingBottom: '40px', width:'1000px' }}>
             <Typography variant="body1">{parsedBio}</Typography>
           </Box>
           <Box>
@@ -71,7 +72,6 @@ export default function UserProfile() {
           </Box>
           <Grid
             container
-            sx={{ border: '1px solid black' }}
             justifyContent="center"
             rowSpacing={5}
             columnSpacing={{ xs: 4, sm: 8, md: 10 }}
