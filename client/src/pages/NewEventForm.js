@@ -8,6 +8,7 @@ import Select from "@mui/material/Select"
 import MenuItem from "@mui/material/MenuItem"
 import GooglePlacesAutocomplete from "../components/GooglePlacesAutocomplete";
 import Alert from "@mui/material/Alert";
+import Input from "@mui/material/Input";
 import { useContext, useState } from "react";
 import { UserContext } from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
@@ -18,6 +19,7 @@ import TextEditor from "../components/TextEditor";
 export default function NewEventForm({ setEvents }) {
     const [eventName, setEventName] = useState('')
     const [eventCity, setEventCity] = useState('')
+    const [eventPic, setEventPic] = useState(null)
     const [maxAttendees, setMaxAttendees] = useState('')
     const [eventDescription, setEventDescription] = useState('')
     const [placeId, setPlaceId] = useState(null) //each location on Google Maps has a unique 'place_id' identifier
@@ -30,6 +32,8 @@ export default function NewEventForm({ setEvents }) {
 
     async function handleSubmit(e) {
         e.preventDefault();
+        const formData = new FormData()
+        //TODO: Finish formData
         const { main_text: placeName, secondary_text: placeAddress } = venueInfo?.structured_formatting
 
         const res = await fetch('/api/events', {
@@ -71,8 +75,13 @@ export default function NewEventForm({ setEvents }) {
         setEventEnd(newValue)
     }
 
+    function handleFileChange(e) {
+        const selectedFile = e.target.files[0]
+        setEventPic(selectedFile)
+    }
+
     return (
-        <Container maxWidth='md' sx={{paddingBottom: '50px'}}>
+        <Container maxWidth='md' sx={{ paddingBottom: '50px' }}>
             <Box component='form'
                 onSubmit={handleSubmit}
                 sx={{
@@ -94,7 +103,7 @@ export default function NewEventForm({ setEvents }) {
                 />
 
                 <GooglePlacesAutocomplete setVenueInfo={setVenueInfo} setPlaceId={setPlaceId} />
-                
+
                 <DateTimePicker
                     disablePast
                     label='Starts at'
@@ -105,7 +114,6 @@ export default function NewEventForm({ setEvents }) {
                     label='Ends at'
                     onChange={handleChangeEnd}
                 />
-
 
 
                 <FormControl required>
@@ -131,8 +139,14 @@ export default function NewEventForm({ setEvents }) {
                     onChange={(e) => setMaxAttendees(e.target.value)}
                 />
 
+                <InputLabel htmlFor='file-input'>Upload Event Picture</InputLabel>
+                <Input
+                    type="file"
+                    inputProps={{ accept: 'image/*' }}
+                    onChange={handleFileChange}
+                />
                 {/*event details*/}
-                <TextEditor setEventDescription={setEventDescription}/>
+                <TextEditor setEventDescription={setEventDescription} />
 
                 <Button variant="contained" type="submit">Submit</Button>
                 {errors && errors.map((err) => <Alert key={err} severity="error">{err}</Alert>)}

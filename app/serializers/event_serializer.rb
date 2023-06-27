@@ -1,6 +1,7 @@
 class EventSerializer < ActiveModel::Serializer
   attributes :id,
              :event_name,
+             :event_pic,
              :event_city,
              :event_start,
              :event_end,
@@ -14,6 +15,11 @@ class EventSerializer < ActiveModel::Serializer
 
   has_many :attendances
   belongs_to :organizer
+
+  def event_pic
+    rails_blob_path(object.event_pic, only_path: true) if object.event_pic.attached?
+  end
+
   #Serialized attribute showing whether the logged in user is attending the event.
   def is_attending
     current_user = scope #equals scope defined in the events controller
