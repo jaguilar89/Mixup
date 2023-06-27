@@ -1,26 +1,32 @@
-import { Container, TextField, Button, Box, Alert, Typography } from "@mui/material"
+import { Container, Button, Box, Alert, Typography, Input, Avatar, InputLabel } from "@mui/material"
 import BioTextEditor from "../components/BioTextEditor"
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 
 export default function NewProfileForm() {
-    const [homeCity, setHomeCity] = useState('')
+    const [avatar, setAvatar] = useState(null)
+    const [previewUrl, setPreviewUrl] = useState('')
     const [bio, setBio] = useState('')
     const [errors, setErrors] = useState([])
     const navigate = useNavigate()
 
+    function handleFileChange(e) {
+        const selectedFile = e.target.files[0]
+        setAvatar(selectedFile)
+        setPreviewUrl(URL.createObjectURL(selectedFile))
+    }
+
     async function handleSubmit(e) {
         e.preventDefault();
 
+        //(attribute_name, stateVariable)
+        const formData = new FormData()
+        formData.append('avatar', avatar)
+        formData.append('bio', bio)
+
         const res = await fetch('/api/profiles', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                bio,
-                home_city: homeCity
-            })
+            body: formData
         })
 
         if (res.ok) {
@@ -31,8 +37,9 @@ export default function NewProfileForm() {
             setErrors(err.errors)
         }
     }
+
     return (
-         <Container maxWidth='md' >
+        <Container maxWidth='md' sx={{ paddingTop: '20px', paddingBottom: '20px' }}>
             <Typography variant="h4" textAlign='center'>Create your profile</Typography>
             <Box component='form'
                 onSubmit={handleSubmit}
@@ -41,20 +48,24 @@ export default function NewProfileForm() {
                     flexDirection: 'column',
                     gap: '15px',
                     width: '60%',
-                    m: 'auto'
+                    m: 'auto',
+                    alignItems: 'center'
                 }
                 }>
 
-                <TextField
-                    margin="normal"
-                    required
-                    id="home-city"
-                    label='Home City'
-                    name="home_city"
-                    onChange={(e) => setHomeCity(e.target.value)}
+                <Avatar 
+                sx={{ height: 200, width: 200 }} 
+                src={previewUrl}
                 />
 
-                <BioTextEditor setBio={setBio}/>
+                <InputLabel htmlFor='file-input'>Upload Profile Picture</InputLabel>
+                <Input
+                    type="file"
+                    inputProps={{ accept: 'image/*' }}
+                    onChange={handleFileChange}
+                />
+
+                <BioTextEditor setBio={setBio} />
 
                 <Button variant="contained" type="submit">Submit</Button>
                 {errors && errors.map((err) => <Alert key={err} severity="error">{err}</Alert>)}

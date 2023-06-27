@@ -14,8 +14,6 @@ class Api::ProfilesController < ApplicationController
   private
 
   def profile_params
-    params.permit(:home_city, :bio)
+    params.permit(:bio, :avatar)
   end
 end
-
-#render json: profile.as_json(include: { user: { include: { attendances: {} } } }), status: :ok

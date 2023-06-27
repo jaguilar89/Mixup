@@ -55,7 +55,10 @@ export default function UserProfile() {
           }}
         >
           <Box sx={{ paddingTop: '2%' }}>
-            <Avatar sx={{ height: 200, width: 200 }} />
+            <Avatar 
+            sx={{ height: 200, width: 200 }} 
+            src={profile.avatar}
+            />
             <Typography variant="h4">{profile.user?.full_name}</Typography>
             <Typography variant="body1" textAlign="center">
               Joined on{' '}
@@ -64,12 +67,14 @@ export default function UserProfile() {
               )}
             </Typography>
           </Box>
-          <Box sx={{ paddingBottom: '40px', width:'1000px' }}>
+          <Box sx={{ paddingBottom: '40px', width:'1000px', textAlign: 'center' }}>
+            <Typography variant="h4">About Me</Typography>
             <Typography variant="body1">{parsedBio}</Typography>
           </Box>
           <Box>
             <Typography variant="h4">Past Events</Typography>
           </Box>
+          {!profile.attended_events?.length > 0 && <Typography variant="h5">This user has not attended any events</Typography>} 
           <Grid
             container
             justifyContent="center"
