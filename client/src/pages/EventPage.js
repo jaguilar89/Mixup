@@ -10,6 +10,7 @@ import EventCancelDialog from "../components/EventCancelDialog";
 import Alert from "@mui/material/Alert";
 import GoogleMaps from "../components/GoogleMaps";
 import { Accordion, Grid, AccordionSummary, AvatarGroup, Typography } from "@mui/material";
+import cardImage from '../images/cardimage.jpeg'
 import * as dayjs from 'dayjs'
 import LocalizedFormat from 'dayjs/plugin/localizedFormat'
 import parse from 'html-react-parser'
@@ -184,10 +185,11 @@ export default function EventPage({ user, events, setEvents }) {
             )
         }
     }
+    
     return (
         <>
             {isLoading && <LoadingScreen />}
-            <Box sx={{ display: 'flex', marginBottom: '25px' }}>
+            <Box sx={{ display: 'flex', minHeight: '100vh' }}>
                 <Container sx={{ mb: '20px', width: '70%', textAlign: 'center' }}>
                     {displayAlert()}
 
@@ -198,6 +200,15 @@ export default function EventPage({ user, events, setEvents }) {
                             Hosted by {organizerName}
                         </Typography>
                     </Box>
+                        <Box 
+                        component='img'
+                        sx={{
+                            height: 400,
+                            width: 700
+                        }}
+                        alt="event picture"
+                        src={eventInfo.event_pic || cardImage}
+                        />
                     <Box component='div'>
                         <Typography variant="h4">Details</Typography>
                         {parsedEventDetails}
@@ -255,6 +266,7 @@ export default function EventPage({ user, events, setEvents }) {
                     </Grid>
                 </Box>
             </Accordion>
+            <br />
         </>
     );
 

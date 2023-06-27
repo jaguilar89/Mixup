@@ -50,8 +50,7 @@ export default function UserProfile() {
             flexDirection: 'column',
             alignItems: 'center',
             minHeight: '100vh',
-            justifyContent: 'space-between',
-            border: '1px solid black'
+            justifyContent: 'space-between'
           }}
         >
           <Box sx={{ paddingTop: '2%' }}>
@@ -74,7 +73,7 @@ export default function UserProfile() {
           <Box>
             <Typography variant="h4">Past Events</Typography>
           </Box>
-          {!profile.attended_events?.length > 0 && <Typography variant="h5">This user has not attended any events</Typography>} 
+          {!profile.attended_events?.length > 0 && <Typography variant="h5">This person has not attended any events</Typography>} 
           <Grid
             container
             justifyContent="center"

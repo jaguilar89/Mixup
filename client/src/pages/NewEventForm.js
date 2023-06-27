@@ -9,6 +9,7 @@ import MenuItem from "@mui/material/MenuItem"
 import GooglePlacesAutocomplete from "../components/GooglePlacesAutocomplete";
 import Alert from "@mui/material/Alert";
 import Input from "@mui/material/Input";
+import placeHolderPic from '../images/cardimage.jpeg'
 import { useContext, useState } from "react";
 import { UserContext } from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
@@ -32,27 +33,24 @@ export default function NewEventForm({ setEvents }) {
 
     async function handleSubmit(e) {
         e.preventDefault();
-        const formData = new FormData()
-        //TODO: Finish formData
         const { main_text: placeName, secondary_text: placeAddress } = venueInfo?.structured_formatting
+
+        const formData = new FormData()
+        formData.append('event_name', eventName)
+        formData.append('event_city', eventCity)
+        formData.append('event_start', eventStart)
+        formData.append('event_end', eventEnd)
+        formData.append('event_pic', eventPic)
+        formData.append('place_identifier', placeId)
+        formData.append('place_name', placeName)
+        formData.append('place_address', placeAddress)
+        formData.append('max_attendees', maxAttendees)
+        formData.append('event_description', eventDescription)
+        formData.append('organizer_id', user.id)
 
         const res = await fetch('/api/events', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                event_name: eventName,
-                event_city: eventCity,
-                event_start: eventStart,
-                event_end: eventEnd,
-                place_identifier: placeId,
-                place_name: placeName,
-                place_address: placeAddress,
-                max_attendees: maxAttendees,
-                event_description: eventDescription,
-                organizer_id: user.id
-            })
+            body: formData
         });
 
         if (res.ok) {
@@ -62,7 +60,7 @@ export default function NewEventForm({ setEvents }) {
         } else {
             const errorObj = await res.json();
             setErrors(errorObj.errors)
-            console.log(errorObj)
+            console.log(errors)
         }
     }
 

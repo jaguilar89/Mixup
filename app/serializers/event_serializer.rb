@@ -1,4 +1,6 @@
 class EventSerializer < ActiveModel::Serializer
+  include Rails.application.routes.url_helpers
+
   attributes :id,
              :event_name,
              :event_pic,
@@ -12,6 +14,7 @@ class EventSerializer < ActiveModel::Serializer
              :max_attendees,
              :available_spots,
              :is_attending
+  #:organizer_avatar
 
   has_many :attendances
   belongs_to :organizer
@@ -19,6 +22,10 @@ class EventSerializer < ActiveModel::Serializer
   def event_pic
     rails_blob_path(object.event_pic, only_path: true) if object.event_pic.attached?
   end
+
+  #def organizer_avatar
+
+  #end
 
   #Serialized attribute showing whether the logged in user is attending the event.
   def is_attending

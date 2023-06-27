@@ -6,15 +6,15 @@ import CardActionArea from '@mui/material/CardActionArea';
 import cardImage from '../images/cardimage.jpeg'
 import * as dayjs from 'dayjs';
 
-export default function EventCard({ eventName, eventDate, eventLocation, attendances, availableSpots, organizer }) {
+export default function EventCard({ eventName, eventDate, eventPic, eventLocation, attendances, availableSpots, organizer }) {
   const formattedDate = dayjs(eventDate).format('llll')
   return (
-    <Card sx={{ maxWidth: 320, m: 'auto', bgcolor: '#f5f5f5' }}>
+    <Card sx={{ width: 320, m: 'auto', bgcolor: '#f5f5f5' }}>
       <CardActionArea>
         <CardMedia
           component='img'
           height='180'
-          image={cardImage}
+          image={eventPic || cardImage}
           alt='event-image'
         />
         <Typography variant="h6">

@@ -2,8 +2,6 @@ import Grid from '@mui/material/Grid'
 import EventCard from "../components/EventCard";
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box'
-import Button from '@mui/material/Button';
-import LoginForm from '../components/LoginForm';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import LoadingScreen from '../components/LoadingScreen';
@@ -30,7 +28,7 @@ export default function Home({ user, setUser, events, setEvents }) {
     }, []);
 
     const eventCards =
-        events.filter((event) => cityFilter === 'all' ? true : event.event_city === cityFilter)
+        events?.filter((event) => cityFilter === 'all' ? true : event.event_city === cityFilter)
               .filter((event) => new Date() < new Date(event.event_end)) //filter out events that have already passed
               .map((event) => (
                     <Grid item
@@ -38,12 +36,13 @@ export default function Home({ user, setUser, events, setEvents }) {
                         key={event.id}
                     >
                         <EventCard
-                            eventName={event.event_name}
-                            eventLocation={event.place_name}
-                            eventDate={event.event_start}
-                            attendances={event.attendances.length}
-                            availableSpots={event.available_spots}
-                            organizer={event.organizer.full_name}
+                            eventName={event?.event_name}
+                            eventLocation={event?.place_name}
+                            eventPic={event?.event_pic}
+                            eventDate={event?.event_start}
+                            attendances={event?.attendances.length}
+                            availableSpots={event?.available_spots}
+                            organizer={event.organizer?.full_name}
                         />
                     </Grid>
             ))
@@ -53,8 +52,8 @@ export default function Home({ user, setUser, events, setEvents }) {
     }
 
     return (
-        <>
-            <Box display='flex' justifyContent='center' marginTop='50px' minHeight='100vh' >
+        <Container sx={{minHeight: '100vh'}}>
+            <Box display='flex' justifyContent='center' marginTop='50px' >
                 <FormControl sx={{ width: '25%' }}>
                     <InputLabel>Search By City</InputLabel>
                     <Select
@@ -75,7 +74,7 @@ export default function Home({ user, setUser, events, setEvents }) {
                     {events && eventCards}
                 </Grid>
             </Container>
-        </>
+        </Container>
     )
 }
 

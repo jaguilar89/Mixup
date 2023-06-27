@@ -60,7 +60,7 @@ export default function LoginForm({ setUser }) {
   return (
     <>
         <CssBaseline />
-      <Container component="main" maxWidth="xs">
+      <Container component="main" maxWidth="xs" sx={{minHeight: '100vh'}}>
         <Box
           sx={{
             marginTop: 8,
@@ -117,9 +117,10 @@ export default function LoginForm({ setUser }) {
             </Grid>
           </Box>
         </Box>
-      </Container>
-      <br />
+        <br/>
       {Copyright()}
+      </Container>
+
           </>
   );
 }
