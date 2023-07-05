@@ -26,7 +26,6 @@ export default function App() {
         <Route path='/' element={<LandingPage />} />
         <Route path='/login' element={<LoginForm setUser={setUser} />} />
         <Route path='/login/signup' element={<SignupForm setUser={setUser} />} />
-        <Route path='*' element={<PageNotFound />} />
         
         {/*Protected Routes */}
         <Route element={<PrivateRoutes />} >
@@ -35,7 +34,6 @@ export default function App() {
           <Route path='/events/:eventId' element={<EventPage user={user} events={events} setEvents={events} />} />
           <Route path='/profiles/new' element={<NewProfileForm />} />
           <Route path='/profiles/:id' element={<UserProfile user={user}/>} />
-          <Route path='*' element={<PageNotFound />} />
         </Route>
       </Routes>
       <Footer />
