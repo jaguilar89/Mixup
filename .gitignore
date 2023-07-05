@@ -32,3 +32,6 @@
 
 # api
 /client/.env
+
+# GCS credentials
+/config/mixup-app-f3588d137bb9.json
