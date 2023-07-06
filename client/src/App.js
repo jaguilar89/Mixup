@@ -10,7 +10,6 @@ import { UserContext } from './context/UserContext';
 import NewEventForm from './pages/NewEventForm';
 import EventPage from './pages/EventPage';
 import Footer from './components/Footer';
-import PageNotFound from './pages/PageNotFound';
 import NewProfileForm from './pages/NewProfileForm';
 import UserProfile from './pages/UserProfile';
 import PrivateRoutes from './components/PrivateRoutes';

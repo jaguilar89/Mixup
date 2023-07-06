@@ -9,6 +9,7 @@ export default function TextEditor({setEventDescription}) {
         const content = editorRef.current.getContent();
         setEventDescription(content)
     }
+    
     return (
       <>
         <Editor
@@ -34,3 +35,6 @@ export default function TextEditor({setEventDescription}) {
       </>
     );
   }
+
+  
+

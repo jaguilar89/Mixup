@@ -9,7 +9,6 @@ import MenuItem from "@mui/material/MenuItem"
 import GooglePlacesAutocomplete from "../components/GooglePlacesAutocomplete";
 import Alert from "@mui/material/Alert";
 import Input from "@mui/material/Input";
-import placeHolderPic from '../images/cardimage.jpeg'
 import { useContext, useState } from "react";
 import { UserContext } from "../context/UserContext";
 import { useNavigate } from "react-router-dom";

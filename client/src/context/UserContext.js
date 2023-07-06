@@ -19,6 +19,7 @@ function UserContextProvider({ children } ) {
                 }
               } catch (err) {
                 setError(err.errors);
+                console.log(error)
               } finally {
                 setIsLoading(false);
               }

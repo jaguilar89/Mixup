@@ -106,6 +106,7 @@ export default function EventPage({ user, events, setEvents }) {
             })
             if (res.ok) {
                 const msg = await res.json()
+                console.log(msg)
                 setUserAttendanceInfo(null)
                 setIsAttending((isAttending) => !isAttending)
             } else {

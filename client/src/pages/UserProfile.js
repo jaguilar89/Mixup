@@ -1,4 +1,4 @@
-import { Avatar, Box, Typography, Container, Grid } from "@mui/material";
+import { Avatar, Box, Typography, Grid } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import PastEventCard from "../components/PastEventCard";

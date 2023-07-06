@@ -5,7 +5,7 @@ import Box from '@mui/material/Box'
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import LoadingScreen from '../components/LoadingScreen';
-import { FormControl, InputLabel, MenuItem, Select, Typography } from '@mui/material';
+import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 
 
 export default function Home({ user, setUser, events, setEvents }) {
