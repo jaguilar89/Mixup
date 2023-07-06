@@ -15,8 +15,10 @@ import { useNavigate } from "react-router-dom";
 import { DateTimePicker } from "@mui/x-date-pickers";
 import dayjs from "dayjs";
 import TextEditor from "../components/TextEditor";
+import LoadingScreen from "../components/LoadingScreen";
 
 export default function NewEventForm({ setEvents }) {
+    const [loading, setLoading] = useState(null)
     const [eventName, setEventName] = useState('')
     const [eventCity, setEventCity] = useState('')
     const [eventPic, setEventPic] = useState(null)
@@ -32,6 +34,8 @@ export default function NewEventForm({ setEvents }) {
 
     async function handleSubmit(e) {
         e.preventDefault();
+        setLoading(true)
+
         const { main_text: placeName, secondary_text: placeAddress } = venueInfo?.structured_formatting
 
         const formData = new FormData()
@@ -54,6 +58,7 @@ export default function NewEventForm({ setEvents }) {
 
         if (res.ok) {
             const event = await res.json()
+            setLoading(false)
             setEvents(event)
             navigate(`/events/${event.id}`)
         } else {
