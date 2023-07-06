@@ -1,7 +1,5 @@
 # Mixup
 
----
-
 Mixup is my capstone project for the Flatiron School Software Engineering program. It is an event creation and management app similar to Eventbrite or Meetup.
 
 As a user, you can:
@@ -11,8 +9,6 @@ As a user, you can:
 - RSVP to other events
 
 ## Built With
-
----
 
 - React
 - React Router v6
@@ -25,13 +21,9 @@ As a user, you can:
 
 ## Getting Started
 
----
-
 Visit https://mixup.onrender.com/ and sign up for an account. Upon signup you will be asked to create a user profile.
 
 ## Usage
-
----
 
 ### Creating an event
 - Click on **Create Event** at the top right corner.
