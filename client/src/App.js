@@ -27,13 +27,13 @@ export default function App() {
         <Route path='/login/signup' element={<SignupForm setUser={setUser} />} />
         
         {/*Protected Routes */}
-        <Route element={<PrivateRoutes />} >
+        {/* <Route element={<PrivateRoutes />} > */}
           <Route path='/home' element={<Home user={user} setUser={setUser} events={events} setEvents={setEvents} />} />
           <Route path='/events/new' element={<NewEventForm setEvents={setEvents} />} />
           <Route path='/events/:eventId' element={<EventPage user={user} events={events} setEvents={events} />} />
           <Route path='/profiles/new' element={<NewProfileForm />} />
           <Route path='/profiles/:id' element={<UserProfile user={user}/>} />
-        </Route>
+        {/* </Route> */}
       </Routes>
       <Footer />
     </>
