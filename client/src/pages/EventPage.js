@@ -257,7 +257,7 @@ export default function EventPage({ user, events, setEvents }) {
                                     display='flex'
                                     flexDirection='column'
                                     alignItems='center'
-                                    sx={{ width: '80%', maxWidth: '300px' }} // Adjust the width as per your requirement
+                                    sx={{ width: '80%', maxWidth: '300px' }} // Adjust the width as per requirement
                                 >
                                     <BackgroundLetterAvatar userFullName={el.user.full_name} />
                                     <Typography variant="h6">{el.user.full_name}</Typography>
