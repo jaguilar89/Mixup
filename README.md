@@ -8,7 +8,7 @@ As a user, you can:
 - Modify event details, or cancel events
 - RSVP to other events
 
-## Built With
+## Technologies
 
 - React
 - React Router v6
@@ -33,5 +33,12 @@ Visit https://mixup.onrender.com/ and sign up for an account. Upon signup you wi
 ### RSVPing to an event
 - Click on an event card on the front page and click on **RSVP** on the top left.
 
+---
+## Future Improvements
+### Features
 
-
+- [ ] Add more cities
+- [ ] Implement sign up with email/email confirmation
+- [ ] Implement password reset
+- [ ] Implement ability to sort events by distance to current location
+- [ ] Display user profile picture within avatar icon
