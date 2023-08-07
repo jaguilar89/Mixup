@@ -54,18 +54,6 @@ export default function Home({ user, setUser, events, setEvents }) {
     return (
         <Container sx={{minHeight: '100vh'}}>
             <Box display='flex' justifyContent='center' marginTop='50px' >
-                <FormControl sx={{ width: '25%' }}>
-                    <InputLabel>Search By City</InputLabel>
-                    <Select
-                        id='city-select'
-                        onChange={handleCityChange}
-                        value={cityFilter}
-                    >
-                        <MenuItem value='all'>All</MenuItem>
-                        <MenuItem value='nyc'>NYC</MenuItem>
-                        <MenuItem value='denver'>Denver</MenuItem>
-                    </Select>
-                </FormControl>
             </Box>
             <Container sx={{paddingTop: '50px' }}>
                 {isLoading && <LoadingScreen />}

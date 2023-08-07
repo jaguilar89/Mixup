@@ -37,7 +37,6 @@ Visit https://mixup.onrender.com/ and sign up for an account. Upon signup you wi
 ## Future Improvements
 ### Features
 
-- [ ] Add more cities
 - [ ] Implement sign up with email/email confirmation
 - [ ] Implement password reset
 - [ ] Implement ability to sort events by distance to current location

@@ -2,10 +2,7 @@ import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button"
 import TextField from "@mui/material/TextField"
-import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
-import Select from "@mui/material/Select"
-import MenuItem from "@mui/material/MenuItem"
 import GooglePlacesAutocomplete from "../components/GooglePlacesAutocomplete";
 import Alert from "@mui/material/Alert";
 import Input from "@mui/material/Input";
@@ -20,7 +17,6 @@ import LoadingScreen from "../components/LoadingScreen";
 export default function NewEventForm({ setEvents }) {
     const [loading, setLoading] = useState(null)
     const [eventName, setEventName] = useState('')
-    const [eventCity, setEventCity] = useState('')
     const [eventPic, setEventPic] = useState(null)
     const [maxAttendees, setMaxAttendees] = useState('')
     const [eventDescription, setEventDescription] = useState('')
@@ -40,7 +36,6 @@ export default function NewEventForm({ setEvents }) {
 
         const formData = new FormData()
         formData.append('event_name', eventName)
-        formData.append('event_city', eventCity)
         formData.append('event_start', eventStart)
         formData.append('event_end', eventEnd)
         formData.append('event_pic', eventPic)
@@ -117,21 +112,6 @@ export default function NewEventForm({ setEvents }) {
                     onChange={handleChangeEnd}
                 />
 
-
-                <FormControl required>
-                    <InputLabel id='event-select-label'>City</InputLabel>
-                    <Select
-                        labelId="event-location-select-label"
-                        id="event-city"
-                        name='event_city'
-                        label="Event City"
-                        onChange={(e) => setEventCity(e.target.value)}
-                        value={eventCity}
-                    >
-                        <MenuItem value="nyc">New York City</MenuItem>
-                        <MenuItem value="denver">Denver</MenuItem>
-                    </Select>
-                </FormControl>
                 <TextField
                     margin="normal"
                     required
