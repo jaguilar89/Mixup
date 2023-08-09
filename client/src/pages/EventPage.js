@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom"
-import BackgroundLetterAvatar from "../components/BackgroundLetterAvatar"
 import Button from "@mui/material/Button"
 import Box from "@mui/material/Box";
 import LoadingScreen from "../components/LoadingScreen";
@@ -9,7 +8,7 @@ import EventEditForm from "../components/EventEditForm";
 import EventCancelDialog from "../components/EventCancelDialog";
 import Alert from "@mui/material/Alert";
 import GoogleMaps from "../components/GoogleMaps";
-import { Accordion, Grid, AccordionSummary, AvatarGroup, Typography } from "@mui/material";
+import { Accordion, Grid, AccordionSummary, AvatarGroup, Typography, Link, Avatar } from "@mui/material";
 import cardImage from '../images/cardimage.jpeg'
 import * as dayjs from 'dayjs'
 import LocalizedFormat from 'dayjs/plugin/localizedFormat'
@@ -24,11 +23,10 @@ export default function EventPage({ user, events, setEvents }) {
     const [isAttending, setIsAttending] = useState(false)
     const [expanded, setExpanded] = useState(false) //Expand RSVP list
     const { eventId } = useParams(); //EVENT_ID
-
     const userId = user?.id
     const organizerName = organizer?.full_name
     const eventDetails = eventInfo?.event_description
-    const parsedEventDetails = eventDetails && eventDetails.toString() && parse(eventDetails) //parse the event details in HTML format in order to render correctly
+    const parsedEventDetails = eventDetails && eventDetails.toString() && parse(eventDetails)  //parse the event details in HTML format in order to render correctly
 
     dayjs.extend(LocalizedFormat)
     const currentDate = new Date()
@@ -74,7 +72,7 @@ export default function EventPage({ user, events, setEvents }) {
                 console.log(error)
             }
         })()
-    }, [isAttending]);
+    }, [eventId, isAttending]);
 
     async function handleSubmitRsvp(e) {
         e.preventDefault();
@@ -186,7 +184,7 @@ export default function EventPage({ user, events, setEvents }) {
             )
         }
     }
-    
+
     return (
         <>
             {isLoading && <LoadingScreen />}
@@ -196,10 +194,12 @@ export default function EventPage({ user, events, setEvents }) {
 
                     <Box component='div' sx={{ pb: '20px', marginTop: '10px' }}>
                         <Typography variant="h3">{eventInfo.event_name}</Typography>
+                        <Link href={`/profiles/${organizer?.id}`}>
                         <Typography variant="h6" sx={{ display: 'inline-flex', gap: '10px', pt: '10px' }}>
-                            <BackgroundLetterAvatar userFullName={organizerName} />
+                            <Avatar alt={organizerName} src={eventInfo.organizer_avatar}/>
                             Hosted by {organizerName}
                         </Typography>
+                        </Link>
                     </Box>
                         <Box 
                         component='img'
@@ -239,8 +239,12 @@ export default function EventPage({ user, events, setEvents }) {
                     <Box component='div' display='flex' alignItems='center' justifyContent='center' m='auto'>
                         {attendees && (
                             <AvatarGroup total={attendees.length}>
-                                {attendees && attendees.slice(0, 4).map((obj, index) => (
-                                    <BackgroundLetterAvatar key={index} alt={obj.user.full_name} userFullName={obj.user.full_name} />
+                                {attendees && attendees.slice(0, 4).map((obj) => (
+                                    <Avatar 
+                                        key={obj}
+                                        alt={obj.full_name}
+                                        src={obj.avatar}
+                                    />
                                 ))}
                             </AvatarGroup>
                         )}
@@ -251,16 +255,24 @@ export default function EventPage({ user, events, setEvents }) {
                 </AccordionSummary>
                 <Box display='flex' justifyContent='center' alignItems='center'>
                     <Grid container rowSpacing={1} columnSpacing={10} sx={{ justifyContent: 'center' }}>
-                        {attendees && attendees.map((el, index) => (
-                            <Grid item key={index} xs={6} sm={6} md={6} sx={{ display: 'flex', flexDirection: 'row', gap: '10px', justifyContent: 'center', alignItems: 'center' }}>
+                        {attendees && attendees.map((el) => (
+                            <Grid item key={el.user} xs={6} sm={6} md={6} sx={{ display: 'flex', flexDirection: 'row', gap: '10px', justifyContent: 'center', alignItems: 'center' }}>
                                 <Box
                                     display='flex'
                                     flexDirection='column'
                                     alignItems='center'
-                                    sx={{ width: '80%', maxWidth: '300px' }} // Adjust the width as per requirement
+                                    sx={{ width: '80%', maxWidth: '300px'}} // Adjust the width as per requirement
                                 >
-                                    <BackgroundLetterAvatar userFullName={el.user.full_name} />
-                                    <Typography variant="h6">{el.user.full_name}</Typography>
+                                        <Avatar 
+                                            alt={el.user.full_name}
+                                            src={el.avatar}
+                                        />
+                                    <Link 
+                                        href={`/profiles/${el.user.id}`} 
+                                        sx={{"&.MuiLink-root": {textDecoration: 'none'}}}
+                                    >
+                                        <Typography variant="h6">{el.user.full_name}</Typography>
+                                    </Link>
                                 </Box>
                             </Grid>
                         ))}

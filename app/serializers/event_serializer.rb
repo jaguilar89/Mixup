@@ -13,8 +13,8 @@ class EventSerializer < ActiveModel::Serializer
              :event_description,
              :max_attendees,
              :available_spots,
-             :is_attending
-  #:organizer_avatar
+             :is_attending,
+             :organizer_avatar
 
   has_many :attendances
   belongs_to :organizer
@@ -23,9 +23,10 @@ class EventSerializer < ActiveModel::Serializer
     rails_blob_path(object.event_pic, only_path: true) if object.event_pic.attached?
   end
 
-  #def organizer_avatar
-
-  #end
+  def organizer_avatar
+    organizer_profile = Profile.find_by(user_id: self.object.organizer.id)
+    rails_blob_path(organizer_profile.avatar, only_path: true) if organizer_profile.avatar.attached?
+  end
 
   #Serialized attribute showing whether the logged in user is attending the event.
   def is_attending

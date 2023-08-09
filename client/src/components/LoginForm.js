@@ -7,7 +7,6 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Alert from '@mui/material/Alert';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import logo from '../images/logo-transparent.png'
@@ -18,7 +17,6 @@ export default function LoginForm({ setUser }) {
   const [password, setPassword] = useState("")
   const [errors, setErrors] = useState([])
   const navigate = useNavigate()
-  const theme = createTheme();
   
   async function handleSubmit(e) {
     e.preventDefault();
@@ -59,7 +57,7 @@ export default function LoginForm({ setUser }) {
 
   return (
     <>
-        <CssBaseline />
+      <CssBaseline />
       <Container component="main" maxWidth="xs" sx={{minHeight: '100vh'}}>
         <Box
           sx={{

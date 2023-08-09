@@ -77,6 +77,7 @@ export default function NewEventForm({ setEvents }) {
         setEventPic(selectedFile)
     }
 
+    if (loading) return <LoadingScreen />
     return (
         <Container maxWidth='md' sx={{ paddingBottom: '50px' }}>
             <Box component='form'
