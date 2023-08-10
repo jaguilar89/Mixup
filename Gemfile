@@ -15,7 +15,8 @@ gem "puma", "~> 5.0"
 # gem 'redis', '~> 4.0'
 # Use Active Model has_secure_password
 gem "bcrypt", "~> 3.1.7"
-
+# Google Cloud Storage
+gem "google-cloud-storage", "~> 1.44"
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 
@@ -32,7 +33,7 @@ end
 
 group :development do
   gem "listen", "~> 3.3"
-  gem "google-cloud-storage", "~> 1.44"
+  #gem "google-cloud-storage", "~> 1.44"
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem "spring"
 end
