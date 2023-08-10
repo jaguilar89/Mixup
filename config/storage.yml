@@ -2,6 +2,11 @@ test:
   service: Disk
   root: <%= Rails.root.join("tmp/storage") %>
 
+google:
+  service: GCS
+  project: mixup-app
+  credentials: <%= Rails.application.credentials.gcskey.as_json %>
+  bucket: mixup_app_bucket
 #local:
 #  service: Disk
 #  root: <%= Rails.root.join("storage") %>
@@ -15,17 +20,12 @@ test:
 #   bucket: your_own_bucket
 
 # Remember not to checkin your GCS keyfile to a repository
-google:
-   service: GCS
-   project: mixup-app
-   #credentials: <%= Rails.application.credentials.gcskey.as_json %>
-   bucket: mixup_app_bucket
 
 google_dev:
-   service: GCS
-   project: mixup-app
-   credentials: <%= Rails.application.credentials.gcskey.as_json %>
-   bucket: mixup_app_bucket
+  service: GCS
+  project: mixup-app
+  credentials: <%= Rails.application.credentials.gcskey.as_json %>
+  bucket: mixup_app_bucket
 
 # Use rails credentials:edit to set the Azure Storage secret (as azure_storage:storage_access_key)
 # microsoft:
