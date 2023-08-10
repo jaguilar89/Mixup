@@ -18,7 +18,7 @@ test:
 google:
    service: GCS
    project: mixup-app
-   credentials: <%= Rails.application.credentials.gcskey.as_json %>
+   #credentials: <%= Rails.application.credentials.gcskey.as_json %>
    bucket: mixup_app_bucket
 
 google_dev:
