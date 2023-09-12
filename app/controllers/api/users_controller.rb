@@ -5,6 +5,7 @@ class Api::UsersController < ApplicationController
   def create
     user = User.create!(user_params)
     session[:user_id] = user.id
+    UserMailer.with(user: user).send_signup_confirmation_email.deliver_later
     render json: user, status: :created
   end
 

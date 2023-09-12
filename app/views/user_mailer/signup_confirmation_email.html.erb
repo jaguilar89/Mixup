@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE-edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+            .button {
+            display: inline-block;
+            text-align: center;
+            padding: 6px 16px;
+            font-size: 0.875rem;
+            min-width: 64px;
+            box-sizing: border-box;
+            transition: background-color 250ms;
+            font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+            font-weight: 500;
+            line-height: 1.75;
+            border-radius: 4px;
+            letter-spacing: 0.02857em;
+            text-transform: uppercase;
+            color: #fff;
+            background-color: #3f51b5;
+            text-decoration: none;
+            text-align: center;
+            cursor: pointer;
+            }
+            </style>
+    <title>Document</title>
+</head>
+<body>
+    <h1>Welcome to Mixup!</h1>
+    <p>Hello <%= @user.full_name %>, your Mixup account has been created!
+    <div>
+        <button type='button' class='button'>Log in to your account</button>
+    </div>
+</body>
+</html>
