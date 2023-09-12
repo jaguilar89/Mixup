@@ -5,7 +5,7 @@ class ProfileSerializer < ActiveModel::Serializer
 
   def attended_events
     user = self.object.user
-    attendances = user.attendances
+    attendances = user&.attendances
     attended_events = attendances.map { |a| a.event }
     attended_events if attendances
   end

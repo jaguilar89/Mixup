@@ -26,7 +26,7 @@ function Copyright() {
 
 export default function SignupForm({ setUser }) {
     const [fullName, setFullName] = useState("")
-    const [username, setUsername] = useState("")
+    const [emailAddress, setEmailAddress] = useState("")
     const [password, setPassword] = useState("")
     const [passwordConfirmation, setPasswordConfirmation] = useState("")
     const [errors, setErrors] = useState([])
@@ -42,7 +42,7 @@ export default function SignupForm({ setUser }) {
             },
             body: JSON.stringify({
                 full_name: fullName,
-                username,
+                email_address: emailAddress,
                 password,
                 password_confirmation: passwordConfirmation
             })
@@ -93,11 +93,11 @@ export default function SignupForm({ setUser }) {
                             margin="normal"
                             required
                             fullWidth
-                            id="username"
-                            label="Username"
-                            name= "username"
+                            id="email_address"
+                            label="Email Address"
+                            name= "email_address"
                             autoFocus
-                            onChange={(e) => setUsername(e.currentTarget.value)}
+                            onChange={(e) => setEmailAddress(e.currentTarget.value)}
                         />
                         <TextField
                             margin="normal"

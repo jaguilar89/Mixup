@@ -6,7 +6,7 @@ class User < ApplicationRecord
   has_one :profile, dependent: :destroy
 
   validates :full_name, presence: true
-  validates :username, presence: true, uniqueness: true
+  validates :email_address, presence: true, uniqueness: { case_sensitive: false }, format: { with: /.+@.+\..+/i, message: "email format is invalid" }
   validates :password, presence: true, length: { in: 8..20 }
   validate :validate_full_name_format
 
