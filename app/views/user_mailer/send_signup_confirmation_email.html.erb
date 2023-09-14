@@ -5,9 +5,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE-edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
-            body {
-                font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
-            },
             .button {
             display: inline-block;
             text-align: center;
@@ -35,7 +32,7 @@
     <h1>Welcome to Mixup!</h1>
     <p>Hello <%= @user.full_name %>, your Mixup account has been created!
     <div>
-        <button type='button' class='button'>Log in to your account</button>
+        <button type='button' class='button' onclick="window.location.href='https://mixup.onrender.com';">Log in to your account</button>
     </div>
 </body>
 </html>

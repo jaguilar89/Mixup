@@ -13,7 +13,7 @@ import logo from '../images/logo-transparent.png'
 
 
 export default function LoginForm({ setUser }) {
-  const [username, setUsername] = useState("")
+  const [emailAddress, setEmailAddress] = useState("")
   const [password, setPassword] = useState("")
   const [errors, setErrors] = useState([])
   const navigate = useNavigate()
@@ -27,7 +27,7 @@ export default function LoginForm({ setUser }) {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        username,
+        email_address: emailAddress,
         password
       })
     });
@@ -77,9 +77,9 @@ export default function LoginForm({ setUser }) {
               margin="normal"
               required
               fullWidth
-              id="username"
-              label="Username"
-              name="username"
+              id="email-address"
+              label="Email Address"
+              name="email-address"
               autoComplete
               autoFocus
               onChange={(e) => setUsername(e.currentTarget.value)}
