@@ -82,7 +82,7 @@ export default function LoginForm({ setUser }) {
               name="email-address"
               autoComplete
               autoFocus
-              onChange={(e) => setUsername(e.currentTarget.value)}
+              onChange={(e) => setEmailAddress(e.currentTarget.value)}
             />
             <TextField
               margin="normal"
