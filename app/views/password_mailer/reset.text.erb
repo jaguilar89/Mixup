@@ -1,0 +1,6 @@
+Password#reset
+
+Hi <%= @user.name %>
+A password reset was requested.
+If this was you, click on the link to reset your password. The link will expire automatically in 15 minutes.
+<%= password_reset_edit_url(token: @token) %>
