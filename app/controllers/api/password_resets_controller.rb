@@ -1,5 +1,6 @@
 class Api::PasswordResetsController < ApplicationController
   skip_before_action :authorize
+  rescue_from ActiveSupport::MessageVerifier::InvalidSignature, with: :token_expired_response
 
   def new
   end
@@ -8,36 +9,31 @@ class Api::PasswordResetsController < ApplicationController
     @user = User.find_by(email_address: params[:email_address])
     if @user
       PasswordMailer.with(user: @user).reset.deliver_later
-
-      #redirect_to "/login", notice: "If an account with that email was found, a link to reset password has been sent."
+      render json: { alerts: "If the email address provided exists, a link to reset password has been sent." }
     end
   end
 
   def edit
-    begin
-      @user = User.find_signed!(params[:token], purpose: "password_reset")
-    rescue ActiveSupport::MessageVerifier::InvalidSignature
-      redirect_to "/login", alert: "Your token has expired. Please try again."
-    end
+    @user = User.find_signed!(params[:token], purpose: "password_reset")
   end
 
   def update
-    begin
-      @user = User.find_signed!(params[:token], purpose: "password_reset")
+    @user = User.find_signed!(params[:token], purpose: "password_reset")
 
-      if @user.update(password_params)
-        redirect_to "/login", notice: "Your password was reset succesfully. Please sign in."
-      else
-        render "edit"
-      end
-    rescue ActiveSupport::MessageVerifier::InvalidSignature
-      redirect_to "/login", alert: "Your token has expired. Please try again"
+    if @user.update(password_params)
+      render json: { alerts: "Password has been successfully reset, please sign in." }
+    else
+      render "edit"
     end
   end
 
   private
 
   def password_params
-    params.permit(:email_address)
+    params.permit(:password, :password_confirmation)
+  end
+
+  def token_expired_response
+    render json: { errors: "Your token has expired. Please try again." }
   end
 end
