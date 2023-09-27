@@ -13,6 +13,8 @@ import Footer from './components/Footer';
 import NewProfileForm from './pages/NewProfileForm';
 import UserProfile from './pages/UserProfile';
 import PrivateRoutes from './components/PrivateRoutes';
+import PasswordResetForm from './pages/PasswordResetForm';
+import PasswordResetRequestForm from './pages/PasswordResetRequestForm';
 
 export default function App() {
   const { user, setUser } = useContext(UserContext)
@@ -25,6 +27,8 @@ export default function App() {
         <Route path='/' element={<LandingPage />} />
         <Route path='/login' element={<LoginForm setUser={setUser} />} />
         <Route path='/login/signup' element={<SignupForm setUser={setUser} />} />
+        <Route path='/login/password/reset' element={<PasswordResetRequestForm />} />
+        <Route path='/login/password/reset/edit' element={<PasswordResetForm />} />
         
         {/*Protected Routes */}
         <Route element={<PrivateRoutes />} >

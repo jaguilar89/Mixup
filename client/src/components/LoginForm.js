@@ -111,6 +111,11 @@ export default function LoginForm({ setUser }) {
                 <Link href='/login/signup'>
                   Don't have an account? Sign up here
                 </Link>
+                <Grid item>
+                <Link href='/login/password/reset'>
+                  Forgot password? Click here
+                </Link>
+                </Grid>
               </Grid>
             </Grid>
           </Box>
