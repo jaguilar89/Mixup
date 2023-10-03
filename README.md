@@ -38,6 +38,7 @@ Visit https://mixup.onrender.com/ and sign up for an account. Upon signup you wi
 ### Features
 
 - [x] Implement sign up with email/email confirmation
-- [ ] Implement password reset
+- [x] Implement password reset
+- [ ] Apply password complexity requirements
 - [ ] Implement ability to sort events by distance to current location
 - [x] Display avatar with user profile picture
