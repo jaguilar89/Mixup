@@ -32,12 +32,13 @@ export default function PasswordResetForm() {
         });
         if (res.ok) {
             const msg = await res.json();
-            console.log(msg.alerts)
+            setAlerts([msg.alerts])
         } else {
             const err = await res.json();
             setErrors(err.errors)
         }
-
+        
+        e.target.reset()
     }
 
 
@@ -64,6 +65,7 @@ export default function PasswordResetForm() {
                             required
                             fullWidth
                             id="new-password"
+                            type='password'
                             label="New Password"
                             name="new-password"
                             autoComplete
@@ -76,7 +78,7 @@ export default function PasswordResetForm() {
                             fullWidth
                             name="password-confirmation"
                             label="Confirm New Password"
-                            type="password-confirmation"
+                            type="password"
                             id="password-confirmation"
                             autoComplete='password-confirmation'
                             onChange={(e) => setNewPasswordConfirmation(e.currentTarget.value)}
