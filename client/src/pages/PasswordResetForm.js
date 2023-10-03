@@ -7,14 +7,14 @@ import Container from '@mui/material/Container';
 import Alert from '@mui/material/Alert';
 import { useState, useLocation } from 'react';
 import logo from '../images/logo-transparent.png'
+import { useParams } from 'react-router-dom';
 
 export default function PasswordResetForm() {
     const [newPassword, setNewPassword] = useState("")
     const [newPasswordConfirmation, setNewPasswordConfirmation] = useState("")
-    const [errors, setErrors] = useState("")
-    const location = useLocation()
-    const queryParams = new URLSearchParams(location.search)
-    const token = queryParams.get('token')
+    const [alerts, setAlerts] = useState([])
+    const [errors, setErrors] = useState(null)
+    const { token } = useParams()
 
     async function handleSubmit(e) {
         e.preventDefault();
@@ -25,13 +25,14 @@ export default function PasswordResetForm() {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
+                token: token,
                 password: newPassword,
                 password_confirmation: newPasswordConfirmation
             })
         });
         if (res.ok) {
-            const res = await res.json();
-            console.log(res)
+            const msg = await res.json();
+            console.log(msg.alerts)
         } else {
             const err = await res.json();
             setErrors(err.errors)
@@ -81,16 +82,17 @@ export default function PasswordResetForm() {
                             onChange={(e) => setNewPasswordConfirmation(e.currentTarget.value)}
                         />
 
-                        {errors && errors.map((err) => <Alert key={err} severity="error">{err}</Alert>)}
 
                         <Button
                             type="submit"
                             fullWidth
                             variant="contained"
                             sx={{ mt: 3, mb: 2 }}
-                        >
+                            >
                             Reset Password
                         </Button>
+                            {errors && errors.map((err) => <Alert key={err} severity="error">{err}</Alert>)}
+                            {alerts && alerts.map((msg) => <Alert key={msg} severity="info">{msg}</Alert>)}
                     </Box>
                 </Box>
                 <br />

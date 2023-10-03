@@ -1,11 +1,36 @@
 import Box from "@mui/material/Box";
+import Alert from "@mui/material/Alert";
 import { Container, Typography, TextField, Button } from "@mui/material";
-import logo from '../images/logo-transparent.png'
 import { useState } from "react";
 
 export default function PasswordResetRequestForm() {
     const [emailAddress, setEmailAddress] = useState("")
-    const [alert, setAlert] = useState(null)
+    const [alerts, setAlerts] = useState([])
+    const [errors, setErrors] = useState([])
+
+    async function handleSubmit(e) {
+        e.preventDefault()
+        
+        const res = await fetch('/api/password/reset', {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                email_address: emailAddress
+            })
+        })
+
+        if (res.ok) {
+            const msg = await res.json()
+            setAlerts([msg.alerts])
+        } else {
+            const err = await res.json()
+            console.log(err.errors)
+        }
+
+        e.target.reset()
+    }
 
     return (
         <Container component="main" maxWidth="xs" sx={{ minHeight: '100vh' }}>
@@ -21,7 +46,7 @@ export default function PasswordResetRequestForm() {
                 <Typography component="h1" variant="h5">
                     Request Password Reset
                 </Typography>
-                <Box component="form" noValidate sx={{ mt: 1 }}>
+                <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>
                     <TextField
                         margin="normal"
                         required
@@ -33,15 +58,16 @@ export default function PasswordResetRequestForm() {
                         autoFocus
                         onChange={(e) => setEmailAddress(e.currentTarget.value)}
                     />
+                    <Button
+                        type="submit"
+                        variant="contained"
+                        sx={{ mt: 3, mb: 2 }}
+                    >
+                        Submit
+                    </Button>
                 </Box>
-                <Button
-                    type="submit"
-                    variant="contained"
-                    sx={{ mt: 3, mb: 2 }}
-                >
-                    Submit
-                </Button>
             </Box>
+            {alerts && alerts.map((msg) => <Alert key={msg} severity="info">{msg}</Alert>)}
         </Container>
     )
 }

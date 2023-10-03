@@ -28,7 +28,7 @@ export default function App() {
         <Route path='/login' element={<LoginForm setUser={setUser} />} />
         <Route path='/login/signup' element={<SignupForm setUser={setUser} />} />
         <Route path='/login/password/reset' element={<PasswordResetRequestForm />} />
-        <Route path='/login/password/reset/edit' element={<PasswordResetForm />} />
+        <Route path='/login/password/reset/edit/:token' element={<PasswordResetForm />} />
         
         {/*Protected Routes */}
         <Route element={<PrivateRoutes />} >

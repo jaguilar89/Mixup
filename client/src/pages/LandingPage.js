@@ -35,17 +35,6 @@ const CardMediaWrapper = styled(CardMedia)(({ theme }) => ({
   objectFit: 'cover',
 }));
 
-/* const linkStyle = {
-    textDecoration: 'none',
-    color: '#f5f5f5',
-    "&:hover": {
-      color: 'inherit'
-    },
-    "&:visited": {
-      color: 'inherit',
-      textDecoration: 'none'
-    }
-  } */
 
 export default function LandingPage() {
     const navigate = useNavigate()
