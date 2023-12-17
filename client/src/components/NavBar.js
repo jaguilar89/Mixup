@@ -104,6 +104,9 @@ export default function NavBar() {
                 <MenuItem>
                   <Typography sx={linkStyle} textAlign='center' component='a' href={`/profiles/${user.profile?.id}`}>Profile</Typography>
                 </MenuItem>
+                <MenuItem>
+                  <Typography sx={linkStyle} textAlign='center' component='a' href={`/login/password/reset`}>Change Password</Typography>
+                </MenuItem>
                 <MenuItem onClick={handleLogout}>
                   <Typography sx={linkStyle} textAlign='center' component='a' href='logout'>Log Out {user.username}</Typography>
                 </MenuItem>

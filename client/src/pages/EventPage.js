@@ -14,7 +14,7 @@ import * as dayjs from 'dayjs'
 import LocalizedFormat from 'dayjs/plugin/localizedFormat'
 import parse from 'html-react-parser'
 
-export default function EventPage({ user, events, setEvents }) {
+export default function EventPage({ user }) {
     const [isLoading, setIsLoading] = useState(true)
     const [eventInfo, setEventInfo] = useState([])
     const [organizer, setOrganizer] = useState([])

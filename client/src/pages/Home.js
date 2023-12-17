@@ -20,7 +20,7 @@ export default function Home({ user, setUser, events, setEvents }) {
                 setIsLoading(false)
             } else {
                 const error = await res.json()
-                console.log(error)
+                console.error(error)
             }
         })()
     }, []);

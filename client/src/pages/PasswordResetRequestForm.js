@@ -26,7 +26,7 @@ export default function PasswordResetRequestForm() {
             setAlerts([msg.alerts])
         } else {
             const err = await res.json()
-            console.log(err.errors)
+            setErrors(err.errors)
         }
 
         e.target.reset()

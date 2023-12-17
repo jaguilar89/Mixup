@@ -5,9 +5,9 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Alert from '@mui/material/Alert';
-import { useState, useLocation } from 'react';
+import { useState } from 'react';
 import logo from '../images/logo-transparent.png'
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 export default function PasswordResetForm() {
     const [newPassword, setNewPassword] = useState("")
@@ -15,6 +15,7 @@ export default function PasswordResetForm() {
     const [alerts, setAlerts] = useState([])
     const [errors, setErrors] = useState(null)
     const { token } = useParams()
+    const navigate = useNavigate();
 
     async function handleSubmit(e) {
         e.preventDefault();
@@ -33,6 +34,7 @@ export default function PasswordResetForm() {
         if (res.ok) {
             const msg = await res.json();
             setAlerts([msg.alerts])
+            setTimeout(() => navigate('/login'), 1500)
         } else {
             const err = await res.json();
             setErrors(err.errors)
