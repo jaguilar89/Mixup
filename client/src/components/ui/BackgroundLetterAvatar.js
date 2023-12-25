@@ -31,9 +31,9 @@ function stringAvatar(name) {
   }
 }
 
-export default function BackgroundLetterAvatar({userFullName}) {
+export default function BackgroundLetterAvatar({ userFullName }) {
   const name = userFullName || ''
   return (
-      <Avatar {...stringAvatar(name)} />
+    <Avatar {...stringAvatar(name)} />
   );
 }

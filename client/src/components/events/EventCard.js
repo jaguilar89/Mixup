@@ -3,7 +3,7 @@ import Box from '@mui/material/Box'
 import Card from '@mui/material/Card'
 import Typography from '@mui/material/Typography';
 import CardActionArea from '@mui/material/CardActionArea';
-import cardImage from '../images/cardimage.jpeg'
+import cardImage from '../../images/cardimage.jpeg'
 import * as dayjs from 'dayjs';
 
 export default function EventCard({ eventName, eventDate, eventPic, eventLocation, attendances, availableSpots, organizer }) {

@@ -3,16 +3,16 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button"
 import TextField from "@mui/material/TextField"
 import InputLabel from "@mui/material/InputLabel";
-import GooglePlacesAutocomplete from "../components/GooglePlacesAutocomplete";
+import GooglePlacesAutocomplete from "../google_api/GooglePlacesAutocomplete";
 import Alert from "@mui/material/Alert";
 import Input from "@mui/material/Input";
 import { useContext, useState } from "react";
-import { UserContext } from "../context/UserContext";
+import { UserContext } from "../../context/UserContext";
 import { useNavigate } from "react-router-dom";
 import { DateTimePicker } from "@mui/x-date-pickers";
 import dayjs from "dayjs";
-import TextEditor from "../components/TextEditor";
-import LoadingScreen from "../components/LoadingScreen";
+import TextEditor from "../ui/TextEditor";
+import LoadingScreen from "../ui/LoadingScreen";
 
 export default function NewEventForm({ setEvents }) {
     const [loading, setLoading] = useState(null)

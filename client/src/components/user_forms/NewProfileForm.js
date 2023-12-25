@@ -1,11 +1,10 @@
 import { Container, Button, Box, Alert, Typography, Input, Avatar, InputLabel } from "@mui/material"
-import BioTextEditor from "../components/BioTextEditor"
-import LoadingScreen from "../components/LoadingScreen"
+import BioTextEditor from "../ui/BioTextEditor"
+import LoadingScreen from "../ui/LoadingScreen"
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 
 export default function NewProfileForm() {
-    const [loading, setLoading] = useState(null)
     const [avatar, setAvatar] = useState(null)
     const [previewUrl, setPreviewUrl] = useState('')
     const [bio, setBio] = useState('')
@@ -20,7 +19,6 @@ export default function NewProfileForm() {
 
     async function handleSubmit(e) {
         e.preventDefault();
-        setLoading(true)
         //(attribute_name, stateVariable)
         const formData = new FormData()
         formData.append('avatar', avatar)
@@ -32,7 +30,6 @@ export default function NewProfileForm() {
         })
 
         if (res.ok) {
-            setLoading(false)
             const profile = await res.json()
             navigate(`/profiles/${profile.id}`)
         } else {
@@ -40,8 +37,6 @@ export default function NewProfileForm() {
             setErrors(err.errors)
         }
     }
-
-    if (loading) return <LoadingScreen/>
     
     return (
         <Container maxWidth='md' sx={{ paddingTop: '20px', paddingBottom: '20px' }}>

@@ -1,7 +1,7 @@
 import { Navigate, Outlet } from "react-router-dom";
 import { useContext } from "react";
-import { UserContext } from "../context/UserContext";
-import LoadingScreen from "./LoadingScreen";
+import { UserContext } from "../../context/UserContext";
+import LoadingScreen from "../ui/LoadingScreen";
 
 export default function PrivateRoutes() {
     const { user, isLoading } = useContext(UserContext)

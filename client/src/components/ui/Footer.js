@@ -22,17 +22,17 @@ export default function Footer() {
     >
       <Link href="https://www.linkedin.com/jaguilar89" target="_blank" rel="noopener">
         <IconButton aria-label="LinkedIn" color="primary">
-          <LinkedInIcon sx={{fontSize: '32px'}}/>
+          <LinkedInIcon sx={{ fontSize: '32px' }} />
         </IconButton>
       </Link>
       <Link href="https://github.com/jaguilar89" target="_blank" rel="noopener">
         <IconButton aria-label="GitHub" color="primary">
-          <GitHubIcon sx={{fontSize: '32px'}}/>
+          <GitHubIcon sx={{ fontSize: '32px' }} />
         </IconButton>
       </Link>
       <Link href="mailto:jaguilarny@gmail.com" target="_blank" rel="noopener">
         <IconButton aria-label="Email" color="primary">
-          <EmailIcon sx={{fontSize: '32px'}}/>
+          <EmailIcon sx={{ fontSize: '32px' }} />
         </IconButton>
       </Link>
     </Box>

@@ -1,7 +1,7 @@
 import CardMedia from '@mui/material/CardMedia';
 import Card from '@mui/material/Card'
 import Typography from '@mui/material/Typography';
-import cardImage from '../images/cardimage.jpeg'
+import cardImage from '../../images/cardimage.jpeg'
 import * as dayjs from 'dayjs';
 
 export default function PastEventCard({eventName, eventLocation, eventDate}) {

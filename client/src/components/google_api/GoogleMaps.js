@@ -10,14 +10,14 @@ export default function GoogleMaps({ eventInfo }) {
     return (
         <Card sx={{ maxWidth: 500 }}>
             <CardActionArea>
-                    <CardContent>
-                        <Typography gutterBottom variant="h5" component="div">
-                            {eventInfo.place_name}
-                        </Typography>
-                        <Typography variant="body3" color="text.secondary">
-                            {eventInfo.place_address}
-                        </Typography>
-                    </CardContent>
+                <CardContent>
+                    <Typography gutterBottom variant="h5" component="div">
+                        {eventInfo.place_name}
+                    </Typography>
+                    <Typography variant="body3" color="text.secondary">
+                        {eventInfo.place_address}
+                    </Typography>
+                </CardContent>
                 <CardMedia
                     component="iframe"
                     height="350"

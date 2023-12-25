@@ -5,8 +5,8 @@ import {
     Typography,
     Link
 } from "@mui/material"
-import GoogleMaps from "./GoogleMaps"
-import cardImage from '../images/cardimage.jpeg'
+import GoogleMaps from "../google_api/GoogleMaps"
+import cardImage from '../../images/cardimage.jpeg'
 
 export default function EventInfo({
     displayAlert,

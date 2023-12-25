@@ -10,10 +10,10 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import BackgroundLetterAvatar from './BackgroundLetterAvatar';
 import { useContext, useState } from 'react';
-import { UserContext } from '../context/UserContext';
+import { UserContext } from '../../context/UserContext';
 import { useNavigate } from 'react-router-dom';
 import { Link } from '@mui/material';
-import logo from '../images/logo-transparent.png'
+import logo from '../../images/logo-transparent.png'
 
 export default function NavBar() {
   const [anchorElUser, setAnchorElUser] = useState(null)
@@ -32,7 +32,7 @@ export default function NavBar() {
       textDecoration: 'none'
     }
   }
-  
+
   function handleOpenUserMenu(e) {
     setAnchorElUser(e.currentTarget)
   }
@@ -59,27 +59,27 @@ export default function NavBar() {
         <Toolbar disableGutters>
           <Box sx={{ flexGrow: 1, color: 'black' }}>
             <Link href='/home'>
-              <img src={logo} width='200px' height='33px' alt='logo'/>
+              <img src={logo} width='200px' height='33px' alt='logo' />
             </Link>
           </Box>
 
 
           {!user && (
-            <Box sx={{ flexGrow: 0}}>
-              <Button variant='contained' component='a' href='/login' sx={{marginRight: '20px'}}>Log In</Button>
+            <Box sx={{ flexGrow: 0 }}>
+              <Button variant='contained' component='a' href='/login' sx={{ marginRight: '20px' }}>Log In</Button>
               <Button variant='contained' component='a' href='/login/signup'>Sign Up</Button>
             </Box>
           )}
           {user && (
             <Box sx={{ flexGrow: 0 }}>
               <Button
-                    variant='contained'
-                    component='a'
-                    href='/events/new'
-                    sx={{marginRight: '20px'}}
-                >
-                  Create Event
-                </Button>
+                variant='contained'
+                component='a'
+                href='/events/new'
+                sx={{ marginRight: '20px' }}
+              >
+                Create Event
+              </Button>
               <Tooltip title='User Avatar'>
                 <IconButton onClick={handleOpenUserMenu}>
                   <BackgroundLetterAvatar userFullName={userFullName} />

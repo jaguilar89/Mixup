@@ -1,5 +1,5 @@
 import { createContext, useState, useEffect } from "react";
-import LoadingScreen from "../components/LoadingScreen";
+import LoadingScreen from "../components/ui/LoadingScreen";
 
 
 const UserContext = createContext();

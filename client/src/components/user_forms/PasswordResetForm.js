@@ -6,7 +6,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Alert from '@mui/material/Alert';
 import { useState } from 'react';
-import logo from '../images/logo-transparent.png'
+import logo from '../../images/logo-transparent.png'
 import { useNavigate, useParams } from 'react-router-dom';
 
 export default function PasswordResetForm() {

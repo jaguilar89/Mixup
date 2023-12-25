@@ -1,15 +1,15 @@
 import { Box, Button } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom"
-import EventEditForm from "../components/EventEditForm";
-import EventCancelDialog from "../components/EventCancelDialog";
+import EventEditForm from "./EventEditForm";
+import EventCancelDialog from "./EventCancelDialog";
 import Alert from "@mui/material/Alert";
-import cardImage from '../images/cardimage.jpeg'
+import cardImage from '../../images/cardimage.jpeg'
 import * as dayjs from 'dayjs'
 import LocalizedFormat from 'dayjs/plugin/localizedFormat'
 import parse from 'html-react-parser'
-import RsvpList from "../components/RsvpList";
-import EventInfo from "../components/EventInfo";
+import RsvpList from "./RsvpList";
+import EventInfo from "./EventInfo";
 
 export default function EventPage({ user }) {
     const [eventInfo, setEventInfo] = useState([])

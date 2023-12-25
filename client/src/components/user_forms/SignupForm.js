@@ -9,7 +9,7 @@ import Container from '@mui/material/Container';
 import Alert from '@mui/material/Alert';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import logo from '../images/logo-transparent.png'
+import logo from '../../images/logo-transparent.png'
 
 function Copyright() {
     return (

@@ -5,9 +5,9 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
-import GooglePlacesAutocomplete from "./GooglePlacesAutocomplete";
+import GooglePlacesAutocomplete from "../google_api/GooglePlacesAutocomplete";
 import { DateTimePicker } from "@mui/x-date-pickers";
-import TextEditor from "./TextEditor";
+import TextEditor from "../ui/TextEditor";
 import dayjs from "dayjs";
 
 export default function EventEditForm({ eventId, setEventInfo }) {
@@ -51,7 +51,7 @@ export default function EventEditForm({ eventId, setEventInfo }) {
         const { main_text: placeName, secondary_text: placeAddress } = venueInfo?.structured_formatting
 
         let updatedFormData;
-        
+
         if (placeId) {
             updatedFormData = {
                 ...formData,

@@ -7,7 +7,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import { useState } from 'react';
 import { Box } from '@mui/material';
 
-export default function EventCancelDialog({onCancelEvent}) {
+export default function EventCancelDialog({ onCancelEvent }) {
   const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {
@@ -39,10 +39,10 @@ export default function EventCancelDialog({onCancelEvent}) {
         </DialogContent>
         <DialogActions>
           <Box component='form'>
-          <Button onClick={handleClose}>No</Button>
-          <Button onClick={handleClose} autoFocus type='submit'>
-            Yes
-          </Button>
+            <Button onClick={handleClose}>No</Button>
+            <Button onClick={handleClose} autoFocus type='submit'>
+              Yes
+            </Button>
           </Box>
         </DialogActions>
       </Dialog>
