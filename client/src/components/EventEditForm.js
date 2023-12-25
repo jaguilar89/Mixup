@@ -51,7 +51,7 @@ export default function EventEditForm({ eventId, setEventInfo }) {
         const { main_text: placeName, secondary_text: placeAddress } = venueInfo?.structured_formatting
 
         let updatedFormData;
-
+        
         if (placeId) {
             updatedFormData = {
                 ...formData,
