@@ -1,7 +1,7 @@
 import { Avatar, Box, Typography, Grid } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import PastEventCard from "../components/events/PastEventCard";
+import PastEventCard from "../events/PastEventCard";
 import parse from 'html-react-parser'
 import * as dayjs from 'dayjs'
 

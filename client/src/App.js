@@ -3,19 +3,19 @@ import './App.css';
 import NavBar from './components/ui/NavBar';
 import LoginForm from './components/user_forms/LoginForm';
 import SignupForm from './components/user_forms/SignupForm';
-import LandingPage from './pages/LandingPage';
-import Home from './pages/Home';
+import LandingPage from './components/pages/LandingPage';
+import Home from './components/pages/Home';
 import { useContext, useState } from 'react';
 import { UserContext } from './context/UserContext';
 import NewEventForm from './components/events/NewEventForm';
 import EventPage from './components/events/EventPage';
 import Footer from './components/ui/Footer';
 import NewProfileForm from './components/user_forms/NewProfileForm';
-import UserProfile from './pages/UserProfile';
+import UserProfile from './components/pages/UserProfile';
 import PrivateRoutes from './components/pages/PrivateRoutes';
 import PasswordResetForm from './components/user_forms/PasswordResetForm';
 import PasswordResetRequestForm from './components/user_forms/PasswordResetRequestForm';
-import ErrorPage from './pages/ErrorPage';
+import ErrorPage from './components/pages/ErrorPage';
 
 export default function App() {
   const { user, setUser } = useContext(UserContext)

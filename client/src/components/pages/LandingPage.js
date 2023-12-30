@@ -1,9 +1,9 @@
-import { Typography, Button, Container, Grid, Card, CardContent, CardMedia } from '@mui/material';
+import { Button, Card, CardContent, CardMedia, Container, Grid, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
-import networkingImage from '../images/networking.png'
-import meetupImage from '../images/meetups.jpg'
-import splashImage from '../images/splash.jpg'
+import meetupImage from '../../images/meetups.jpg';
+import networkingImage from '../../images/networking.png';
+import splashImage from '../../images/splash.jpg';
 
 const HeroSection = styled('div')(({ theme }) => ({
   backgroundImage: `url(${splashImage})`,

@@ -1,10 +1,10 @@
 import Grid from '@mui/material/Grid'
-import EventCard from "../components/events/EventCard";
+import EventCard from '../events/EventCard'
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box'
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import LoadingScreen from '../components/ui/LoadingScreen';
+import LoadingScreen from '../ui/LoadingScreen';
 
 
 export default function Home({ events, setEvents }) {
