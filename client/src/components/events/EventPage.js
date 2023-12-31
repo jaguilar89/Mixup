@@ -33,52 +33,53 @@ export default function EventPage({ user }) {
     const eventHasPassed = currentDate > new Date(eventInfo?.event_end)
 
     useEffect(() => {
-        (async () => {
-            const res = await fetch(`/api/events/${eventId}`)
-
-            if (res.ok) {
+        async function fetchEventInfo() {
+            try {
+                const res = await fetch(`/api/events/${eventId}`)
                 const event = await res.json();
                 setEventInfo(event)
-            } else {
-                const error = await res.json()
+            } catch (error) {
                 console.error(error)
             }
-        })()
+        }
+
+        fetchEventInfo();
     }, [eventId])
 
     useEffect(() => {
-        (async () => {
-            const res = await fetch(`/api/events/${eventId}/attendances`)
+        async function fetchAttendanceInfo() {
+            try {
+                const res = await fetch(`/api/events/${eventId}/attendances`)
 
-            if (res.ok) {
                 const attendanceRecords = await res.json()
                 setAttendees(attendanceRecords)
                 const userRecord = attendanceRecords.filter((rec) => rec.user_id === userId)
                 if (userRecord.length !== 0) setUserAttendanceInfo(userRecord)
-            } else {
-                const error = await res.json()
+            } catch (error) {
                 console.error(error)
             }
-        })()
+        }
+
+        fetchAttendanceInfo();
     }, [eventId, isAttending]);
 
     async function handleSubmitRsvp(e) {
         e.preventDefault();
-        const res = await fetch(`/api/events/${eventId}/attendances`, {
-            method: 'POST',
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                user_id: userId,
-                event_id: eventId
+
+        try {
+            const res = await fetch(`/api/events/${eventId}/attendances`, {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    user_id: userId,
+                    event_id: eventId
+                })
             })
-        })
-        if (res.ok) {
             const attendance = await res.json()
             if (attendance) setIsAttending((isAttending) => !isAttending)
-        } else {
-            const error = await res.json()
+        } catch (error) {
             console.error(error)
         }
     }
@@ -86,15 +87,15 @@ export default function EventPage({ user }) {
     async function handleRemoveRsvp(e) {
         e.preventDefault()
         if (userAttendanceInfo.length !== 0) {
-            const attendanceId = userAttendanceInfo[0].id
-            const res = await fetch(`/api/events/${eventId}/attendances/${attendanceId}`, {
-                method: 'DELETE'
-            })
-            if (res.ok) {
+            try {
+                const attendanceId = userAttendanceInfo[0].id
+                await fetch(`/api/events/${eventId}/attendances/${attendanceId}`, {
+                    method: 'DELETE'
+                })
+
                 setUserAttendanceInfo(null)
                 setIsAttending((isAttending) => !isAttending)
-            } else {
-                const error = await res.json()
+            } catch (error) {
                 console.error(error)
             }
         } else {
@@ -104,14 +105,13 @@ export default function EventPage({ user }) {
 
     async function handleCancelEvent(e) {
         e.preventDefault();
-        const res = await fetch(`/api/events/${eventId}`, {
-            method: 'DELETE'
-        })
-        if (res.ok) {
+        try {
+            await fetch(`/api/events/${eventId}`, {
+                method: 'DELETE'
+            })
             window.location.href = '/home'
-        } else {
-            const error = await res.json()
-            console.log(error)
+        } catch (error) {
+            console.error(error)
         }
     }
 

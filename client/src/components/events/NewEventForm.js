@@ -122,7 +122,7 @@ export default function NewEventForm({ setEvents }) {
                     onChange={(e) => setMaxAttendees(e.target.value)}
                 />
 
-                <InputLabel htmlFor='file-input'>Upload Event Picture</InputLabel>
+                <InputLabel htmlFor='file-input' required>Upload Event Picture</InputLabel>
                 <Input
                     type="file"
                     inputProps={{ accept: 'image/*' }}

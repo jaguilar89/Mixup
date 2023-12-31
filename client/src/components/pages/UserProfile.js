@@ -22,7 +22,7 @@ export default function UserProfile() {
         setProfile(profileInfo)
       } else {
         const err = await res.json()
-        console.log(err.errors)
+        console.error(err.errors)
       }
     })()
   }, [id])

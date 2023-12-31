@@ -2,13 +2,14 @@ import Grid from '@mui/material/Grid'
 import EventCard from '../events/EventCard'
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box'
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import LoadingScreen from '../ui/LoadingScreen';
+import { UserContext } from '../../context/UserContext';
 
 
 export default function Home({ events, setEvents }) {
-    const [isLoading, setIsLoading] = useState(true)
+    const { isLoading } = useContext(UserContext)
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -17,7 +18,6 @@ export default function Home({ events, setEvents }) {
             if (res.ok) {
                 const eventsList = await res.json();
                 setEvents(eventsList)
-                setIsLoading(false)
             } else {
                 const error = await res.json()
                 console.error(error)
