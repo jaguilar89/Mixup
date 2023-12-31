@@ -6,23 +6,24 @@ import { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import LoadingScreen from '../ui/LoadingScreen';
 import { UserContext } from '../../context/UserContext';
+import ErrorPage from './ErrorPage';
 
 
 export default function Home({ events, setEvents }) {
-    const { isLoading } = useContext(UserContext)
     const navigate = useNavigate();
 
     useEffect(() => {
-        (async () => {
-            const res = await fetch('/api/events')
-            if (res.ok) {
+        async function fetchEvents() {
+            try {
+                const res = await fetch('/api/events')
                 const eventsList = await res.json();
                 setEvents(eventsList)
-            } else {
-                const error = await res.json()
+            } catch (error) {
                 console.error(error)
             }
-        })()
+        }
+
+        fetchEvents()
     }, []);
 
     const eventCards =
@@ -43,13 +44,12 @@ export default function Home({ events, setEvents }) {
                         />
                     </Grid>
             ))
-
+            
     return (
         <Container sx={{minHeight: '100vh'}}>
             <Box display='flex' justifyContent='center' marginTop='50px' >
             </Box>
             <Container sx={{paddingTop: '50px' }}>
-                {isLoading && <LoadingScreen />}
                 <br />
                 <Grid container justifyContent='center' rowSpacing={5} columnSpacing={{ xs: 4, sm: 8, md: 10 }}>
                     {events && eventCards}

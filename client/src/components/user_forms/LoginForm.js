@@ -80,7 +80,6 @@ export default function LoginForm({ setUser }) {
               id="email-address"
               label="Email Address"
               name="email-address"
-              autoComplete
               autoFocus
               onChange={(e) => setEmailAddress(e.currentTarget.value)}
             />
@@ -92,7 +91,6 @@ export default function LoginForm({ setUser }) {
               label="Password"
               type="password"
               id="password"
-              autoComplete='current-password'
               onChange={(e) => setPassword(e.currentTarget.value)}
             />
 

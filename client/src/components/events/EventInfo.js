@@ -6,7 +6,6 @@ import {
     Link
 } from "@mui/material"
 import GoogleMaps from "../google_api/GoogleMaps"
-import cardImage from '../../images/cardimage.jpeg'
 
 export default function EventInfo({
     displayAlert,
@@ -48,7 +47,7 @@ export default function EventInfo({
                         width: 700
                     }}
                     alt="event picture"
-                    src={eventPic || cardImage}
+                    src={eventPic}
                 />
                 <Box component='div'>
                     <Typography variant="h4">Details</Typography>

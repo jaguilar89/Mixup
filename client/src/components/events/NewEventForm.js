@@ -127,6 +127,7 @@ export default function NewEventForm({ setEvents }) {
                     type="file"
                     inputProps={{ accept: 'image/*' }}
                     onChange={handleFileChange}
+                    required
                 />
                 {/*event details*/}
                 <TextEditor setEventDescription={setEventDescription} />

@@ -20,7 +20,6 @@ export default function NavBar() {
   const { user, setUser } = useContext(UserContext)
   const navigate = useNavigate();
   const userFullName = user?.full_name
-
   const linkStyle = {
     textDecoration: 'none',
     color: 'black',

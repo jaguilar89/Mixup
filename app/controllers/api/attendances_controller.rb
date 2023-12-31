@@ -1,5 +1,4 @@
 class Api::AttendancesController < ApplicationController
-  #TODO: Create instance variable containing the Event, use in actions.
   def index
     attendances = get_event.attendances
     render json: attendances, scope: @current_user, status: :ok
