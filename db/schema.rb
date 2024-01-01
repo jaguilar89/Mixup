@@ -52,14 +52,6 @@ ActiveRecord::Schema.define(version: 2023_09_12_174807) do
     t.index ["user_id"], name: "index_attendances_on_user_id"
   end
 
-  create_table "comments", force: :cascade do |t|
-    t.text "body"
-    t.integer "post_id"
-    t.integer "user_account_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
   create_table "events", force: :cascade do |t|
     t.string "event_city"
     t.text "event_description"
@@ -76,28 +68,12 @@ ActiveRecord::Schema.define(version: 2023_09_12_174807) do
     t.index ["organizer_id"], name: "index_events_on_organizer_id"
   end
 
-  create_table "posts", force: :cascade do |t|
-    t.string "title"
-    t.text "body"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.bigint "user_account_id"
-    t.index ["user_account_id"], name: "index_posts_on_user_account_id"
-  end
-
   create_table "profiles", force: :cascade do |t|
     t.text "bio"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "user_id"
     t.index ["user_id"], name: "index_profiles_on_user_id"
-  end
-
-  create_table "user_accounts", force: :cascade do |t|
-    t.string "username"
-    t.string "password_digest"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "users", force: :cascade do |t|
@@ -113,6 +89,5 @@ ActiveRecord::Schema.define(version: 2023_09_12_174807) do
   add_foreign_key "attendances", "events"
   add_foreign_key "attendances", "users"
   add_foreign_key "events", "users", column: "organizer_id"
-  add_foreign_key "posts", "user_accounts"
   add_foreign_key "profiles", "users"
 end
