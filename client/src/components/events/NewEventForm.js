@@ -15,7 +15,6 @@ import TextEditor from "../ui/TextEditor";
 import LoadingScreen from "../ui/LoadingScreen";
 
 export default function NewEventForm({ setEvents }) {
-    const [loading, setLoading] = useState(null)
     const [eventName, setEventName] = useState('')
     const [eventPic, setEventPic] = useState(null)
     const [maxAttendees, setMaxAttendees] = useState('')
@@ -30,7 +29,6 @@ export default function NewEventForm({ setEvents }) {
 
     async function handleSubmit(e) {
         e.preventDefault();
-        setLoading(true)
 
         const { main_text: placeName, secondary_text: placeAddress } = venueInfo?.structured_formatting
 
@@ -53,13 +51,11 @@ export default function NewEventForm({ setEvents }) {
 
         if (res.ok) {
             const event = await res.json()
-            setLoading(false)
             setEvents(event)
             navigate(`/events/${event.id}`)
         } else {
             const errorObj = await res.json();
             setErrors(errorObj.errors)
-            console.log(errors)
         }
     }
 
@@ -77,7 +73,6 @@ export default function NewEventForm({ setEvents }) {
         setEventPic(selectedFile)
     }
 
-    if (loading) return <LoadingScreen />
     return (
         <Container maxWidth='md' sx={{ paddingBottom: '50px' }}>
             <Box component='form'

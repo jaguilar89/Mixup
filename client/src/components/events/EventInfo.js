@@ -10,7 +10,6 @@ import GoogleMaps from "../google_api/GoogleMaps"
 export default function EventInfo({
     displayAlert,
     eventInfo,
-    cardImage,
     parsedEventDetails,
     renderEventOptions,
     formattedEventDateTime
