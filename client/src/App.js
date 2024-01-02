@@ -15,15 +15,18 @@ import UserProfile from './components/pages/UserProfile';
 import PrivateRoutes from './components/pages/PrivateRoutes';
 import PasswordResetForm from './components/user_forms/PasswordResetForm';
 import PasswordResetRequestForm from './components/user_forms/PasswordResetRequestForm';
+import LoadingScreen from './components/ui/LoadingScreen';
 import ErrorPage from './components/pages/ErrorPage';
 
 export default function App() {
-  const { user, setUser } = useContext(UserContext)
+  const { user, setUser, isLoading, fetchError } = useContext(UserContext)
   const [events, setEvents] = useState([])
 
   return (
     <>
       <NavBar />
+      {isLoading && <LoadingScreen />}
+      {fetchError && <ErrorPage error={fetchError} />}
       <Routes>
         <Route path='/' element={<LandingPage />} />
         <Route path='/login' element={<LoginForm setUser={setUser} />} />

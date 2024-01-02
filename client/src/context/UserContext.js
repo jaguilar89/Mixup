@@ -1,7 +1,4 @@
 import { createContext, useState, useEffect } from "react";
-import LoadingScreen from "../components/ui/LoadingScreen";
-import ErrorPage from "../components/pages/ErrorPage";
-
 
 const UserContext = createContext();
 
@@ -28,9 +25,8 @@ function UserContextProvider({ children }) {
     fetchUser()
   }, []);
 
-  if (isLoading) return <LoadingScreen />
-  if (fetchError) return <ErrorPage error={fetchError} />
-  return <UserContext.Provider value={{ user, setUser, isLoading }}> {children} </UserContext.Provider>
+  
+  return <UserContext.Provider value={{ user, setUser, isLoading, fetchError, setFetchError }}> {children} </UserContext.Provider>
 }
 
 export { UserContext, UserContextProvider };

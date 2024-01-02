@@ -12,7 +12,6 @@ import { useNavigate } from "react-router-dom";
 import { DateTimePicker } from "@mui/x-date-pickers";
 import dayjs from "dayjs";
 import TextEditor from "../ui/TextEditor";
-import LoadingScreen from "../ui/LoadingScreen";
 
 export default function NewEventForm({ setEvents }) {
     const [eventName, setEventName] = useState('')

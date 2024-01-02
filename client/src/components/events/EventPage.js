@@ -12,6 +12,7 @@ import RsvpList from "./RsvpList";
 import EventInfo from "./EventInfo";
 
 export default function EventPage({ user }) {
+    const [error, setError] = useState(null)
     const [eventInfo, setEventInfo] = useState([])
     const [userAttendanceInfo, setUserAttendanceInfo] = useState([])
     const [attendees, setAttendees] = useState([])
@@ -39,7 +40,7 @@ export default function EventPage({ user }) {
                 const event = await res.json();
                 setEventInfo(event)
             } catch (error) {
-                console.error(error)
+                setError(error.message)
             }
         }
 
@@ -53,10 +54,14 @@ export default function EventPage({ user }) {
 
                 const attendanceRecords = await res.json()
                 setAttendees(attendanceRecords)
-                const userRecord = attendanceRecords.filter((rec) => rec.user_id === userId)
-                if (userRecord.length !== 0) setUserAttendanceInfo(userRecord)
+
+                const userRecord = attendanceRecords.find((rec) => rec?.user_id === userId)
+                if (userRecord) {
+                    setUserAttendanceInfo(userRecord)
+                    setIsAttending(true)
+                }
             } catch (error) {
-                console.error(error)
+                setError(error.message)
             }
         }
 
@@ -78,25 +83,25 @@ export default function EventPage({ user }) {
                 })
             })
             const attendance = await res.json()
-            if (attendance) setIsAttending((isAttending) => !isAttending)
+            if (attendance) setIsAttending(true)
         } catch (error) {
-            console.error(error)
+            setError(error.message)
         }
     }
 
     async function handleRemoveRsvp(e) {
         e.preventDefault()
-        if (userAttendanceInfo.length !== 0) {
+        if (userAttendanceInfo) {
             try {
-                const attendanceId = userAttendanceInfo[0].id
-                await fetch(`/api/events/${eventId}/attendances/${attendanceId}`, {
+                 const attendanceId = userAttendanceInfo?.id
+                 await fetch(`/api/events/${eventId}/attendances/${attendanceId}`, {
                     method: 'DELETE'
-                })
+                }) 
 
                 setUserAttendanceInfo(null)
-                setIsAttending((isAttending) => !isAttending)
+                setIsAttending(false)
             } catch (error) {
-                console.error(error)
+                setError(error.message)
             }
         } else {
             console.error('userAttendanceInfo is empty')
@@ -111,7 +116,7 @@ export default function EventPage({ user }) {
             })
             window.location.href = '/home'
         } catch (error) {
-            console.error(error)
+            setError(error.message)
         }
     }
 
@@ -146,6 +151,13 @@ export default function EventPage({ user }) {
     }
 
     function displayAlert() {
+        if (error) {
+            return (
+                <Alert severity="error" sx={{ "&.MuiAlert-root": { justifyContent: 'center' } }}>
+                    {`Error: ${error}`}
+                </Alert>
+            )
+        }
         if (eventHasPassed) {
             return (
                 <Alert severity="error" sx={{ "&.MuiAlert-root": { justifyContent: 'center' } }}>

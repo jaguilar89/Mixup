@@ -1,14 +1,14 @@
 import { Container, Button, Box, Alert, Typography, Input, Avatar, InputLabel } from "@mui/material"
 import BioTextEditor from "../ui/BioTextEditor"
-import LoadingScreen from "../ui/LoadingScreen"
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
+import ErrorPage from '../pages/ErrorPage'
 
 export default function NewProfileForm() {
     const [avatar, setAvatar] = useState(null)
     const [previewUrl, setPreviewUrl] = useState('')
     const [bio, setBio] = useState('')
-    const [errors, setErrors] = useState([])
+    const [error, setError] = useState([])
     const navigate = useNavigate()
 
     function handleFileChange(e) {
@@ -19,25 +19,30 @@ export default function NewProfileForm() {
 
     async function handleSubmit(e) {
         e.preventDefault();
-        //(attribute_name, stateVariable)
+        const controller = new AbortController()
+        const signal = controller.signal
+
         const formData = new FormData()
         formData.append('avatar', avatar)
         formData.append('bio', bio)
 
-        const res = await fetch('/api/profiles', {
-            method: 'POST',
-            body: formData
-        })
+        try {
+            const res = await fetch('/api/profiles', {
+                method: 'POST',
+                body: formData,
+                signal
+            })
 
-        if (res.ok) {
-            const profile = await res.json()
-            navigate(`/profiles/${profile.id}`)
-        } else {
-            const err = await res.json()
-            setErrors(err.errors)
+            if (res.ok) {
+                const profile = await res.json()
+                navigate(`/profiles/${profile.id}`)
+            }
+        } catch (error) {
+            setError(error.message)
         }
     }
-    
+
+    { error && <ErrorPage error={error} /> }
     return (
         <Container maxWidth='md' sx={{ paddingTop: '20px', paddingBottom: '20px' }}>
             <Typography variant="h4" textAlign='center'>Create your profile</Typography>
@@ -53,9 +58,9 @@ export default function NewProfileForm() {
                 }
                 }>
 
-                <Avatar 
-                sx={{ height: 200, width: 200 }} 
-                src={previewUrl}
+                <Avatar
+                    sx={{ height: 200, width: 200 }}
+                    src={previewUrl}
                 />
 
                 <InputLabel htmlFor='file-input'>Upload Profile Picture</InputLabel>
@@ -68,7 +73,7 @@ export default function NewProfileForm() {
                 <BioTextEditor setBio={setBio} />
 
                 <Button variant="contained" type="submit">Submit</Button>
-                {errors && errors.map((err) => <Alert key={err} severity="error">{err}</Alert>)}
+                {error && error.map((err) => <Alert key={err} severity="error">{err}</Alert>)}
             </Box>
         </Container>
     )

@@ -2,12 +2,8 @@ import Grid from '@mui/material/Grid'
 import EventCard from '../events/EventCard'
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box'
-import { useContext, useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import LoadingScreen from '../ui/LoadingScreen';
-import { UserContext } from '../../context/UserContext';
-import ErrorPage from './ErrorPage';
-
 
 export default function Home({ events, setEvents }) {
     const navigate = useNavigate();

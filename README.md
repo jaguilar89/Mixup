@@ -1,18 +1,23 @@
 # Mixup
 
-Mixup is my capstone project for the Flatiron School Software Engineering program. It is an event creation and management app similar to Eventbrite or Meetup.
+Mixup is my capstone project for the Flatiron School Software Engineering program. It is an event creation and management app inspired by Eventbrite and Meetup.com.
 
 As a user, you can:
 - Create a user profile upon signup
-- Create events
+- Create events, with info including date/time, a place (thanks to Google Places API), and a description of the event itself.
 - Modify event details, or cancel events
 - RSVP to other events
 
+<img src='example.png' width='1000' height='625' />
+
+## Demo
+[https://youtu.be/vS58MYMs2YE?si=jHvF8R0trdiFZhoD](https://youtu.be/vS58MYMs2YE?si=jHvF8R0trdiFZhoD)
+
 ## Technologies
 
-- React
-- React Router v6
-- Ruby on Rails
+- [React](https://react.dev/)
+- [React Router v6](https://reactrouter.com/en/main)
+- [Ruby on Rails](https://rubyonrails.org/)
 - [Material UI](https://mui.com/)
 - [Google Places API](https://developers.google.com/maps/documentation/places/web-service/overview)
 - [Google Maps Embed API](https://developers.google.com/maps/documentation/embed/get-started)

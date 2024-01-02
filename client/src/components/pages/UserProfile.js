@@ -4,9 +4,11 @@ import { useParams } from "react-router-dom";
 import PastEventCard from "../events/PastEventCard";
 import parse from 'html-react-parser'
 import * as dayjs from 'dayjs'
+import ErrorPage from "./ErrorPage";
 
 export default function UserProfile() {
   const [profile, setProfile] = useState([])
+  const [error, setError] = useState(null)
   const { id } = useParams()
 
   const userBio = profile?.bio
@@ -14,17 +16,19 @@ export default function UserProfile() {
   const currentDate = new Date()
 
   useEffect(() => {
-    (async () => {
-      const res = await fetch(`/api/profiles/${id}`)
-
-      if (res.ok) {
-        const profileInfo = await res.json()
-        setProfile(profileInfo)
-      } else {
-        const err = await res.json()
-        console.error(err.errors)
+    async function fetchProfile() {
+      try {
+        const res = await fetch(`/api/profiles/${id}`)
+        if (res.ok) {
+          const profile = await res.json();
+          setProfile(profile)
+        }
+      } catch (error) {
+        setError(error.message)
       }
-    })()
+    }
+
+    fetchProfile()
   }, [id])
 
 
@@ -43,6 +47,7 @@ export default function UserProfile() {
         </Grid>
       ))
 
+  {error && <ErrorPage error={error}/>}
   return (
     <Box
       sx={{
@@ -53,12 +58,12 @@ export default function UserProfile() {
         justifyContent: 'space-between'
       }}
     >
-      <Box sx={{ paddingTop: '2%' }}>
+      <Box sx={{paddingTop: '2%' }}>
         <Avatar
           sx={{ height: 200, width: 200 }}
           src={profile.avatar}
         />
-        <Typography variant="h4">{profile.user?.full_name}</Typography>
+        <Typography variant="h4" paddingTop='30px'>{profile.user?.full_name}</Typography>
         <Typography variant="body1" textAlign="center">
           Joined on{' '}
           {dayjs(new Date(profile.user?.created_at).toLocaleDateString()).format(

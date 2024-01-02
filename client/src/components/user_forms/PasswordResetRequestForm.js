@@ -46,7 +46,7 @@ export default function PasswordResetRequestForm() {
                 <Typography component="h1" variant="h5">
                     Request Password Reset
                 </Typography>
-                <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>
+                <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1, textAlign: 'center' }}>
                     <TextField
                         margin="normal"
                         required

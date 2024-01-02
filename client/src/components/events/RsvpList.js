@@ -26,7 +26,7 @@ export default function RsvpList({ attendees }) {
                 <AccordionSummary>
                     <Box component='div' display='flex' alignItems='center' justifyContent='center' m='auto'>
                         {attendees && (
-                            <AvatarGroup total={attendees.length}>
+                            <AvatarGroup total={attendees?.length}>
                                 {attendees && attendees.slice(0, 4).map((obj) => (
                                     <Avatar 
                                         key={obj}
