@@ -20,7 +20,7 @@ export default function Footer() {
         marginTop: 'auto'
       }}
     >
-      <Link href="https://www.linkedin.com/jaguilar89" target="_blank" rel="noopener">
+      <Link href="https://www.linkedin.com/in/jaguilar89" target="_blank" rel="noopener">
         <IconButton aria-label="LinkedIn" color="primary">
           <LinkedInIcon sx={{ fontSize: '32px' }} />
         </IconButton>
@@ -30,7 +30,7 @@ export default function Footer() {
           <GitHubIcon sx={{ fontSize: '32px' }} />
         </IconButton>
       </Link>
-      <Link href="mailto:jaguilarny@gmail.com" target="_blank" rel="noopener">
+      <Link href="mailto:joseaguilardev@gmail.com" target="_blank" rel="noopener">
         <IconButton aria-label="Email" color="primary">
           <EmailIcon sx={{ fontSize: '32px' }} />
         </IconButton>
